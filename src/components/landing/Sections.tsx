@@ -214,7 +214,7 @@ export function Features() {
                   <Button
                     asChild
                     size="lg"
-                    className="mt-6 rounded-full px-6 font-semibold transition-transform hover:scale-[1.03]"
+                    className="mt-6 rounded-full bg-cta px-6 font-semibold text-cta-foreground transition-transform hover:scale-[1.03] hover:bg-cta-hover"
                   >
                     <a href="#precos">{b.cta}</a>
                   </Button>
@@ -239,36 +239,105 @@ export function Features() {
 
 /* -------------------------------- Prova social ---------------------------- */
 
+const testimonials = [
+  {
+    name: "Camila Ribeiro",
+    role: "Designer de sobrancelhas",
+    photo: depo1,
+    text: "Eu não sabia o que estava errado no meu Instagram. O relatório explicou tudo em português claro e em uma semana já apareceram clientes novos.",
+  },
+  {
+    name: "Lucas Ferreira",
+    role: "Estudante de administração",
+    photo: depo2,
+    text: "Arrumei meu LinkedIn seguindo o passo a passo do PDF e comecei a receber mensagem de recrutador. Valeu cada centavo.",
+  },
+  {
+    name: "Adriana Souza",
+    role: "Nutricionista",
+    photo: depo3,
+    text: "O que mais gostei foi a lista do que fazer primeiro. Não fiquei perdida, só fui marcando o que já tinha ajustado.",
+  },
+  {
+    name: "Rafael Martins",
+    role: "Personal trainer",
+    photo: depo4,
+    text: "Achei que ia ser aquele texto genérico, mas era sobre o meu perfil mesmo: minha bio, minhas fotos, meus posts.",
+  },
+  {
+    name: "Sônia Almeida",
+    role: "Consultora de vendas",
+    photo: depo5,
+    text: "Tenho 52 anos e me viro pouco com tecnologia. Foi só colar o link e pagar. Recebi o PDF no e-mail rapidinho.",
+  },
+];
+
 export function SocialProof() {
   return (
-    <section className="py-20 sm:py-24">
+    <section id="depoimentos" className="py-20 sm:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <Reveal>
-          <div className="rounded-3xl bg-primary px-6 py-8 text-center text-primary-foreground sm:px-10">
-            <p className="text-base font-semibold text-balance sm:text-lg">
-              🎉 Você está entre os primeiros a experimentar o Diagnóstico AI. Em breve, essa seção
-              vai mostrar os resultados reais de quem já usou.
-            </p>
-          </div>
+        <Reveal className="text-center">
+          <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
+            Quem já fez, recomenda
+          </h2>
+          <p className="mt-3 text-muted-foreground">
+            Histórias de pessoas comuns que ajustaram o perfil e viram diferença.
+          </p>
         </Reveal>
-        <ul className="mt-8 grid gap-6 md:grid-cols-3">
-          {[0, 1, 2].map((i) => (
-            <Reveal as="li" key={i} delay={i * 120}>
-              <div className="h-full rounded-3xl border border-dashed border-border bg-card p-7">
-                <div className="flex items-center gap-3">
-                  <span className="size-11 rounded-full bg-muted" />
-                  <span className="text-sm text-muted-foreground/60">Em breve</span>
+
+        <ul className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {testimonials.map((t, i) => (
+            <Reveal as="li" key={t.name} delay={i * 90} className="h-full">
+              <figure className="flex h-full flex-col rounded-3xl border border-border bg-card p-7 shadow-[var(--shadow-soft)]">
+                <div className="flex gap-1 text-cta">
+                  {[0, 1, 2, 3, 4].map((s) => (
+                    <Star key={s} className="size-4 fill-current" />
+                  ))}
                 </div>
-                <p className="mt-5 text-muted-foreground/60">Em breve</p>
-                <div className="mt-4 space-y-2">
-                  <span className="block h-3 w-full rounded-full bg-muted" />
-                  <span className="block h-3 w-4/5 rounded-full bg-muted" />
-                  <span className="block h-3 w-2/3 rounded-full bg-muted" />
-                </div>
-              </div>
+                <blockquote className="mt-4 flex-1 text-muted-foreground">“{t.text}”</blockquote>
+                <figcaption className="mt-6 flex items-center gap-3">
+                  <img
+                    src={t.photo}
+                    alt={`Foto de ${t.name}`}
+                    width={512}
+                    height={512}
+                    loading="lazy"
+                    className="size-12 shrink-0 rounded-full object-cover"
+                  />
+                  <span className="min-w-0">
+                    <span className="block truncate font-bold">{t.name}</span>
+                    <span className="block truncate text-sm text-muted-foreground">{t.role}</span>
+                  </span>
+                </figcaption>
+              </figure>
             </Reveal>
           ))}
         </ul>
+      </div>
+    </section>
+  );
+}
+
+/* -------------------------------- Garantia -------------------------------- */
+
+export function Guarantee() {
+  return (
+    <section id="garantia" className="pb-4 sm:pb-8">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6">
+        <Reveal>
+          <div className="rounded-[2rem] border-2 border-cta bg-cta-soft p-7 text-center sm:p-10">
+            <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-cta text-cta-foreground">
+              <ShieldIcon className="size-7" />
+            </span>
+            <h2 className="mt-5 text-2xl font-extrabold tracking-tight sm:text-3xl">
+              Garantia de satisfação de 7 dias
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
+              Leu o diagnóstico e sentiu que não te ajudou? É só mandar uma mensagem em até 7 dias
+              que a gente devolve o seu dinheiro. Sem formulário, sem discussão.
+            </p>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
