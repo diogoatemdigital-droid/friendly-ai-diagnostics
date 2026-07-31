@@ -20,7 +20,7 @@ export function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-9 z-50 transition-all duration-300 sm:top-10 ${
         scrolled ? "bg-background/95 shadow-[var(--shadow-soft)] backdrop-blur" : "bg-transparent"
       }`}
     >
@@ -50,7 +50,11 @@ export function Header() {
           ))}
         </nav>
 
-        <Button asChild size="sm" className="shrink-0 rounded-full px-5 font-semibold">
+        <Button
+          asChild
+          size="sm"
+          className="shrink-0 rounded-full bg-cta px-5 font-semibold text-cta-foreground hover:bg-cta-hover"
+        >
           <a href="#precos">Começar agora</a>
         </Button>
       </div>
