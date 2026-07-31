@@ -391,7 +391,7 @@ export function Pricing() {
   return (
     <>
       <Reveal>
-        <div className="bg-primary px-4 py-4 text-center text-sm font-semibold text-primary-foreground sm:text-base">
+        <div className="bg-cta px-4 py-4 text-center text-sm font-semibold text-cta-foreground sm:text-base">
           👥 Desconto de lançamento pros primeiros clientes
         </div>
       </Reveal>
@@ -418,7 +418,7 @@ export function Pricing() {
                   }`}
                 >
                   {p.highlight && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-1 text-xs font-bold text-primary-foreground">
+                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-cta px-4 py-1 text-xs font-bold text-cta-foreground">
                       Mais completo
                     </span>
                   )}
@@ -440,7 +440,9 @@ export function Pricing() {
                     size="lg"
                     variant={p.highlight ? "default" : "outline"}
                     className={`mt-7 w-full rounded-full font-semibold transition-transform hover:scale-[1.02] ${
-                      p.highlight ? "" : "border-2 border-primary text-primary hover:bg-primary-soft"
+                      p.highlight
+                        ? "bg-cta text-cta-foreground hover:bg-cta-hover"
+                        : "border-2 border-cta text-cta hover:bg-cta-soft"
                     }`}
                   >
                     <a href="#topo">{p.cta}</a>
@@ -531,7 +533,7 @@ export function Faq() {
           <Button
             asChild
             size="lg"
-            className="mt-4 rounded-full px-7 font-semibold transition-transform hover:scale-[1.03]"
+            className="mt-4 rounded-full bg-cta px-7 font-semibold text-cta-foreground transition-transform hover:scale-[1.03] hover:bg-cta-hover"
           >
             <a href="https://wa.me/" target="_blank" rel="noreferrer">
               <MessageCircle className="size-5" /> Falar no WhatsApp
