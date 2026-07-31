@@ -51,44 +51,34 @@ export function Hero() {
         </Reveal>
         <Reveal delay={80}>
           <h1 className="text-3xl leading-tight font-extrabold tracking-tight text-balance sm:text-5xl">
-            Sua rede social pode estar afastando oportunidades —{" "}
-            <span className="text-primary">e você nem sabe disso</span>
+            Descubra o que está matando suas oportunidades no LinkedIn e no Instagram —{" "}
+            <span className="text-primary">em 5 minutos, sem complicação</span>
           </h1>
+        </Reveal>
+        <Reveal delay={120}>
+          <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-cta-soft px-4 py-2 text-sm font-semibold text-cta">
+            <Star className="size-4 fill-current" />
+            Amado por mais de 300 usuários
+          </div>
         </Reveal>
         <Reveal delay={160}>
           <p className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg">
             Receba um diagnóstico completo do seu Instagram e LinkedIn, feito por inteligência
-            artificial, com um plano prático pra melhorar. Em minutos, por R$19,97.
+            artificial, com um plano prático pra melhorar — em minutos.
           </p>
         </Reveal>
         <Reveal delay={240}>
-          <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row">
+          <div className="mt-8 flex justify-center">
             <Button
               asChild
               size="lg"
-              className="rounded-full bg-cta px-7 text-base font-semibold text-cta-foreground shadow-[var(--shadow-cta)] transition-transform hover:scale-[1.03] hover:bg-cta-hover"
+              className="h-14 w-full max-w-md rounded-full bg-cta px-8 text-base font-bold text-cta-foreground shadow-[var(--shadow-cta)] transition-transform hover:scale-[1.03] hover:bg-cta-hover sm:w-auto sm:text-lg"
             >
               <a href="#precos">
-                <Instagram className="size-5" /> Diagnóstico do Instagram
-              </a>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="rounded-full border-2 border-cta px-7 text-base font-semibold text-cta transition-transform hover:scale-[1.03] hover:bg-cta-soft"
-            >
-              <a href="#precos">
-                <Linkedin className="size-5" /> Diagnóstico do LinkedIn
+                <Sparkles className="size-5" /> Começar Diagnóstico Agora
               </a>
             </Button>
           </div>
-          <p className="mt-4 text-sm text-muted-foreground">
-            Quer os dois?{" "}
-            <a href="#precos" className="font-semibold text-cta underline underline-offset-4">
-              Veja o combo completo
-            </a>
-          </p>
           <div className="mt-7 inline-flex items-center gap-2 rounded-full bg-cta-soft px-4 py-2 text-sm font-medium text-cta">
             🚀 Lançamento oficial — seja um dos primeiros a testar
           </div>
