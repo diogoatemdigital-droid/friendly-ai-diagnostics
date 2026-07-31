@@ -9,6 +9,8 @@ import {
   Check,
   MessageCircle,
   Sparkles,
+  ShieldCheck as ShieldIcon,
+  Star,
 } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { Button } from "@/components/ui/button";
@@ -22,6 +24,11 @@ import mascote from "@/assets/mascote.png.asset.json";
 import featIg from "@/assets/feature-instagram.jpg";
 import featIn from "@/assets/feature-linkedin.jpg";
 import featCv from "@/assets/feature-curriculo.jpg";
+import depo1 from "@/assets/depo-1.jpg";
+import depo2 from "@/assets/depo-2.jpg";
+import depo3 from "@/assets/depo-3.jpg";
+import depo4 from "@/assets/depo-4.jpg";
+import depo5 from "@/assets/depo-5.jpg";
 
 /* ---------------------------------- Hero --------------------------------- */
 
@@ -29,7 +36,7 @@ export function Hero() {
   return (
     <section
       id="topo"
-      className="relative overflow-hidden pt-28 pb-16 sm:pt-36 sm:pb-24"
+      className="relative overflow-hidden pt-36 pb-16 sm:pt-44 sm:pb-24"
       style={{ background: "var(--gradient-hero)" }}
     >
       <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
@@ -59,7 +66,7 @@ export function Hero() {
             <Button
               asChild
               size="lg"
-              className="rounded-full px-7 text-base font-semibold transition-transform hover:scale-[1.03]"
+              className="rounded-full bg-cta px-7 text-base font-semibold text-cta-foreground shadow-[var(--shadow-cta)] transition-transform hover:scale-[1.03] hover:bg-cta-hover"
             >
               <a href="#precos">
                 <Instagram className="size-5" /> Diagnóstico do Instagram
@@ -69,7 +76,7 @@ export function Hero() {
               asChild
               size="lg"
               variant="outline"
-              className="rounded-full border-2 border-primary px-7 text-base font-semibold text-primary transition-transform hover:scale-[1.03] hover:bg-primary-soft"
+              className="rounded-full border-2 border-cta px-7 text-base font-semibold text-cta transition-transform hover:scale-[1.03] hover:bg-cta-soft"
             >
               <a href="#precos">
                 <Linkedin className="size-5" /> Diagnóstico do LinkedIn
@@ -78,11 +85,11 @@ export function Hero() {
           </div>
           <p className="mt-4 text-sm text-muted-foreground">
             Quer os dois?{" "}
-            <a href="#precos" className="font-semibold text-primary underline underline-offset-4">
+            <a href="#precos" className="font-semibold text-cta underline underline-offset-4">
               Veja o combo completo
             </a>
           </p>
-          <div className="mt-7 inline-flex items-center gap-2 rounded-full bg-primary-soft px-4 py-2 text-sm font-medium text-primary">
+          <div className="mt-7 inline-flex items-center gap-2 rounded-full bg-cta-soft px-4 py-2 text-sm font-medium text-cta">
             🚀 Lançamento oficial — seja um dos primeiros a testar
           </div>
         </Reveal>
