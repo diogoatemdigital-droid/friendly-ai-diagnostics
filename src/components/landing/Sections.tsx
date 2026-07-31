@@ -512,7 +512,7 @@ export function Footer() {
             </div>
           </div>
 
-          <nav className="grid grid-cols-2 gap-3 text-sm md:justify-items-end">
+          <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm md:flex-col md:items-end">
             {["Sobre", "Contato", "Política de privacidade", "Termos de uso"].map((l) => (
               <a
                 key={l}
