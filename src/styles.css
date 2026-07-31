@@ -47,6 +47,14 @@
   --color-cta-hover: var(--cta-hover);
   --color-cta-foreground: var(--cta-foreground);
   --color-cta-soft: var(--cta-soft);
+  --color-sec-blue: var(--sec-blue);
+  --color-sec-green: var(--sec-green);
+  --color-sec-orange: var(--sec-orange);
+  --color-sec-purple: var(--sec-purple);
+  --color-sec-pink: var(--sec-pink);
+  --color-sec-gold: var(--sec-gold);
+  --color-surface-muted: var(--surface-muted);
+  --color-hairline: var(--hairline);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
