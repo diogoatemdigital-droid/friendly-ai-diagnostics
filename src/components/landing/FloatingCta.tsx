@@ -13,8 +13,9 @@ export function FloatingCta() {
 
   return (
     <a
-      href="#precos"
-      className={`fixed right-4 bottom-4 z-50 inline-flex items-center gap-2 rounded-full bg-cta px-5 py-3.5 text-sm font-bold text-cta-foreground shadow-[var(--shadow-cta)] transition-all duration-300 hover:bg-cta-hover sm:right-6 sm:bottom-6 sm:text-base ${
+      href="#cta"
+      style={{ background: "var(--sec-blue)" }}
+      className={`fixed right-4 bottom-4 z-50 inline-flex items-center gap-2 rounded-md px-5 py-3.5 text-sm font-bold text-primary-foreground shadow-[var(--shadow-lift)] transition-all duration-300 sm:right-6 sm:bottom-6 ${
         show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"
       }`}
     >

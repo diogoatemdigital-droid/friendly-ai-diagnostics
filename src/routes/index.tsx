@@ -1,21 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/landing/Header";
-import { UrgencyBanner } from "@/components/landing/UrgencyBanner";
 import { FloatingCta } from "@/components/landing/FloatingCta";
 import {
   Hero,
-  HowItWorks,
-  Features,
-  SocialProof,
-  Guarantee,
-  Pricing,
-  Faq,
+  ColorJourney,
+  Depoimentos,
+  FinalCta,
   Footer,
 } from "@/components/landing/Sections";
 
-const title = "Diagnóstico AI — analise seu Instagram e LinkedIn por R$19,97";
+const title = "Diagnóstico AI — analise seu LinkedIn e Instagram com IA";
 const description =
-  "Cole o link do seu Instagram ou LinkedIn e receba, em minutos, um relatório em PDF com pontos fortes, pontos fracos e um plano prático pra crescer.";
+  "Receba um diagnóstico completo do seu perfil feito por inteligência artificial, com um plano prático de ação para conquistar mais oportunidades em minutos.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -34,16 +30,12 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <div className="min-h-screen bg-background">
-      <UrgencyBanner />
       <Header />
       <main>
         <Hero />
-        <HowItWorks />
-        <Features />
-        <SocialProof />
-        <Guarantee />
-        <Pricing />
-        <Faq />
+        <ColorJourney />
+        <Depoimentos />
+        <FinalCta />
       </main>
       <Footer />
       <FloatingCta />
