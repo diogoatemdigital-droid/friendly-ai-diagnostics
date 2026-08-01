@@ -57,7 +57,7 @@ export function Header() {
         <Button
           asChild
           size="sm"
-          className="shrink-0 whitespace-nowrap rounded-full bg-cta px-4 font-semibold text-cta-foreground hover:bg-cta-hover sm:px-5"
+          className="shrink-0 whitespace-nowrap rounded-full bg-cta px-4 font-semibold text-cta-foreground transition-transform duration-300 hover:scale-[1.03] hover:bg-cta-hover sm:px-5"
         >
           <a href="#precos">Começar agora</a>
         </Button>

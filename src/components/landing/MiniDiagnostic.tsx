@@ -262,7 +262,7 @@ export function MiniDiagnostic() {
               </button>
               <Button
                 onClick={handleUrlSubmit}
-                className="ml-auto rounded-lg bg-[#2563eb] px-5 font-bold text-white hover:bg-[#1d4ed8]"
+                className="ml-auto rounded-lg bg-[#2563eb] px-5 font-bold text-white transition-transform hover:scale-[1.03] hover:bg-[#1d4ed8]"
               >
                 Continuar <ArrowRight className="size-4" />
               </Button>

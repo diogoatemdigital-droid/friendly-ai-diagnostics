@@ -34,10 +34,10 @@ import depo5 from "@/assets/depo-5.jpg";
 
 function SectionDivider() {
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-16 overflow-hidden" aria-hidden="true">
-      <div className="absolute inset-x-[10%] bottom-7 h-px bg-gradient-to-r from-transparent via-[#a9ceff] to-transparent" />
-      <span className="absolute bottom-[1.45rem] left-1/2 size-2.5 -translate-x-1/2 rounded-full bg-[#60a5fa] shadow-[0_0_18px_rgba(59,130,246,0.7)]" />
-      <div className="absolute -right-[8%] -bottom-12 h-24 w-[116%] rounded-[50%] border-t border-[#d8e9ff] bg-white/35" />
+    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 overflow-hidden" aria-hidden="true">
+      <div className="absolute inset-x-[10%] bottom-9 h-px bg-gradient-to-r from-transparent via-[#a9ceff] to-transparent" />
+      <span className="absolute bottom-[2.15rem] left-1/2 size-2.5 -translate-x-1/2 rounded-full bg-[#60a5fa] shadow-[0_0_18px_rgba(59,130,246,0.7)]" />
+      <div className="absolute -right-[8%] -bottom-16 h-32 w-[116%] rounded-[50%] border-t border-[#d8e9ff]/60 bg-white/15 blur-sm" />
     </div>
   );
 }
@@ -59,7 +59,7 @@ export function Hero() {
           <h1 className="text-4xl leading-[1.1] font-extrabold tracking-tight text-balance text-foreground sm:text-6xl lg:text-6xl">
             Descubra o que está fazendo{" "}
             <span className="text-primary">recrutadores</span> e{" "}
-            <span className="text-primary">clientes</span> ignorarem seu perfil.
+            <span className="text-primary">clientes</span> ignorarem seu perfil
           </h1>
         </Reveal>
         <Reveal delay={120}>
@@ -74,7 +74,13 @@ export function Hero() {
               size="lg"
               className="w-full rounded-full bg-[#1D4ED8] px-10 py-7 text-base font-bold text-white shadow-[0_12px_40px_-6px_rgba(29,78,216,0.75)] ring-1 ring-white/10 transition-all duration-300 ease-out hover:scale-[1.04] hover:bg-[#1E40AF] hover:shadow-[0_18px_50px_-8px_rgba(29,78,216,0.9)] sm:w-auto sm:px-12 sm:py-7 sm:text-xl"
             >
-              <a href="#precos">Quero meu diagnóstico agora</a>
+              <a
+                href="https://pay.cakto.com.br/34b3oe2_1015216"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Quero meu diagnóstico agora
+              </a>
             </Button>
             <p className="mt-3 text-sm text-muted-foreground">
               Receba seu diagnóstico em poucos minutos
@@ -129,7 +135,7 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section id="como-funciona" className="relative overflow-hidden bg-[#f7fbff] pt-14 pb-24 sm:pt-16 sm:pb-28 lg:flex lg:min-h-screen lg:items-center">
+    <section id="como-funciona" className="relative overflow-hidden pt-14 pb-24 sm:pt-16 sm:pb-28 lg:flex lg:min-h-screen lg:items-center">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.24),transparent_72%)]" />
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="text-center">
@@ -142,7 +148,7 @@ export function HowItWorks() {
               {i < steps.length - 1 && (
                 <span className="pointer-events-none absolute top-14 -right-3 hidden h-px w-6 bg-gradient-to-r from-[#93c5fd] to-transparent lg:block" />
               )}
-              <div className="h-full min-h-56 rounded-[1.5rem] border border-[#cfe0ff] bg-white/90 p-6 shadow-[0_10px_24px_rgba(37,99,235,0.1)] backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-[#93c5fd] hover:shadow-[0_20px_38px_rgba(37,99,235,0.22)] sm:min-h-64 sm:p-8 lg:min-h-72 lg:p-10">
+              <div className="card-hover h-full min-h-56 rounded-[1.5rem] border border-[#cfe0ff] bg-white/90 p-6 shadow-[0_10px_24px_rgba(37,99,235,0.1)] backdrop-blur-sm sm:min-h-64 sm:p-8 lg:min-h-72 lg:p-10">
                 <div className="flex items-center gap-4">
                   <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-primary-soft text-primary ring-1 ring-[#cfe0ff] transition-transform duration-300 ease-out group-hover:-rotate-6 group-hover:scale-110">
                     <s.icon className="size-6" />
@@ -171,6 +177,7 @@ const blocks = [
     accent: "Instagram",
     text: "A IA analisa sua foto de perfil, bio, posts e engajamento, e mostra o que está afastando seguidores e oportunidades.",
     cta: "Diagnosticar meu Instagram",
+    href: "https://pay.cakto.com.br/3aay2uu_1015307",
     preview: {
       handle: "@seuperfil",
       subtitle: "Perfil analisado pela IA",
@@ -197,6 +204,7 @@ const blocks = [
     accent: "LinkedIn",
     text: "A IA revisa seu perfil, resumo e experiência, e aponta o que fazer pra aparecer mais em buscas de recrutadores.",
     cta: "Diagnosticar meu LinkedIn",
+    href: "https://pay.cakto.com.br/ok9npdx_1015278",
     preview: {
       handle: "Seu perfil profissional",
       subtitle: "Visibilidade para recrutadores",
@@ -223,6 +231,7 @@ const blocks = [
     accent: "análise",
     text: "Envie seu currículo em PDF junto e receba dicas específicas de como melhorá-lo para as áreas que você busca.",
     cta: "Diagnosticar meu currículo",
+    href: "https://pay.cakto.com.br/34b3oe2_1015216",
     preview: {
       handle: "curriculo.pdf",
       subtitle: "Revisão página a página",
@@ -317,7 +326,7 @@ function ReportPreview({ preview }: { preview: Preview }) {
 
 export function Features() {
   return (
-    <section id="funcionalidades" className="relative overflow-hidden bg-[#f7fbff] pt-20 pb-24 sm:pt-24 sm:pb-28">
+    <section id="funcionalidades" className="relative overflow-hidden pt-20 pb-24 sm:pt-24 sm:pb-28">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.23),transparent_72%)]" />
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
@@ -332,9 +341,9 @@ export function Features() {
 
         <div className="mt-12 space-y-7">
           {blocks.map((b) => (
-            <Reveal key={b.title}>
+            <Reveal key={b.cta}>
               <article
-                className={`grid items-center gap-8 rounded-[1.5rem] border p-5 backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_16px_30px_rgba(37,99,235,0.14)] sm:p-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10 ${b.cardClass}`}
+                className={`card-hover grid items-center gap-8 rounded-[1.5rem] border p-5 backdrop-blur-sm sm:p-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10 ${b.cardClass}`}
               >
                 <div className="py-1 sm:py-2">
                   <span className={`grid size-12 place-items-center rounded-xl shadow-sm ${b.iconClass}`}>
@@ -354,7 +363,11 @@ export function Features() {
                     size="sm"
                     className={`mt-5 rounded-lg px-4 font-bold transition-transform hover:scale-[1.03] ${b.buttonClass}`}
                   >
-                    <a href="#precos">
+                    <a
+                      href={b.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {b.cta} <ArrowRight className="size-4" />
                     </a>
                   </Button>
@@ -446,7 +459,7 @@ const testimonials = [
 
 export function SocialProof() {
   return (
-    <section id="depoimentos" className="relative overflow-hidden bg-[#f9fcff] pt-20 pb-24 sm:pt-24 sm:pb-28 lg:flex lg:min-h-screen lg:items-center">
+    <section id="depoimentos" className="relative overflow-hidden pt-20 pb-24 sm:pt-24 sm:pb-28 lg:flex lg:min-h-screen lg:items-center">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(147,197,253,0.18),transparent_72%)]" />
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="text-center">
@@ -461,7 +474,7 @@ export function SocialProof() {
         <ul className="mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto px-1 pb-7 md:gap-6">
           {testimonials.map((t, i) => (
             <Reveal as="li" key={t.name} delay={i * 90} className="w-[280px] shrink-0 snap-start sm:w-[300px]">
-              <figure className={`flex min-h-[430px] h-full flex-col rounded-2xl border p-6 shadow-[0_12px_28px_rgba(37,99,235,0.12)] transition-all duration-300 hover:brightness-[0.96] sm:p-7 ${t.cardClass}`}>
+              <figure className={`card-hover flex min-h-[430px] h-full flex-col rounded-2xl border p-6 shadow-[0_12px_28px_rgba(37,99,235,0.12)] sm:p-7 ${t.cardClass}`}>
                 <figcaption className="flex items-center gap-3">
                   <img
                     src={t.photo}
@@ -507,7 +520,7 @@ export function SocialProof() {
 
 export function Guarantee() {
   return (
-    <section id="garantia" className="relative overflow-hidden bg-[#f7fbff] py-20 sm:py-24 lg:flex lg:min-h-[78svh] lg:items-center">
+    <section id="garantia" className="relative overflow-hidden py-20 sm:py-24 lg:flex lg:min-h-[78svh] lg:items-center">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.16),transparent_70%)]" />
       <div className="relative mx-auto max-w-4xl px-4 sm:px-6">
         <Reveal>
@@ -535,6 +548,7 @@ export function Guarantee() {
 const plans = [
   {
     name: "Diagnóstico Instagram",
+    href: "https://pay.cakto.com.br/3aay2uu_1015307",
     originalPrice: "R$57,97",
     price: "R$19,97",
     savings: "Você economiza R$38,00",
@@ -554,6 +568,7 @@ const plans = [
   },
   {
     name: "Diagnóstico LinkedIn",
+    href: "https://pay.cakto.com.br/ok9npdx_1015278",
     originalPrice: "R$57,97",
     price: "R$19,97",
     savings: "Você economiza R$38,00",
@@ -576,7 +591,7 @@ const plans = [
 export function Pricing() {
   return (
     <>
-      <section id="precos" className="relative overflow-hidden bg-[#fbfdff] pt-20 pb-24 sm:pt-24 sm:pb-28 lg:flex lg:min-h-screen lg:items-center">
+      <section id="precos" className="relative overflow-hidden pt-20 pb-24 sm:pt-24 sm:pb-28 lg:flex lg:min-h-screen lg:items-center">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.16),transparent_72%)]" />
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
           <Reveal className="text-center">
@@ -603,7 +618,7 @@ export function Pricing() {
             {plans.map((p, i) => (
               <Reveal as="li" key={p.name} delay={i * 120} className="h-full">
                 <div
-                  className={`relative flex h-full flex-col rounded-[2rem] border-2 p-8 shadow-[0_16px_40px_rgba(37,99,235,0.14)] transition-shadow duration-300 hover:shadow-[0_22px_50px_rgba(37,99,235,0.2)] sm:p-10 ${p.cardClass}`}
+                  className={`card-hover relative flex h-full flex-col rounded-[2rem] border-2 p-8 shadow-[0_16px_40px_rgba(37,99,235,0.14)] sm:p-10 ${p.cardClass}`}
                 >
                   <span className={`grid size-14 place-items-center rounded-2xl ${p.iconClass}`}>
                     <p.icon className="size-6" />
@@ -636,7 +651,13 @@ export function Pricing() {
                     size="lg"
                     className={`mt-8 w-full rounded-full py-7 text-lg font-bold transition-transform hover:scale-[1.03] ${p.buttonClass}`}
                   >
-                    <a href="#topo">{p.cta}</a>
+                    <a
+                    href={p.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {p.cta}
+                  </a>
                   </Button>
                   <p className="mt-4 flex items-center justify-center gap-1.5 text-center text-sm font-semibold text-slate-600">
                     <ShieldIcon className="size-4 text-primary" />
@@ -763,7 +784,7 @@ const faqs = [
 
 export function Faq() {
   return (
-    <section id="perguntas" className="relative min-h-screen overflow-hidden bg-[#eef6ff] pt-20 pb-24 sm:pt-24 sm:pb-28">
+    <section id="perguntas" className="relative min-h-screen overflow-hidden pt-20 pb-24 sm:pt-24 sm:pb-28">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.2),transparent_72%)]" />
       <div className="relative mx-auto max-w-3xl px-4 sm:px-6">
         <Reveal className="text-center">
@@ -814,7 +835,7 @@ export function Faq() {
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-[#dbe7ff] bg-white pt-16 pb-8">
+    <footer className="relative overflow-hidden border-t border-[#dbe7ff] pt-16 pb-8">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.13),transparent_70%)]" />
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr] md:gap-16 lg:grid-cols-[1.6fr_1fr]">
