@@ -4,6 +4,21 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@keyframes pulse-soft {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 12px 32px -8px rgba(37, 99, 235, 0.35);
+  }
+  50% {
+    transform: scale(1.025);
+    box-shadow: 0 16px 40px -8px rgba(37, 99, 235, 0.5);
+  }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2.6s ease-in-out infinite;
+}
+
 /*
  * Design system definition.
  *
@@ -93,11 +108,11 @@
   --input: oklch(0.929 0.013 255.508);
   --ring: oklch(0.394 0.111 256.5);
   --gradient-hero: linear-gradient(180deg, oklch(0.975 0.015 250) 0%, oklch(1 0 0) 100%);
-  --cta: oklch(0.68 0.19 45);
-  --cta-hover: oklch(0.62 0.19 38);
-  --cta-foreground: oklch(0.99 0.01 80);
-  --cta-soft: oklch(0.96 0.035 60);
-  --shadow-cta: 0 14px 34px -14px oklch(0.68 0.19 45 / 0.6);
+  --cta: oklch(0.55 0.19 258);
+  --cta-hover: oklch(0.48 0.19 258);
+  --cta-foreground: oklch(0.99 0.01 250);
+  --cta-soft: oklch(0.94 0.035 255);
+  --shadow-cta: 0 14px 34px -14px oklch(0.55 0.19 258 / 0.6);
   --shadow-soft: 0 10px 30px -12px oklch(0.394 0.111 256.5 / 0.22);
   --shadow-lift: 0 18px 45px -18px oklch(0.394 0.111 256.5 / 0.35);
   --chart-1: oklch(0.646 0.222 41.116);

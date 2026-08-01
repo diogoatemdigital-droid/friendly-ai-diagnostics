@@ -8,11 +8,16 @@ import {
   Briefcase,
   Check,
   MessageCircle,
-  Sparkles,
   ShieldCheck as ShieldIcon,
   Star,
+  ArrowRight,
+  Lock,
+  CreditCard,
+  AlertTriangle,
+  Sparkles,
 } from "lucide-react";
 import { Reveal } from "./Reveal";
+import { MiniDiagnostic } from "./MiniDiagnostic";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -20,15 +25,22 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import mascote from "@/assets/mascote.png.asset.json";
-import featIg from "@/assets/feature-instagram.jpg";
-import featIn from "@/assets/feature-linkedin.jpg";
-import featCv from "@/assets/feature-curriculo.jpg";
+import mascote from "@/assets/mascote.png";
 import depo1 from "@/assets/depo-1.jpg";
 import depo2 from "@/assets/depo-2.jpg";
 import depo3 from "@/assets/depo-3.jpg";
 import depo4 from "@/assets/depo-4.jpg";
 import depo5 from "@/assets/depo-5.jpg";
+
+function SectionDivider() {
+  return (
+    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-16 overflow-hidden" aria-hidden="true">
+      <div className="absolute inset-x-[10%] bottom-7 h-px bg-gradient-to-r from-transparent via-[#a9ceff] to-transparent" />
+      <span className="absolute bottom-[1.45rem] left-1/2 size-2.5 -translate-x-1/2 rounded-full bg-[#60a5fa] shadow-[0_0_18px_rgba(59,130,246,0.7)]" />
+      <div className="absolute -right-[8%] -bottom-12 h-24 w-[116%] rounded-[50%] border-t border-[#d8e9ff] bg-white/35" />
+    </div>
+  );
+}
 
 /* ---------------------------------- Hero --------------------------------- */
 
@@ -36,54 +48,61 @@ export function Hero() {
   return (
     <section
       id="topo"
-      className="relative overflow-hidden pt-36 pb-16 sm:pt-44 sm:pb-24"
-      style={{ background: "var(--gradient-hero)" }}
+      className="relative flex min-h-screen items-center overflow-x-hidden pt-20 pb-0 sm:pt-24"
+      style={{
+        background:
+          "radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.45), rgba(191, 219, 254, 0.22) 60%, transparent 90%), var(--gradient-hero)",
+      }}
     >
-      <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
-        <Reveal>
-          <img
-            src={mascote.url}
-            alt="Robozinho mascote do Diagnóstico AI segurando uma lupa"
-            width={140}
-            height={140}
-            className="mx-auto mb-6 h-24 w-24 object-contain sm:h-32 sm:w-32"
-          />
-        </Reveal>
+      <div className="mx-auto flex w-full max-w-4xl flex-col items-center px-4 text-center sm:px-6">
         <Reveal delay={80}>
-          <h1 className="text-3xl leading-tight font-extrabold tracking-tight text-balance sm:text-5xl">
-            Descubra o que está matando suas oportunidades no LinkedIn e no Instagram —{" "}
-            <span className="text-primary">em 5 minutos, sem complicação</span>
+          <h1 className="text-4xl leading-[1.1] font-extrabold tracking-tight text-balance text-foreground sm:text-6xl lg:text-6xl">
+            Descubra o que está fazendo{" "}
+            <span className="text-primary">recrutadores</span> e{" "}
+            <span className="text-primary">clientes</span> ignorarem seu perfil.
           </h1>
         </Reveal>
         <Reveal delay={120}>
-          <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-cta-soft px-4 py-2 text-sm font-semibold text-cta">
-            <Star className="size-4 fill-current" />
-            Amado por mais de 300 usuários
-          </div>
-        </Reveal>
-        <Reveal delay={160}>
-          <p className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Receba um diagnóstico completo do seu Instagram e LinkedIn, feito por inteligência
-            artificial, com um plano prático pra melhorar — em minutos.
+          <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
+            Uma análise personalizada revela os erros que estão escondendo seu potencial e mostra exatamente o que ajustar para transformar seu perfil em uma ferramenta de oportunidades.
           </p>
         </Reveal>
-        <Reveal delay={240}>
-          <div className="mt-8 flex justify-center">
+        <Reveal delay={160}>
+          <div className="mt-9 flex flex-col items-center">
             <Button
               asChild
               size="lg"
-              className="h-14 w-full max-w-md rounded-full bg-cta px-8 text-base font-bold text-cta-foreground shadow-[var(--shadow-cta)] transition-transform hover:scale-[1.03] hover:bg-cta-hover sm:w-auto sm:text-lg"
+              className="w-full rounded-full bg-[#1D4ED8] px-10 py-7 text-base font-bold text-white shadow-[0_12px_40px_-6px_rgba(29,78,216,0.75)] ring-1 ring-white/10 transition-all duration-300 ease-out hover:scale-[1.04] hover:bg-[#1E40AF] hover:shadow-[0_18px_50px_-8px_rgba(29,78,216,0.9)] sm:w-auto sm:px-12 sm:py-7 sm:text-xl"
             >
-              <a href="#precos">
-                <Sparkles className="size-5" /> Começar Diagnóstico Agora
-              </a>
+              <a href="#precos">Quero meu diagnóstico agora</a>
             </Button>
+            <p className="mt-3 text-sm text-muted-foreground">
+              Receba seu diagnóstico em poucos minutos
+            </p>
           </div>
-          <div className="mt-7 inline-flex items-center gap-2 rounded-full bg-cta-soft px-4 py-2 text-sm font-medium text-cta">
-            🚀 Lançamento oficial — seja um dos primeiros a testar
+        </Reveal>
+        <Reveal delay={200}>
+          <div className="mt-6 inline-flex items-center gap-4 rounded-full bg-cta-soft px-6 py-3.5 text-base font-semibold text-cta transition-shadow duration-300 hover:shadow-[var(--shadow-soft)]">
+            <div className="flex -space-x-2.5">
+              {[depo1, depo2, depo3, depo4, depo5].map((photo, i) => (
+                <img
+                  key={i}
+                  src={photo}
+                  alt=""
+                  width={32}
+                  height={32}
+                  className="size-8 shrink-0 rounded-full border-2 border-background object-cover transition-transform duration-300 ease-out hover:z-10 hover:scale-125"
+                />
+              ))}
+            </div>
+            <span className="flex items-center gap-2">
+              <Star className="size-5 fill-current" />
+              +500 pessoas já analisaram seus perfis
+            </span>
           </div>
         </Reveal>
       </div>
+      <SectionDivider />
     </section>
   );
 }
@@ -99,7 +118,7 @@ const steps = [
   {
     icon: ShieldCheck,
     title: "Pague com segurança",
-    text: "R$19,97, pagamento único, sem assinatura.",
+    text: "Pagamento único, sem assinatura. Pague via Pix, cartão de débito ou crédito.",
   },
   {
     icon: FileText,
@@ -110,29 +129,34 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section id="como-funciona" className="py-20 sm:py-24">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+    <section id="como-funciona" className="relative overflow-hidden bg-[#f7fbff] pt-14 pb-24 sm:pt-16 sm:pb-28 lg:flex lg:min-h-screen lg:items-center">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.24),transparent_72%)]" />
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="text-center">
-          <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">Como funciona</h2>
-          <p className="mt-3 text-muted-foreground">Três passos simples. Sem complicação.</p>
+          <h2 className="text-3xl font-extrabold tracking-tight sm:text-[2.75rem]">Como funciona</h2>
+          <p className="mt-3 text-muted-foreground">Do diagnóstico ao plano de melhoria em apenas 3 passos.</p>
         </Reveal>
-        <ul className="mt-12 grid gap-6 md:grid-cols-3">
+        <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-6">
           {steps.map((s, i) => (
-            <Reveal as="li" key={s.title} delay={i * 120}>
-              <div className="h-full rounded-3xl border border-border bg-card p-7 shadow-[var(--shadow-soft)] transition-transform duration-300 hover:-translate-y-1">
-                <div className="flex items-center gap-3">
-                  <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-primary-soft text-primary">
-                    <s.icon className="size-5" />
+            <Reveal as="li" key={s.title} delay={i * 120} className="group relative">
+              {i < steps.length - 1 && (
+                <span className="pointer-events-none absolute top-14 -right-3 hidden h-px w-6 bg-gradient-to-r from-[#93c5fd] to-transparent lg:block" />
+              )}
+              <div className="h-full min-h-56 rounded-[1.5rem] border border-[#cfe0ff] bg-white/90 p-6 shadow-[0_10px_24px_rgba(37,99,235,0.1)] backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-[#93c5fd] hover:shadow-[0_20px_38px_rgba(37,99,235,0.22)] sm:min-h-64 sm:p-8 lg:min-h-72 lg:p-10">
+                <div className="flex items-center gap-4">
+                  <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-primary-soft text-primary ring-1 ring-[#cfe0ff] transition-transform duration-300 ease-out group-hover:-rotate-6 group-hover:scale-110">
+                    <s.icon className="size-6" />
                   </span>
-                  <span className="text-sm font-bold text-primary/70">Passo {i + 1}</span>
+                  <span className="text-sm font-extrabold tracking-wide text-primary">Passo {i + 1}</span>
                 </div>
-                <h3 className="mt-5 text-xl font-bold">{s.title}</h3>
-                <p className="mt-2 text-muted-foreground">{s.text}</p>
+                <h3 className="mt-7 text-2xl font-extrabold tracking-tight text-slate-950">{s.title}</h3>
+                <p className="mt-3 text-base leading-relaxed text-muted-foreground">{s.text}</p>
               </div>
             </Reveal>
           ))}
         </ul>
       </div>
+      <SectionDivider />
     </section>
   );
 }
@@ -143,39 +167,159 @@ const blocks = [
   {
     badge: "🔍 DIAGNÓSTICO INSTAGRAM",
     icon: Search,
-    title: "Análise completa do seu Instagram",
+    title: "Análise completa do seu",
+    accent: "Instagram",
     text: "A IA analisa sua foto de perfil, bio, posts e engajamento, e mostra o que está afastando seguidores e oportunidades.",
     cta: "Diagnosticar meu Instagram",
-    img: featIg,
-    alt: "Ilustração de um celular com perfil de rede social sendo analisado",
-    bg: "bg-primary-softer",
+    preview: {
+      handle: "@seuperfil",
+      subtitle: "Perfil analisado pela IA",
+      score: 62,
+      scoreLabel: "Potencial de atração",
+      accentHex: "#2563eb",
+      items: [
+        { status: "alert" as const, label: "Bio", text: "Não diz o que você faz nem pra quem" },
+        { status: "alert" as const, label: "Posicionamento", text: "Mistura 3 assuntos e confunde quem chega" },
+        { status: "ok" as const, label: "Foto de perfil", text: "Boa: rosto visível e nítido" },
+        { status: "tip" as const, label: "Próximo passo", text: "Nova bio + 5 ideias de post prontas" },
+      ],
+    },
+    cardClass: "border-[#b9d6ff] bg-[#e7f0ff] shadow-[0_10px_22px_rgba(37,99,235,0.16)]",
+    iconClass: "bg-[#2563eb] text-white",
+    badgeClass: "bg-[#d7e7ff] text-[#1d4ed8]",
+    accentClass: "text-[#2563eb]",
+    buttonClass: "bg-[#2563eb] text-white hover:bg-[#1d4ed8]",
   },
   {
     badge: "💼 DIAGNÓSTICO LINKEDIN",
     icon: Briefcase,
-    title: "Análise completa do seu LinkedIn",
+    title: "Análise completa do seu",
+    accent: "LinkedIn",
     text: "A IA revisa seu perfil, resumo e experiência, e aponta o que fazer pra aparecer mais em buscas de recrutadores.",
     cta: "Diagnosticar meu LinkedIn",
-    img: featIn,
-    alt: "Ilustração de um notebook com perfil profissional sendo analisado",
-    bg: "bg-muted",
+    preview: {
+      handle: "Seu perfil profissional",
+      subtitle: "Visibilidade para recrutadores",
+      score: 48,
+      scoreLabel: "Chance de aparecer em buscas",
+      accentHex: "#9333ea",
+      items: [
+        { status: "alert" as const, label: "Título", text: "Genérico: não usa o cargo que buscam" },
+        { status: "alert" as const, label: "Palavras-chave", text: "Faltam 7 termos da sua área" },
+        { status: "ok" as const, label: "Experiências", text: "Histórico completo e sem lacunas" },
+        { status: "tip" as const, label: "Próximo passo", text: "Título e resumo reescritos pra você" },
+      ],
+    },
+    cardClass: "border-[#e5c8ff] bg-[#f7ebff] shadow-[0_10px_22px_rgba(147,51,234,0.16)]",
+    iconClass: "bg-[#9333ea] text-white",
+    badgeClass: "bg-[#f0dcff] text-[#7e22ce]",
+    accentClass: "text-[#9333ea]",
+    buttonClass: "bg-[#9333ea] text-white hover:bg-[#7e22ce]",
   },
   {
     badge: "📄 CURRÍCULO",
     icon: FileText,
-    title: "Seu currículo também entra na análise",
+    title: "Seu currículo também entra na",
+    accent: "análise",
     text: "Envie seu currículo em PDF junto e receba dicas específicas de como melhorá-lo para as áreas que você busca.",
-    cta: "Saiba mais",
-    img: featCv,
-    alt: "Ilustração de um currículo em PDF com checklist e lápis",
-    bg: "bg-primary-soft",
+    cta: "Diagnosticar meu currículo",
+    preview: {
+      handle: "curriculo.pdf",
+      subtitle: "Revisão página a página",
+      score: 55,
+      scoreLabel: "Aprovação na triagem",
+      accentHex: "#059669",
+      items: [
+        { status: "alert" as const, label: "Resumo", text: "Fala de tarefas, não de resultados" },
+        { status: "alert" as const, label: "Formato", text: "Layout que trava em sistemas de triagem" },
+        { status: "ok" as const, label: "Tamanho", text: "2 páginas: dentro do ideal" },
+        { status: "tip" as const, label: "Próximo passo", text: "Versão corrigida com verbos de impacto" },
+      ],
+    },
+    cardClass: "border-[#9cefc8] bg-[#ddfaeb] shadow-[0_10px_22px_rgba(5,150,105,0.16)]",
+    iconClass: "bg-[#059669] text-white",
+    badgeClass: "bg-[#c9f7df] text-[#047857]",
+    accentClass: "text-[#059669]",
+    buttonClass: "bg-[#059669] text-white hover:bg-[#047857]",
   },
 ];
 
+type PreviewItem = { status: "alert" | "ok" | "tip"; label: string; text: string };
+type Preview = (typeof blocks)[number]["preview"];
+
+const itemStyles = {
+  alert: { icon: AlertTriangle, wrap: "bg-[#fff1e6] text-[#c2410c]" },
+  ok: { icon: Check, wrap: "bg-[#e3f8ec] text-[#047857]" },
+  tip: { icon: Sparkles, wrap: "bg-[#eaf1ff] text-[#1d4ed8]" },
+};
+
+function ReportPreview({ preview }: { preview: Preview }) {
+  return (
+    <div
+      className="w-full rounded-xl border border-black/5 bg-white p-4 shadow-lg sm:p-5"
+      role="img"
+      aria-label={`Exemplo de relatório: ${preview.handle}, ${preview.scoreLabel} ${preview.score} de 100`}
+    >
+      <div className="flex items-center gap-3">
+        <span
+          className="grid size-10 shrink-0 place-items-center rounded-full text-sm font-extrabold text-white"
+          style={{ backgroundColor: preview.accentHex }}
+        >
+          {preview.score}
+        </span>
+        <div className="min-w-0">
+          <p className="truncate text-sm font-bold text-slate-900">{preview.handle}</p>
+          <p className="truncate text-xs text-slate-500">{preview.subtitle}</p>
+        </div>
+        <span className="ml-auto hidden rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-bold tracking-wide text-slate-600 uppercase sm:inline">
+          Relatório IA
+        </span>
+      </div>
+
+      <div className="mt-4">
+        <div className="flex items-center justify-between text-[11px] font-semibold text-slate-500">
+          <span>{preview.scoreLabel}</span>
+          <span>{preview.score}/100</span>
+        </div>
+        <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-slate-100">
+          <div
+            className="h-full rounded-full"
+            style={{ width: `${preview.score}%`, backgroundColor: preview.accentHex }}
+          />
+        </div>
+      </div>
+
+      <ul className="mt-4 space-y-2.5">
+        {(preview.items as PreviewItem[]).map((item) => {
+          const style = itemStyles[item.status];
+          return (
+            <li
+              key={item.label}
+              className="flex items-start gap-3 rounded-lg border border-slate-100 bg-slate-50/70 p-2.5"
+            >
+              <span className={`grid size-6 shrink-0 place-items-center rounded-md ${style.wrap}`}>
+                <style.icon className="size-3.5" />
+              </span>
+              <p className="text-xs leading-snug text-slate-700 sm:text-sm">
+                <span className="font-bold text-slate-900">{item.label}:</span> {item.text}
+              </p>
+            </li>
+          );
+        })}
+      </ul>
+
+      <p className="mt-3 text-center text-[10px] text-slate-400">
+        Exemplo ilustrativo de relatório
+      </p>
+    </div>
+  );
+}
+
 export function Features() {
   return (
-    <section id="funcionalidades" className="py-20 sm:py-24">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+    <section id="funcionalidades" className="relative overflow-hidden bg-[#f7fbff] pt-20 pb-24 sm:pt-24 sm:pb-28">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.23),transparent_72%)]" />
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
             Conheça o que você recebe
@@ -186,43 +330,46 @@ export function Features() {
           </p>
         </Reveal>
 
-        <div className="mt-12 space-y-8">
-          {blocks.map((b, i) => (
+        <div className="mt-12 space-y-7">
+          {blocks.map((b) => (
             <Reveal key={b.title}>
               <article
-                className={`grid items-center gap-8 rounded-[2rem] ${b.bg} p-7 sm:p-10 md:grid-cols-2`}
+                className={`grid items-center gap-8 rounded-[1.5rem] border p-5 backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_16px_30px_rgba(37,99,235,0.14)] sm:p-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10 ${b.cardClass}`}
               >
-                <div className={i % 2 === 1 ? "md:order-2" : ""}>
-                  <span className="grid size-12 place-items-center rounded-2xl bg-primary text-primary-foreground">
+                <div className="py-1 sm:py-2">
+                  <span className={`grid size-12 place-items-center rounded-xl shadow-sm ${b.iconClass}`}>
                     <b.icon className="size-6" />
                   </span>
-                  <p className="mt-5 text-xs font-bold tracking-widest text-primary uppercase">
+                  <p
+                    className={`mt-4 inline-flex rounded-full px-3 py-1 text-[11px] font-extrabold tracking-wide uppercase ${b.badgeClass}`}
+                  >
                     {b.badge}
                   </p>
-                  <h3 className="mt-2 text-2xl font-extrabold sm:text-3xl">{b.title}</h3>
-                  <p className="mt-3 text-muted-foreground">{b.text}</p>
+                  <h3 className="mt-3 text-2xl leading-tight font-extrabold tracking-tight text-slate-950 sm:text-3xl">
+                    {b.title} <span className={b.accentClass}>{b.accent}</span>
+                  </h3>
+                  <p className="mt-3 max-w-md text-sm leading-relaxed text-slate-700 sm:text-base">{b.text}</p>
                   <Button
                     asChild
-                    size="lg"
-                    className="mt-6 rounded-full bg-cta px-6 font-semibold text-cta-foreground transition-transform hover:scale-[1.03] hover:bg-cta-hover"
+                    size="sm"
+                    className={`mt-5 rounded-lg px-4 font-bold transition-transform hover:scale-[1.03] ${b.buttonClass}`}
                   >
-                    <a href="#precos">{b.cta}</a>
+                    <a href="#precos">
+                      {b.cta} <ArrowRight className="size-4" />
+                    </a>
                   </Button>
-                  <p className="mt-3 text-sm text-muted-foreground">★★★★★ produto em lançamento</p>
                 </div>
-                <img
-                  src={b.img}
-                  alt={b.alt}
-                  width={900}
-                  height={700}
-                  loading="lazy"
-                  className={`w-full rounded-2xl bg-background object-cover ${i % 2 === 1 ? "md:order-1" : ""}`}
-                />
+                <ReportPreview preview={b.preview} />
               </article>
             </Reveal>
           ))}
         </div>
+
+        <Reveal className="mt-10">
+          <MiniDiagnostic />
+        </Reveal>
       </div>
+      <SectionDivider />
     </section>
   );
 }
@@ -234,38 +381,74 @@ const testimonials = [
     name: "Camila Ribeiro",
     role: "Designer de sobrancelhas",
     photo: depo1,
-    text: "Eu não sabia o que estava errado no meu Instagram. O relatório explicou tudo em português claro e em uma semana já apareceram clientes novos.",
+    date: "29 de julho de 2026",
+    cardClass: "border-[#edc8ef] bg-[#f9e9f7]",
+    highlightClass: "bg-[#d9f8df] text-[#167a36]",
+    text: [
+      { content: "Eu não sabia o que estava errado no meu Instagram. O ", highlight: false },
+      { content: "relatório explicou tudo", highlight: true },
+      { content: " em português claro e, em uma semana, já apareceram clientes novos.", highlight: false },
+    ],
   },
   {
     name: "Lucas Ferreira",
     role: "Estudante de administração",
     photo: depo2,
-    text: "Arrumei meu LinkedIn seguindo o passo a passo do PDF e comecei a receber mensagem de recrutador. Valeu cada centavo.",
+    date: "8 de janeiro de 2026",
+    cardClass: "border-[#9ac4ff] bg-[#eef0ff]",
+    highlightClass: "bg-[#fff3b8] text-[#3f3f21]",
+    text: [
+      { content: "Arrumei meu LinkedIn seguindo o passo a passo do PDF e comecei a receber ", highlight: false },
+      { content: "mensagem de recrutador", highlight: true },
+      { content: ". Valeu cada centavo.", highlight: false },
+    ],
   },
   {
     name: "Adriana Souza",
     role: "Nutricionista",
     photo: depo3,
-    text: "O que mais gostei foi a lista do que fazer primeiro. Não fiquei perdida, só fui marcando o que já tinha ajustado.",
+    date: "5 de fevereiro de 2025",
+    cardClass: "border-[#a7efd0] bg-[#ddfaef]",
+    highlightClass: "bg-[#fff3b8] text-[#3f3f21]",
+    text: [
+      { content: "O que mais gostei foi a ", highlight: false },
+      { content: "lista do que fazer primeiro", highlight: true },
+      { content: ". Não fiquei perdida; só fui marcando o que já tinha ajustado.", highlight: false },
+    ],
   },
   {
     name: "Rafael Martins",
     role: "Personal trainer",
     photo: depo4,
-    text: "Achei que ia ser aquele texto genérico, mas era sobre o meu perfil mesmo: minha bio, minhas fotos, meus posts.",
+    date: "15 de dezembro de 2024",
+    cardClass: "border-[#ffcda6] bg-[#fff0e8]",
+    highlightClass: "bg-[#fff3b8] text-[#3f3f21]",
+    text: [
+      { content: "Achei que ia ser aquele texto genérico, mas era sobre o ", highlight: false },
+      { content: "meu perfil mesmo", highlight: true },
+      { content: ": minha bio, minhas fotos e meus posts.", highlight: false },
+    ],
   },
   {
     name: "Sônia Almeida",
     role: "Consultora de vendas",
     photo: depo5,
-    text: "Tenho 52 anos e me viro pouco com tecnologia. Foi só colar o link e pagar. Recebi o PDF no e-mail rapidinho.",
+    date: "20 de março de 2026",
+    cardClass: "border-[#b9d6ff] bg-[#e8f1ff]",
+    highlightClass: "bg-[#fff3b8] text-[#3f3f21]",
+    text: [
+      { content: "Tenho 52 anos e me viro pouco com tecnologia. Foi só colar o link e pagar. ", highlight: false },
+      { content: "Recebi o PDF no e-mail rapidinho", highlight: true },
+      { content: ".", highlight: false },
+    ],
   },
 ];
 
 export function SocialProof() {
   return (
-    <section id="depoimentos" className="py-20 sm:py-24">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+    <section id="depoimentos" className="relative overflow-hidden bg-[#f9fcff] pt-20 pb-24 sm:pt-24 sm:pb-28 lg:flex lg:min-h-screen lg:items-center">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(147,197,253,0.18),transparent_72%)]" />
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="text-center">
           <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
             Quem já fez, recomenda
@@ -275,35 +458,47 @@ export function SocialProof() {
           </p>
         </Reveal>
 
-        <ul className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto px-1 pb-7 md:gap-6">
           {testimonials.map((t, i) => (
-            <Reveal as="li" key={t.name} delay={i * 90} className="h-full">
-              <figure className="flex h-full flex-col rounded-3xl border border-border bg-card p-7 shadow-[var(--shadow-soft)]">
-                <div className="flex gap-1 text-cta">
-                  {[0, 1, 2, 3, 4].map((s) => (
-                    <Star key={s} className="size-4 fill-current" />
-                  ))}
-                </div>
-                <blockquote className="mt-4 flex-1 text-muted-foreground">“{t.text}”</blockquote>
-                <figcaption className="mt-6 flex items-center gap-3">
+            <Reveal as="li" key={t.name} delay={i * 90} className="w-[280px] shrink-0 snap-start sm:w-[300px]">
+              <figure className={`flex min-h-[430px] h-full flex-col rounded-2xl border p-6 shadow-[0_12px_28px_rgba(37,99,235,0.12)] transition-all duration-300 hover:brightness-[0.96] sm:p-7 ${t.cardClass}`}>
+                <figcaption className="flex items-center gap-3">
                   <img
                     src={t.photo}
                     alt={`Foto de ${t.name}`}
                     width={512}
                     height={512}
                     loading="lazy"
-                    className="size-12 shrink-0 rounded-full object-cover"
+                    className="size-12 shrink-0 rounded-full border-2 border-white object-cover shadow-sm"
                   />
                   <span className="min-w-0">
-                    <span className="block truncate font-bold">{t.name}</span>
-                    <span className="block truncate text-sm text-muted-foreground">{t.role}</span>
+                    <span className="block truncate font-bold text-slate-950">{t.name}</span>
+                    <span className="block truncate text-sm text-slate-600">{t.role}</span>
                   </span>
                 </figcaption>
+                <div className="mt-6 flex gap-1 text-amber-400">
+                  {[0, 1, 2, 3, 4].map((s) => (
+                    <Star key={s} className="size-4 fill-current" />
+                  ))}
+                </div>
+                <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-slate-700 sm:text-base">
+                  {t.text.map((part, partIndex) =>
+                    part.highlight ? (
+                      <mark key={partIndex} className={`rounded px-1 font-bold ${t.highlightClass}`}>
+                        {part.content}
+                      </mark>
+                    ) : (
+                      <span key={partIndex}>{part.content}</span>
+                    ),
+                  )}
+                </blockquote>
+                <p className="mt-5 text-xs text-slate-500">{t.date}</p>
               </figure>
             </Reveal>
           ))}
         </ul>
       </div>
+      <SectionDivider />
     </section>
   );
 }
@@ -312,8 +507,9 @@ export function SocialProof() {
 
 export function Guarantee() {
   return (
-    <section id="garantia" className="pb-4 sm:pb-8">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6">
+    <section id="garantia" className="relative overflow-hidden bg-[#f7fbff] py-20 sm:py-24 lg:flex lg:min-h-[78svh] lg:items-center">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.16),transparent_70%)]" />
+      <div className="relative mx-auto max-w-4xl px-4 sm:px-6">
         <Reveal>
           <div className="rounded-[2rem] border-2 border-cta bg-cta-soft p-7 text-center sm:p-10">
             <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-cta text-cta-foreground">
@@ -329,6 +525,7 @@ export function Guarantee() {
           </div>
         </Reveal>
       </div>
+      <SectionDivider />
     </section>
   );
 }
@@ -337,57 +534,51 @@ export function Guarantee() {
 
 const plans = [
   {
-    name: "Instagram",
+    name: "Diagnóstico Instagram",
+    originalPrice: "R$57,97",
     price: "R$19,97",
+    savings: "Você economiza R$38,00",
     icon: Instagram,
+    cardClass: "border-[#f7b8cf] bg-[#fff0f6]",
+    iconClass: "bg-[#fce0eb] text-[#d94680]",
+    priceClass: "text-[#d94680]",
+    savingsClass: "bg-[#fde3ec] text-[#b23764]",
+    buttonClass: "bg-[#e95b91] text-white hover:bg-[#d94680] shadow-[0_16px_36px_-10px_rgba(217,70,128,0.6)]",
     items: [
       "Análise da foto de perfil e da bio",
       "Leitura dos seus posts e do engajamento",
       "Pontos fortes e pontos fracos",
       "Plano de ação prático em PDF",
     ],
-    cta: "Quero esse",
-    highlight: false,
+    cta: "Quero garantir",
   },
   {
-    name: "LinkedIn",
+    name: "Diagnóstico LinkedIn",
+    originalPrice: "R$57,97",
     price: "R$19,97",
+    savings: "Você economiza R$38,00",
     icon: Linkedin,
+    cardClass: "border-[#a9ccff] bg-[#edf5ff]",
+    iconClass: "bg-[#dcecff] text-[#1d70d6]",
+    priceClass: "text-[#1d70d6]",
+    savingsClass: "bg-[#dce9ff] text-[#155bb0]",
+    buttonClass: "bg-[#1d70d6] text-white hover:bg-[#155bb0] shadow-[0_16px_36px_-10px_rgba(29,112,214,0.6)]",
     items: [
       "Análise do perfil, resumo e experiência",
       "Dicas pra aparecer mais em buscas",
       "Pontos fortes e pontos fracos",
       "Plano de ação prático em PDF",
     ],
-    cta: "Quero esse",
-    highlight: false,
-  },
-  {
-    name: "Combo completo",
-    price: "R$29,97",
-    icon: Sparkles,
-    items: [
-      "Tudo do Instagram",
-      "Tudo do LinkedIn",
-      "Análise do seu currículo em PDF",
-      "Plano de ação unindo tudo",
-    ],
-    cta: "Quero o combo",
-    highlight: true,
+    cta: "Quero garantir",
   },
 ];
 
 export function Pricing() {
   return (
     <>
-      <Reveal>
-        <div className="bg-cta px-4 py-4 text-center text-sm font-semibold text-cta-foreground sm:text-base">
-          👥 Desconto de lançamento pros primeiros clientes
-        </div>
-      </Reveal>
-
-      <section id="precos" className="py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <section id="precos" className="relative overflow-hidden bg-[#fbfdff] pt-20 pb-24 sm:pt-24 sm:pb-28 lg:flex lg:min-h-screen lg:items-center">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.16),transparent_72%)]" />
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
           <Reveal className="text-center">
             <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
               Escolha seu diagnóstico
@@ -397,51 +588,133 @@ export function Pricing() {
             </p>
           </Reveal>
 
-          <ul className="mt-12 grid items-stretch gap-6 md:grid-cols-3">
+          <Reveal className="mx-auto mt-10 flex max-w-4xl justify-center">
+            <div className="relative animate-pulse-soft rounded-2xl border border-blue-200 bg-white px-6 py-3 text-center shadow-[0_12px_32px_-8px_rgba(37,99,235,0.35)]">
+              <p className="text-sm font-extrabold tracking-tight text-blue-600 sm:text-base">
+                ⚡ Desconto relâmpago
+              </p>
+              <p className="mt-0.5 text-xs font-medium text-muted-foreground sm:text-sm">
+                Oferta especial por tempo limitado
+              </p>
+            </div>
+          </Reveal>
+
+          <ul className="mx-auto mt-8 grid max-w-4xl items-stretch gap-8 md:grid-cols-2">
             {plans.map((p, i) => (
               <Reveal as="li" key={p.name} delay={i * 120} className="h-full">
                 <div
-                  className={`relative flex h-full flex-col rounded-3xl bg-card p-7 transition-transform duration-300 hover:-translate-y-1 ${
-                    p.highlight
-                      ? "border-2 border-primary shadow-[var(--shadow-lift)]"
-                      : "border border-border shadow-[var(--shadow-soft)]"
-                  }`}
+                  className={`relative flex h-full flex-col rounded-[2rem] border-2 p-8 shadow-[0_16px_40px_rgba(37,99,235,0.14)] transition-shadow duration-300 hover:shadow-[0_22px_50px_rgba(37,99,235,0.2)] sm:p-10 ${p.cardClass}`}
                 >
-                  {p.highlight && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-cta px-4 py-1 text-xs font-bold text-cta-foreground">
-                      Mais completo
-                    </span>
-                  )}
-                  <span className="grid size-11 place-items-center rounded-2xl bg-primary-soft text-primary">
-                    <p.icon className="size-5" />
+                  <span className={`grid size-14 place-items-center rounded-2xl ${p.iconClass}`}>
+                    <p.icon className="size-6" />
                   </span>
-                  <h3 className="mt-5 text-xl font-bold">{p.name}</h3>
-                  <p className="mt-2 text-3xl font-extrabold text-primary">{p.price}</p>
-                  <ul className="mt-5 flex-1 space-y-3">
+                  <h3 className="mt-6 text-2xl font-extrabold tracking-tight">{p.name}</h3>
+
+                  <div className="mt-5 flex items-baseline gap-2.5">
+                    <span className="text-base font-medium text-muted-foreground line-through">
+                      {p.originalPrice}
+                    </span>
+                    <span className={`text-5xl font-extrabold tracking-tight ${p.priceClass}`}>{p.price}</span>
+                  </div>
+                  <p
+                    className={`mt-3 inline-flex w-fit items-center rounded-full px-3 py-1 text-sm font-bold ${p.savingsClass}`}
+                  >
+                    {p.savings}
+                  </p>
+
+                  <ul className="mt-7 flex-1 space-y-3">
                     {p.items.map((it) => (
-                      <li key={it} className="flex gap-2 text-sm text-muted-foreground">
+                      <li key={it} className="flex gap-2 text-sm text-muted-foreground sm:text-base">
                         <Check className="mt-0.5 size-4 shrink-0 text-primary" />
                         <span>{it}</span>
                       </li>
                     ))}
                   </ul>
+
                   <Button
                     asChild
                     size="lg"
-                    variant={p.highlight ? "default" : "outline"}
-                    className={`mt-7 w-full rounded-full font-semibold transition-transform hover:scale-[1.02] ${
-                      p.highlight
-                        ? "bg-cta text-cta-foreground hover:bg-cta-hover"
-                        : "border-2 border-cta text-cta hover:bg-cta-soft"
-                    }`}
+                    className={`mt-8 w-full rounded-full py-7 text-lg font-bold transition-transform hover:scale-[1.03] ${p.buttonClass}`}
                   >
                     <a href="#topo">{p.cta}</a>
                   </Button>
+                  <p className="mt-4 flex items-center justify-center gap-1.5 text-center text-sm font-semibold text-slate-600">
+                    <ShieldIcon className="size-4 text-primary" />
+                    Garantia de satisfação
+                  </p>
                 </div>
               </Reveal>
             ))}
           </ul>
+
+          {/* Avaliações / prova social */}
+          <Reveal className="mx-auto mt-8 grid max-w-3xl gap-4 sm:grid-cols-2">
+            {testimonials.slice(0, 2).map((t) => (
+              <figure
+                key={t.name}
+                className="flex flex-col rounded-2xl border border-blue-100 bg-white p-5 text-left shadow-[0_10px_28px_-10px_rgba(37,99,235,0.2)] sm:p-6"
+              >
+                <div className="flex gap-1 text-amber-400">
+                  {[0, 1, 2, 3, 4].map((s) => (
+                    <Star key={s} className="size-4 fill-current" />
+                  ))}
+                </div>
+                <blockquote className="mt-3 text-sm leading-relaxed text-slate-700">
+                  {t.text.map((part, partIndex) => (
+                    <span key={partIndex}>{part.content}</span>
+                  ))}
+                </blockquote>
+                <figcaption className="mt-4 flex items-center gap-3">
+                  <img
+                    src={t.photo}
+                    alt={`Foto de ${t.name}`}
+                    width={512}
+                    height={512}
+                    loading="lazy"
+                    className="size-9 shrink-0 rounded-full border-2 border-white object-cover shadow-sm"
+                  />
+                  <span className="min-w-0">
+                    <span className="block truncate text-sm font-bold text-slate-950">{t.name}</span>
+                    <span className="block truncate text-xs text-slate-600">{t.role}</span>
+                  </span>
+                </figcaption>
+              </figure>
+            ))}
+          </Reveal>
+
+          {/* Garantia de satisfação */}
+          <Reveal className="mx-auto mt-8 max-w-2xl">
+            <div className="rounded-[2rem] border-2 border-cta bg-cta-soft p-7 text-center sm:p-10">
+              <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-cta text-cta-foreground">
+                <ShieldIcon className="size-7" />
+              </span>
+              <h2 className="mt-5 text-2xl font-extrabold tracking-tight sm:text-3xl">
+                Garantia de satisfação de 7 dias
+              </h2>
+              <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
+                Leu o diagnóstico e sentiu que não te ajudou? É só mandar uma mensagem em até 7 dias
+                que a gente devolve o seu dinheiro. Sem formulário, sem discussão.
+              </p>
+            </div>
+          </Reveal>
+
+          {/* Elementos de segurança */}
+          <Reveal className="mx-auto mt-10 flex max-w-3xl flex-wrap items-center justify-center gap-3 sm:gap-4">
+            <span className="flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-xs font-semibold text-slate-600 shadow-sm sm:text-sm">
+              <Lock className="size-4 text-primary" />
+              Ambiente de pagamento seguro
+            </span>
+            <span className="flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-xs font-semibold text-slate-600 shadow-sm sm:text-sm">
+              <CreditCard className="size-4 text-primary" />
+              Pix, débito ou crédito
+            </span>
+            <span className="flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-xs font-semibold text-slate-600 shadow-sm sm:text-sm">
+              <ShieldIcon className="size-4 text-primary" />
+              Você nunca informa senha
+            </span>
+          </Reveal>
         </div>
+        <SectionDivider />
       </section>
     </>
   );
@@ -472,7 +745,7 @@ const faqs = [
   },
   {
     q: "Posso pedir os dois diagnósticos (Instagram e LinkedIn) separadamente depois?",
-    a: "Pode. Você começa por um e compra o outro quando quiser. Se já sabe que quer os dois, o combo sai mais em conta.",
+    a: "Sim, cada um é vendido separadamente. Você pode começar pelo que for mais urgente agora e fazer o outro depois.",
   },
   {
     q: "Funciona pra qualquer área profissional?",
@@ -490,8 +763,9 @@ const faqs = [
 
 export function Faq() {
   return (
-    <section id="perguntas" className="bg-primary-softer py-20 sm:py-24">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6">
+    <section id="perguntas" className="relative min-h-screen overflow-hidden bg-[#eef6ff] pt-20 pb-24 sm:pt-24 sm:pb-28">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.2),transparent_72%)]" />
+      <div className="relative mx-auto max-w-3xl px-4 sm:px-6">
         <Reveal className="text-center">
           <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
             Perguntas frequentes
@@ -507,7 +781,7 @@ export function Faq() {
               <AccordionItem
                 key={f.q}
                 value={`item-${i}`}
-                className="rounded-2xl border border-border bg-card px-5"
+                className="rounded-2xl border border-[#cfe0ff] bg-white/90 px-5 shadow-[0_6px_18px_rgba(37,99,235,0.07)]"
               >
                 <AccordionTrigger className="text-left text-base font-semibold hover:no-underline">
                   {f.q}
@@ -525,12 +799,13 @@ export function Faq() {
             size="lg"
             className="mt-4 rounded-full bg-cta px-7 font-semibold text-cta-foreground transition-transform hover:scale-[1.03] hover:bg-cta-hover"
           >
-            <a href="https://wa.me/" target="_blank" rel="noreferrer">
+            <a href="https://wa.me/5511987977362" target="_blank" rel="noreferrer">
               <MessageCircle className="size-5" /> Falar no WhatsApp
             </a>
           </Button>
         </Reveal>
       </div>
+      <SectionDivider />
     </section>
   );
 }
@@ -539,63 +814,86 @@ export function Faq() {
 
 export function Footer() {
   return (
-    <footer className="border-t border-border py-14">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="grid gap-8 md:grid-cols-[1.2fr_1fr]">
-          <div>
-            <div className="flex min-w-0 items-center gap-2">
+    <footer className="relative overflow-hidden border-t border-[#dbe7ff] bg-white pt-16 pb-8">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.13),transparent_70%)]" />
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr] md:gap-16 lg:grid-cols-[1.6fr_1fr]">
+          {/* Marca */}
+          <div className="max-w-md">
+            <div className="flex min-w-0 items-center gap-2.5">
               <img
-                src={mascote.url}
+                src={mascote}
                 alt="Mascote do Diagnóstico AI"
-                width={40}
-                height={40}
+                width={44}
+                height={44}
                 loading="lazy"
-                className="h-10 w-10 shrink-0 object-contain"
+                className="h-11 w-11 shrink-0 object-contain"
               />
-              <span className="text-lg font-extrabold text-primary">Diagnóstico AI</span>
+              <span className="text-xl font-extrabold tracking-tight text-primary">
+                Diagnóstico AI
+              </span>
             </div>
-            <p className="mt-4 max-w-md text-sm text-muted-foreground">
+
+            <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
               Um diagnóstico simples do seu Instagram, LinkedIn e currículo, feito por inteligência
               artificial, com um plano prático pra você crescer.
             </p>
-            <div className="mt-5 flex gap-3">
+
+            <div className="mt-7 flex items-center gap-3">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/diagnostico.ai/"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label="Instagram do Diagnóstico AI"
-                className="grid size-10 place-items-center rounded-full bg-primary-soft text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                className="grid size-10 place-items-center rounded-full bg-primary-soft text-primary transition-all hover:scale-105 hover:bg-primary hover:text-primary-foreground"
               >
                 <Instagram className="size-5" />
               </a>
               <a
                 href="https://linkedin.com"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label="LinkedIn do Diagnóstico AI"
-                className="grid size-10 place-items-center rounded-full bg-primary-soft text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                className="grid size-10 place-items-center rounded-full bg-primary-soft text-primary transition-all hover:scale-105 hover:bg-primary hover:text-primary-foreground"
               >
                 <Linkedin className="size-5" />
               </a>
             </div>
           </div>
 
-          <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm md:flex-col md:items-end">
-            {["Sobre", "Contato", "Política de privacidade", "Termos de uso"].map((l) => (
-              <a
-                key={l}
-                href="#topo"
-                className="text-muted-foreground transition-colors hover:text-primary"
-              >
-                {l}
-              </a>
-            ))}
+          {/* Institucional */}
+          <nav className="md:justify-self-end">
+            <p className="text-xs font-bold tracking-[0.14em] text-foreground/80 uppercase">
+              Institucional
+            </p>
+            <ul className="mt-5 space-y-3 text-sm">
+              {[
+                { label: "Sobre", href: "#topo" },
+                { label: "Contato", href: "https://wa.me/5511987977362" },
+                { label: "Política de privacidade", href: "#topo" },
+                { label: "Termos de uso", href: "#topo" },
+              ].map((l) => {
+                const external = l.href.startsWith("http");
+                return (
+                  <li key={l.label}>
+                    <a
+                      href={l.href}
+                      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                      className="text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
           </nav>
         </div>
 
-        <p className="mt-10 text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Diagnóstico AI. Todos os direitos reservados.
-        </p>
+        <div className="mt-14 flex flex-col gap-3 border-t border-[#e6eeff] pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} Diagnóstico AI. Todos os direitos reservados.</p>
+          <p>Feito no Brasil, com inteligência artificial.</p>
+        </div>
       </div>
     </footer>
   );

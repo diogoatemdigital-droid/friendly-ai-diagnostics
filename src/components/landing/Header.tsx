@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import mascote from "@/assets/mascote.png.asset.json";
+import mascote from "@/assets/colocaessa.png";
 import { Button } from "@/components/ui/button";
 
 const links = [
@@ -20,14 +20,18 @@ export function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-9 z-50 transition-all duration-300 sm:top-10 ${
-        scrolled ? "bg-background/95 shadow-[var(--shadow-soft)] backdrop-blur" : "bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 bg-white transition-shadow duration-300 ${
+        scrolled ? "shadow-[var(--shadow-soft)]" : "shadow-sm"
       }`}
     >
-      <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:flex sm:justify-between sm:px-6">
-        <a href="#topo" className="flex min-w-0 items-center gap-2">
+      <div className="h-2.5 w-full bg-white sm:h-3" />
+      <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-b border-border/60 px-4 py-3 sm:flex sm:justify-between sm:px-6">
+        <a
+          href="#topo"
+          className="flex min-w-0 items-center gap-2 transition-transform duration-300 hover:scale-[1.03]"
+        >
           <img
-            src={mascote.url}
+            src={mascote}
             alt="Mascote do Diagnóstico AI"
             width={40}
             height={40}
@@ -53,7 +57,7 @@ export function Header() {
         <Button
           asChild
           size="sm"
-          className="shrink-0 rounded-full bg-cta px-5 font-semibold text-cta-foreground hover:bg-cta-hover"
+          className="shrink-0 whitespace-nowrap rounded-full bg-cta px-4 font-semibold text-cta-foreground hover:bg-cta-hover sm:px-5"
         >
           <a href="#precos">Começar agora</a>
         </Button>
