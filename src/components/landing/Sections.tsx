@@ -74,11 +74,7 @@ export function Hero() {
               size="lg"
               className="w-full rounded-full bg-[#1D4ED8] px-10 py-7 text-base font-bold text-white shadow-[0_12px_40px_-6px_rgba(29,78,216,0.75)] ring-1 ring-white/10 transition-all duration-300 ease-out hover:scale-[1.04] hover:bg-[#1E40AF] hover:shadow-[0_18px_50px_-8px_rgba(29,78,216,0.9)] sm:w-auto sm:px-12 sm:py-7 sm:text-xl"
             >
-              <a
-                href="https://pay.cakto.com.br/34b3oe2_1015216"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="#precos">
                 Quero meu diagnóstico agora
               </a>
             </Button>
