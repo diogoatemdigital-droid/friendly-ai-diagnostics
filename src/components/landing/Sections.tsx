@@ -26,11 +26,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import mascote from "@/assets/mascote.png";
-import depo1 from "@/assets/depo-1.jpg";
-import depo2 from "@/assets/depo-2.jpg";
-import depo3 from "@/assets/depo-3.jpg";
-import depo4 from "@/assets/depo-4.jpg";
-import depo5 from "@/assets/depo-5.jpg";
+import depo1 from "@/assets/testimonials/camila-ribeiro.jfif";
+import depo2 from "@/assets/testimonials/lucas-ferreira.jfif";
+import depo3 from "@/assets/testimonials/adriana-souza.jfif";
+import depo4 from "@/assets/testimonials/rafael-martins.jfif";
+import depo5 from "@/assets/testimonials/sonia-almeida.jfif";
 
 function SectionDivider() {
   return (
@@ -56,10 +56,10 @@ export function Hero() {
     >
       <div className="mx-auto flex w-full max-w-4xl flex-col items-center px-4 text-center sm:px-6">
         <Reveal delay={80}>
-          <h1 className="text-4xl leading-[1.1] font-extrabold tracking-tight text-balance text-foreground sm:text-6xl lg:text-6xl">
-            Descubra o que está fazendo{" "}
+          <h1 className="text-5xl leading-[1.1] font-extrabold tracking-tight text-balance text-foreground sm:text-7xl lg:text-7xl">
+            Descubra por que{" "}
             <span className="text-primary">recrutadores</span> e{" "}
-            <span className="text-primary">clientes</span> ignorarem seu perfil
+            <span className="text-primary">clientes</span> ignoram seu perfil
           </h1>
         </Reveal>
         <Reveal delay={120}>
@@ -455,7 +455,7 @@ const testimonials = [
 
 export function SocialProof() {
   return (
-    <section id="depoimentos" className="relative overflow-hidden pt-20 pb-24 sm:pt-24 sm:pb-28 lg:flex lg:min-h-screen lg:items-center">
+    <section id="depoimentos" className="relative overflow-hidden pt-24 pb-32 sm:pt-28 sm:pb-36 lg:flex lg:min-h-screen lg:items-center">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(147,197,253,0.18),transparent_72%)]" />
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="text-center">
@@ -467,10 +467,10 @@ export function SocialProof() {
           </p>
         </Reveal>
 
-        <ul className="mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto px-1 pb-7 md:gap-6">
+        <ul className="testimonial-scroll mt-16 flex snap-x snap-mandatory gap-6 overflow-x-auto px-1 py-3 pb-8 md:gap-7">
           {testimonials.map((t, i) => (
-            <Reveal as="li" key={t.name} delay={i * 90} className="w-[280px] shrink-0 snap-start sm:w-[300px]">
-              <figure className={`card-hover flex min-h-[430px] h-full flex-col rounded-2xl border p-6 shadow-[0_12px_28px_rgba(37,99,235,0.12)] sm:p-7 ${t.cardClass}`}>
+            <Reveal as="li" key={t.name} delay={i * 90} className="w-[300px] shrink-0 snap-start sm:w-[320px]">
+              <figure className={`card-hover flex min-h-[460px] h-full flex-col rounded-2xl border p-7 shadow-[0_12px_28px_rgba(37,99,235,0.12)] sm:p-8 ${t.cardClass}`}>
                 <figcaption className="flex items-center gap-3">
                   <img
                     src={t.photo}
