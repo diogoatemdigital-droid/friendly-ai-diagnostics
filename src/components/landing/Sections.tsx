@@ -72,7 +72,7 @@ export function Hero() {
             <Button
               asChild
               size="lg"
-              className="w-full rounded-full bg-[#1D4ED8] px-10 py-7 text-base font-bold text-white shadow-[0_12px_40px_-6px_rgba(29,78,216,0.75)] ring-1 ring-white/10 transition-all duration-300 ease-out hover:scale-[1.04] hover:bg-[#1E40AF] hover:shadow-[0_18px_50px_-8px_rgba(29,78,216,0.9)] sm:w-auto sm:px-12 sm:py-7 sm:text-xl"
+              className="hero-cta-glow w-full rounded-full bg-[#1D4ED8] px-10 py-7 text-base font-bold text-white shadow-[0_12px_40px_-6px_rgba(29,78,216,0.75)] ring-1 ring-white/10 transition-all duration-300 ease-out hover:scale-[1.04] hover:bg-[#1E40AF] hover:shadow-[0_18px_50px_-8px_rgba(29,78,216,0.9)] sm:w-auto sm:px-12 sm:py-7 sm:text-xl"
             >
               <a href="#precos">
                 Quero meu diagnóstico agora
@@ -455,7 +455,7 @@ const testimonials = [
 
 export function SocialProof() {
   return (
-    <section id="depoimentos" className="relative overflow-hidden pt-24 pb-32 sm:pt-28 sm:pb-36 lg:flex lg:min-h-screen lg:items-center">
+    <section id="depoimentos" className="relative overflow-x-hidden pt-24 pb-32 sm:pt-28 sm:pb-36 lg:flex lg:min-h-screen lg:items-center">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(147,197,253,0.18),transparent_72%)]" />
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         <Reveal className="text-center">
