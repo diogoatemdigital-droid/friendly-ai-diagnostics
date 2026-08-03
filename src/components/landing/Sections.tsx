@@ -48,7 +48,7 @@ export function Hero() {
   return (
     <section
       id="topo"
-      className="relative flex min-h-screen items-center overflow-x-hidden pt-20 pb-0 sm:pt-24"
+      className="relative flex min-h-screen items-center overflow-x-hidden pt-20 pb-0 sm:pt-24 lg:pt-28"
       style={{
         background:
           "radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.45), rgba(191, 219, 254, 0.22) 60%, transparent 90%), var(--gradient-hero)",
@@ -56,23 +56,23 @@ export function Hero() {
     >
       <div className="mx-auto flex w-full max-w-4xl flex-col items-center px-4 text-center sm:px-6">
         <Reveal delay={80}>
-          <h1 className="text-5xl leading-[1.1] font-extrabold tracking-tight text-balance text-foreground sm:text-7xl lg:text-7xl">
+          <h1 className="text-4xl leading-[1.1] font-extrabold tracking-tight text-balance text-foreground sm:text-5xl lg:text-7xl">
             Descubra por que{" "}
             <span className="text-primary">recrutadores</span> e{" "}
             <span className="text-primary">clientes</span> ignoram seu perfil
           </h1>
         </Reveal>
         <Reveal delay={120}>
-          <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground sm:text-lg">
+          <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground sm:mt-6 sm:text-base lg:text-lg">
             Uma análise personalizada revela os erros que estão escondendo seu potencial e mostra exatamente o que ajustar para transformar seu perfil em uma ferramenta de oportunidades.
           </p>
         </Reveal>
         <Reveal delay={160}>
-          <div className="mt-9 flex flex-col items-center">
+          <div className="mt-9 flex w-full flex-col items-center px-4 sm:px-0">
             <Button
               asChild
               size="lg"
-              className="hero-cta-glow w-full rounded-full bg-[#1D4ED8] px-10 py-7 text-base font-bold text-white shadow-[0_12px_40px_-6px_rgba(29,78,216,0.75)] ring-1 ring-white/10 transition-all duration-300 ease-out hover:scale-[1.04] hover:bg-[#1E40AF] hover:shadow-[0_18px_50px_-8px_rgba(29,78,216,0.9)] sm:w-auto sm:px-12 sm:py-7 sm:text-xl"
+              className="hero-cta-glow w-full max-w-xs rounded-full bg-[#1D4ED8] px-6 py-6 text-base font-bold text-white shadow-[0_12px_40px_-6px_rgba(29,78,216,0.75)] ring-1 ring-white/10 transition-all duration-300 ease-out hover:scale-[1.04] hover:bg-[#1E40AF] hover:shadow-[0_18px_50px_-8px_rgba(29,78,216,0.9)] sm:w-auto sm:max-w-none sm:px-12 sm:py-7 sm:text-xl"
             >
               <a href="#precos">
                 Quero meu diagnóstico agora
@@ -84,7 +84,7 @@ export function Hero() {
           </div>
         </Reveal>
         <Reveal delay={200}>
-          <div className="mt-6 inline-flex items-center gap-4 rounded-full bg-cta-soft px-6 py-3.5 text-base font-semibold text-cta transition-shadow duration-300 hover:shadow-[var(--shadow-soft)]">
+          <div className="mt-6 flex flex-col items-center gap-3 rounded-full bg-cta-soft px-4 py-3 text-center text-sm font-semibold text-cta transition-shadow duration-300 hover:shadow-[var(--shadow-soft)] sm:inline-flex sm:gap-4 sm:px-6 sm:py-3.5 sm:text-base">
             <div className="flex -space-x-2.5">
               {[depo1, depo2, depo3, depo4, depo5].map((photo, i) => (
                 <img
@@ -93,13 +93,13 @@ export function Hero() {
                   alt=""
                   width={32}
                   height={32}
-                  className="size-8 shrink-0 rounded-full border-2 border-background object-cover transition-transform duration-300 ease-out hover:z-10 hover:scale-125"
+                  className="size-7 shrink-0 rounded-full border-2 border-background object-cover transition-transform duration-300 ease-out hover:z-10 hover:scale-125 sm:size-8"
                 />
               ))}
             </div>
-            <span className="flex items-center gap-2">
-              <Star className="size-5 fill-current" />
-              +500 pessoas já analisaram seus perfis
+            <span className="flex items-center gap-1.5 sm:gap-2">
+              <Star className="size-4 shrink-0 fill-current sm:size-5" />
+              <span className="whitespace-nowrap">+500 análises</span>
             </span>
           </div>
         </Reveal>
@@ -133,12 +133,12 @@ export function HowItWorks() {
   return (
     <section id="como-funciona" className="relative overflow-hidden pt-14 pb-24 sm:pt-16 sm:pb-28 lg:flex lg:min-h-screen lg:items-center">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.24),transparent_72%)]" />
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
         <Reveal className="text-center">
-          <h2 className="text-3xl font-extrabold tracking-tight sm:text-[2.75rem]">Como funciona</h2>
-          <p className="mt-3 text-muted-foreground">Do diagnóstico ao plano de melhoria em apenas 3 passos.</p>
+          <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-[2.75rem]">Como funciona</h2>
+          <p className="mt-2 text-sm text-muted-foreground sm:mt-3 sm:text-base">Do diagnóstico ao plano de melhoria em apenas 3 passos.</p>
         </Reveal>
-        <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-6">
+        <ul className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-6">
           {steps.map((s, i) => (
             <Reveal as="li" key={s.title} delay={i * 120} className="group relative">
               {i < steps.length - 1 && (
@@ -322,14 +322,14 @@ function ReportPreview({ preview }: { preview: Preview }) {
 
 export function Features() {
   return (
-    <section id="funcionalidades" className="relative overflow-hidden pt-20 pb-24 sm:pt-24 sm:pb-28">
+    <section id="funcionalidades" className="relative overflow-hidden pt-16 pb-20 sm:pt-24 sm:pb-28">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.23),transparent_72%)]" />
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
+          <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl">
             Conheça o que você recebe
           </h2>
-          <p className="mt-3 text-muted-foreground">
+          <p className="mt-2 text-sm text-muted-foreground sm:mt-3 sm:text-base">
             Ferramentas simples que mostram exatamente o que ajustar pra sua rede social atrair
             mais oportunidades
           </p>
@@ -339,9 +339,9 @@ export function Features() {
           {blocks.map((b) => (
             <Reveal key={b.cta}>
               <article
-                className={`card-hover grid items-center gap-8 rounded-[1.5rem] border p-5 backdrop-blur-sm sm:p-7 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10 ${b.cardClass}`}
+                className={`card-hover flex flex-col items-center gap-5 rounded-[1.5rem] border p-5 backdrop-blur-sm sm:p-7 lg:grid lg:items-center lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10 ${b.cardClass}`}
               >
-                <div className="py-1 sm:py-2">
+                <div className="w-full py-1 sm:py-2 lg:justify-self-start">
                   <span className={`grid size-12 place-items-center rounded-xl shadow-sm ${b.iconClass}`}>
                     <b.icon className="size-6" />
                   </span>
@@ -368,7 +368,9 @@ export function Features() {
                     </a>
                   </Button>
                 </div>
-                <ReportPreview preview={b.preview} />
+                <div className="w-full">
+                  <ReportPreview preview={b.preview} />
+                </div>
               </article>
             </Reveal>
           ))}
@@ -455,22 +457,22 @@ const testimonials = [
 
 export function SocialProof() {
   return (
-    <section id="depoimentos" className="relative overflow-x-hidden pt-24 pb-32 sm:pt-28 sm:pb-36 lg:flex lg:min-h-screen lg:items-center">
+    <section id="depoimentos" className="relative overflow-x-hidden pt-20 pb-24 sm:pt-28 sm:pb-36 lg:flex lg:min-h-screen lg:items-center">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(147,197,253,0.18),transparent_72%)]" />
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
         <Reveal className="text-center">
-          <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
+          <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl">
             Quem já fez, recomenda
           </h2>
-          <p className="mt-3 text-muted-foreground">
+          <p className="mt-2 text-sm text-muted-foreground sm:mt-3 sm:text-base">
             Histórias de pessoas comuns que ajustaram o perfil e viram diferença.
           </p>
         </Reveal>
 
-        <ul className="testimonial-scroll mt-16 flex snap-x snap-mandatory gap-6 overflow-x-auto px-1 py-3 pb-8 md:gap-7">
+        <ul className="testimonial-scroll mt-16 flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 py-3 pb-8 sm:gap-6 md:gap-7">
           {testimonials.map((t, i) => (
-            <Reveal as="li" key={t.name} delay={i * 90} className="w-[300px] shrink-0 snap-start sm:w-[320px]">
-              <figure className={`card-hover flex min-h-[460px] h-full flex-col rounded-2xl border p-7 shadow-[0_12px_28px_rgba(37,99,235,0.12)] sm:p-8 ${t.cardClass}`}>
+            <Reveal as="li" key={t.name} delay={i * 90} className="w-[280px] shrink-0 snap-start sm:w-[300px] md:w-[320px]">
+              <figure className={`card-hover flex min-h-[460px] h-full flex-col rounded-2xl border p-6 shadow-[0_12px_28px_rgba(37,99,235,0.12)] sm:p-7 md:p-8 ${t.cardClass}`}>
                 <figcaption className="flex items-center gap-3">
                   <img
                     src={t.photo}
@@ -587,34 +589,34 @@ const plans = [
 export function Pricing() {
   return (
     <>
-      <section id="precos" className="relative overflow-hidden pt-20 pb-24 sm:pt-24 sm:pb-28 lg:flex lg:min-h-screen lg:items-center">
+      <section id="precos" className="relative overflow-hidden pt-16 pb-20 sm:pt-24 sm:pb-28 lg:flex lg:min-h-screen lg:items-center">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.16),transparent_72%)]" />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
           <Reveal className="text-center">
-            <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
+            <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl">
               Escolha seu diagnóstico
             </h2>
-            <p className="mt-3 text-muted-foreground">
+            <p className="mt-2 text-sm text-muted-foreground sm:mt-3 sm:text-base">
               Pagamento único. Sem assinatura, sem pegadinha.
             </p>
           </Reveal>
 
-          <Reveal className="mx-auto mt-10 flex max-w-4xl justify-center">
-            <div className="relative animate-pulse-soft rounded-2xl border border-blue-200 bg-white px-6 py-3 text-center shadow-[0_12px_32px_-8px_rgba(37,99,235,0.35)]">
-              <p className="text-sm font-extrabold tracking-tight text-blue-600 sm:text-base">
+          <Reveal className="mx-auto mt-6 flex w-full max-w-4xl justify-center px-2 sm:mt-8 sm:px-0">
+            <div className="relative animate-pulse-soft rounded-2xl border border-blue-200 bg-white px-4 py-2.5 text-center shadow-[0_12px_32px_-8px_rgba(37,99,235,0.35)] sm:px-6 sm:py-3">
+              <p className="text-xs font-extrabold tracking-tight text-blue-600 sm:text-sm md:text-base">
                 ⚡ Desconto relâmpago
               </p>
-              <p className="mt-0.5 text-xs font-medium text-muted-foreground sm:text-sm">
+              <p className="mt-0.5 text-[10px] font-medium text-muted-foreground sm:text-xs md:text-sm">
                 Oferta especial por tempo limitado
               </p>
             </div>
           </Reveal>
 
-          <ul className="mx-auto mt-8 grid max-w-4xl items-stretch gap-8 md:grid-cols-2">
+          <ul className="mx-auto mt-8 grid w-full max-w-4xl items-stretch grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
             {plans.map((p, i) => (
-              <Reveal as="li" key={p.name} delay={i * 120} className="h-full">
+              <Reveal as="li" key={p.name} delay={i * 120} className="h-full w-full">
                 <div
-                  className={`card-hover relative flex h-full flex-col rounded-[2rem] border-2 p-8 shadow-[0_16px_40px_rgba(37,99,235,0.14)] sm:p-10 ${p.cardClass}`}
+                  className={`card-hover relative flex h-full flex-col rounded-[2rem] border-2 p-6 shadow-[0_16px_40px_rgba(37,99,235,0.14)] sm:p-8 md:p-10 ${p.cardClass}`}
                 >
                   <span className={`grid size-14 place-items-center rounded-2xl ${p.iconClass}`}>
                     <p.icon className="size-6" />
@@ -665,11 +667,11 @@ export function Pricing() {
           </ul>
 
           {/* Avaliações / prova social */}
-          <Reveal className="mx-auto mt-8 grid max-w-3xl gap-4 sm:grid-cols-2">
+          <Reveal className="mx-auto mt-8 grid w-full max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2">
             {testimonials.slice(0, 2).map((t) => (
               <figure
                 key={t.name}
-                className="flex flex-col rounded-2xl border border-blue-100 bg-white p-5 text-left shadow-[0_10px_28px_-10px_rgba(37,99,235,0.2)] sm:p-6"
+                className="flex flex-col rounded-2xl border border-blue-100 bg-white p-4 text-left shadow-[0_10px_28px_-10px_rgba(37,99,235,0.2)] sm:p-5 md:p-6"
               >
                 <div className="flex gap-1 text-amber-400">
                   {[0, 1, 2, 3, 4].map((s) => (
@@ -700,15 +702,15 @@ export function Pricing() {
           </Reveal>
 
           {/* Garantia de satisfação */}
-          <Reveal className="mx-auto mt-8 max-w-2xl">
-            <div className="rounded-[2rem] border-2 border-cta bg-cta-soft p-7 text-center sm:p-10">
+          <Reveal className="mx-auto mt-8 w-full max-w-2xl px-2 sm:px-0">
+            <div className="rounded-[2rem] border-2 border-cta bg-cta-soft p-6 text-center sm:p-8 md:p-10">
               <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-cta text-cta-foreground">
                 <ShieldIcon className="size-7" />
               </span>
               <h2 className="mt-5 text-2xl font-extrabold tracking-tight sm:text-3xl">
                 Garantia de satisfação de 7 dias
               </h2>
-              <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
+              <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
                 Leu o diagnóstico e sentiu que não te ajudou? É só mandar uma mensagem em até 7 dias
                 que a gente devolve o seu dinheiro. Sem formulário, sem discussão.
               </p>
@@ -716,18 +718,18 @@ export function Pricing() {
           </Reveal>
 
           {/* Elementos de segurança */}
-          <Reveal className="mx-auto mt-10 flex max-w-3xl flex-wrap items-center justify-center gap-3 sm:gap-4">
-            <span className="flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-xs font-semibold text-slate-600 shadow-sm sm:text-sm">
-              <Lock className="size-4 text-primary" />
-              Ambiente de pagamento seguro
+          <Reveal className="mx-auto mt-8 w-full flex max-w-3xl flex-wrap items-center justify-center gap-2 px-2 sm:px-0 sm:gap-3 md:gap-4">
+            <span className="flex items-center gap-1.5 rounded-full border border-blue-100 bg-white px-3 py-2 text-[11px] font-semibold text-slate-600 shadow-sm sm:px-4 sm:text-xs md:text-sm">
+              <Lock className="size-3.5 sm:size-4 text-primary shrink-0" />
+              <span className="whitespace-nowrap">Ambiente seguro</span>
             </span>
-            <span className="flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-xs font-semibold text-slate-600 shadow-sm sm:text-sm">
-              <CreditCard className="size-4 text-primary" />
-              Pix, débito ou crédito
+            <span className="flex items-center gap-1.5 rounded-full border border-blue-100 bg-white px-3 py-2 text-[11px] font-semibold text-slate-600 shadow-sm sm:px-4 sm:text-xs md:text-sm">
+              <CreditCard className="size-3.5 sm:size-4 text-primary shrink-0" />
+              <span className="whitespace-nowrap">Pix, débito ou crédito</span>
             </span>
-            <span className="flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-xs font-semibold text-slate-600 shadow-sm sm:text-sm">
-              <ShieldIcon className="size-4 text-primary" />
-              Você nunca informa senha
+            <span className="flex items-center gap-1.5 rounded-full border border-blue-100 bg-white px-3 py-2 text-[11px] font-semibold text-slate-600 shadow-sm sm:px-4 sm:text-xs md:text-sm">
+              <ShieldIcon className="size-3.5 sm:size-4 text-primary shrink-0" />
+              <span className="whitespace-nowrap">Sem senha</span>
             </span>
           </Reveal>
         </div>
@@ -780,14 +782,14 @@ const faqs = [
 
 export function Faq() {
   return (
-    <section id="perguntas" className="relative min-h-screen overflow-hidden pt-20 pb-24 sm:pt-24 sm:pb-28">
+    <section id="perguntas" className="relative overflow-hidden pt-16 pb-20 sm:pt-24 sm:pb-28">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.2),transparent_72%)]" />
-      <div className="relative mx-auto max-w-3xl px-4 sm:px-6">
+      <div className="relative mx-auto w-full max-w-3xl px-4 sm:px-6">
         <Reveal className="text-center">
-          <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
+          <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl">
             Perguntas frequentes
           </h2>
-          <p className="mt-3 text-muted-foreground">
+          <p className="mt-2 text-sm text-muted-foreground sm:mt-3 sm:text-base">
             Se ficou alguma dúvida, é só perguntar pra gente.
           </p>
         </Reveal>
@@ -831,12 +833,12 @@ export function Faq() {
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-[#dbe7ff] pt-16 pb-8">
+    <footer className="relative overflow-hidden border-t border-[#dbe7ff] pt-12 pb-6 sm:pt-16 sm:pb-8">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.13),transparent_70%)]" />
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr] md:gap-16 lg:grid-cols-[1.6fr_1fr]">
+      <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
+        <div className="grid w-full grid-cols-1 gap-8 sm:gap-12 md:grid-cols-[1.4fr_1fr] md:gap-16 lg:grid-cols-[1.6fr_1fr]">
           {/* Marca */}
-          <div className="max-w-md">
+          <div className="w-full max-w-md">
             <div className="flex min-w-0 items-center gap-2.5">
               <img
                 src={mascote}
@@ -844,19 +846,19 @@ export function Footer() {
                 width={44}
                 height={44}
                 loading="lazy"
-                className="h-11 w-11 shrink-0 object-contain"
+                className="h-10 w-10 shrink-0 object-contain sm:h-11 sm:w-11"
               />
-              <span className="text-xl font-extrabold tracking-tight text-primary">
+              <span className="truncate text-lg font-extrabold tracking-tight text-primary sm:text-xl">
                 Diagnóstico AI
               </span>
             </div>
 
-            <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:mt-5">
               Um diagnóstico simples do seu Instagram, LinkedIn e currículo, feito por inteligência
               artificial, com um plano prático pra você crescer.
             </p>
 
-            <div className="mt-7 flex items-center gap-3">
+            <div className="mt-6 flex items-center gap-3 sm:mt-7">
               <a
                 href="https://www.instagram.com/diagnostico.ai/"
                 target="_blank"
@@ -879,11 +881,11 @@ export function Footer() {
           </div>
 
           {/* Institucional */}
-          <nav className="md:justify-self-end">
+          <nav className="w-full md:justify-self-end">
             <p className="text-xs font-bold tracking-[0.14em] text-foreground/80 uppercase">
               Institucional
             </p>
-            <ul className="mt-5 space-y-3 text-sm">
+            <ul className="mt-4 space-y-2.5 text-sm sm:mt-5 sm:space-y-3">
               {[
                 { label: "Sobre", href: "#topo" },
                 { label: "Contato", href: "https://wa.me/5511987977362" },
@@ -907,9 +909,9 @@ export function Footer() {
           </nav>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-[#e6eeff] pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-2.5 border-t border-[#e6eeff] pt-6 text-[11px] text-muted-foreground sm:mt-14 sm:gap-3 sm:flex-row sm:items-center sm:justify-between sm:text-xs">
           <p>© {new Date().getFullYear()} Diagnóstico AI. Todos os direitos reservados.</p>
-          <p>Feito no Brasil, com inteligência artificial.</p>
+          <p className="hidden sm:block">Feito no Brasil, com inteligência artificial.</p>
         </div>
       </div>
     </footer>

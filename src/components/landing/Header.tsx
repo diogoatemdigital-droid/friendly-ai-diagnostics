@@ -25,29 +25,29 @@ export function Header() {
       }`}
     >
       <div className="h-2.5 w-full bg-white sm:h-3" />
-      <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 border-b border-border/60 px-4 py-3 sm:flex sm:justify-between sm:px-6">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 border-b border-border/60 px-4 py-2.5 sm:px-6 sm:py-3">
         <a
           href="#topo"
-          className="flex min-w-0 items-center gap-2 transition-transform duration-300 hover:scale-[1.03]"
+          className="flex min-w-0 flex-1 items-center gap-2 transition-transform duration-300 hover:scale-[1.03]"
         >
           <img
             src={mascote}
             alt="Mascote do Diagnóstico AI"
             width={40}
             height={40}
-            className="h-9 w-9 shrink-0 object-contain sm:h-10 sm:w-10"
+            className="h-8 w-8 shrink-0 object-contain sm:h-9 sm:w-9 lg:h-10 lg:w-10"
           />
-          <span className="truncate text-base font-extrabold tracking-tight text-primary sm:text-lg">
+          <span className="truncate text-sm font-extrabold tracking-tight text-primary sm:text-base lg:text-lg">
             Diagnóstico AI
           </span>
         </a>
 
-        <nav className="hidden items-center gap-7 md:flex">
+        <nav className="hidden items-center gap-5 md:gap-7 lg:flex">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+              className="text-xs font-medium text-muted-foreground transition-colors hover:text-primary sm:text-sm"
             >
               {l.label}
             </a>
@@ -57,7 +57,7 @@ export function Header() {
         <Button
           asChild
           size="sm"
-          className="shrink-0 whitespace-nowrap rounded-full bg-cta px-4 font-semibold text-cta-foreground transition-transform duration-300 hover:scale-[1.03] hover:bg-cta-hover sm:px-5"
+          className="shrink-0 whitespace-nowrap rounded-full bg-cta px-3 py-2 text-xs font-semibold text-cta-foreground transition-transform duration-300 hover:scale-[1.03] hover:bg-cta-hover sm:px-4 sm:py-2.5 sm:text-sm lg:px-5"
         >
           <a href="#precos">Começar agora</a>
         </Button>

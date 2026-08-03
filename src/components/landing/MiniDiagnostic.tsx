@@ -175,34 +175,34 @@ export function MiniDiagnostic() {
             : 100;
 
   return (
-    <div className="rounded-[1.5rem] border border-[#cfe2ff] bg-white p-5 shadow-[0_16px_36px_rgba(37,99,235,0.12)] sm:p-8">
-      <div className="mx-auto max-w-xl text-center">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#eaf1ff] px-3 py-1 text-[11px] font-extrabold tracking-wide text-[#1d4ed8] uppercase">
-          <Sparkles className="size-3.5" /> Simulação gratuita
+    <div className="rounded-[1.5rem] border border-[#cfe2ff] bg-white p-5 shadow-[0_16px_36px_rgba(37,99,235,0.12)] sm:p-6 lg:p-8">
+      <div className="mx-auto max-w-xl px-2 text-center sm:px-0">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#eaf1ff] px-3 py-1 text-[10px] font-extrabold tracking-wide text-[#1d4ed8] uppercase sm:text-[11px]">
+          <Sparkles className="size-3 sm:size-3.5" /> Simulação gratuita
         </span>
-        <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">
+        <h3 className="mt-2 text-xl font-extrabold tracking-tight text-slate-950 sm:mt-3 sm:text-2xl lg:text-3xl">
           Faça uma prévia do seu diagnóstico
         </h3>
-        <p className="mt-2 text-sm text-slate-600 sm:text-base">
+        <p className="mt-2 text-xs text-slate-600 sm:text-sm lg:text-base">
           Menos de 1 minuto para ver onde seu perfil está travando.
         </p>
       </div>
 
-      <div className="mx-auto mt-6 h-1.5 w-full max-w-xl overflow-hidden rounded-full bg-slate-100">
+      <div className="mx-auto mt-4 h-1.5 w-full max-w-xl overflow-hidden rounded-full bg-slate-100 sm:mt-6">
         <div
           className="h-full rounded-full bg-[#2563eb] transition-[width] duration-500 ease-out"
           style={{ width: `${progress}%` }}
         />
       </div>
 
-      <div className="mx-auto mt-6 max-w-xl">
+      <div className="mx-auto mt-4 w-full max-w-xl px-2 sm:mt-6 sm:px-0">
         {/* 1. escolher */}
         {stage === "platform" && (
           <div>
-            <p className="text-center text-sm font-bold text-slate-900">
+            <p className="text-center text-xs font-bold text-slate-900 sm:text-sm">
               O que você quer analisar?
             </p>
-            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            <div className="mt-3 grid grid-cols-1 gap-2.5 sm:mt-4 sm:grid-cols-3 sm:gap-3">
               {platforms.map((p) => (
                 <button
                   key={p.id}
@@ -211,15 +211,15 @@ export function MiniDiagnostic() {
                     setPlatformId(p.id);
                     setStage("url");
                   }}
-                  className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3.5 text-left transition-all hover:-translate-y-0.5 hover:border-[#93bdff] hover:shadow-[0_10px_22px_rgba(37,99,235,0.14)] sm:flex-col sm:items-start"
+                  className="group flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 text-left transition-all hover:-translate-y-0.5 hover:border-[#93bdff] hover:shadow-[0_10px_22px_rgba(37,99,235,0.14)] sm:flex-col sm:items-start sm:p-3.5"
                 >
                   <span
-                    className="grid size-10 shrink-0 place-items-center rounded-lg text-white"
+                    className="grid size-9 shrink-0 place-items-center rounded-lg text-white sm:size-10"
                     style={{ backgroundColor: p.accent }}
                   >
-                    <p.icon className="size-5" />
+                    <p.icon className="size-4 sm:size-5" />
                   </span>
-                  <span className="text-sm font-bold text-slate-900">{p.label}</span>
+                  <span className="text-xs font-bold text-slate-900 sm:text-sm">{p.label}</span>
                 </button>
               ))}
             </div>
@@ -229,11 +229,11 @@ export function MiniDiagnostic() {
         {/* 2. url */}
         {stage === "url" && (
           <div>
-            <p className="text-center text-sm font-bold text-slate-900">
+            <p className="text-center text-xs font-bold text-slate-900 sm:text-sm">
               Digite o {platform.field} para iniciar a análise
             </p>
-            <div className="mt-4 flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 focus-within:border-[#93bdff] focus-within:bg-white">
-              <Link2 className="size-4 shrink-0 text-slate-400" />
+            <div className="mt-3 flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 focus-within:border-[#93bdff] focus-within:bg-white sm:mt-4 sm:py-2.5">
+              <Link2 className="size-3.5 shrink-0 text-slate-400 sm:size-4" />
               <input
                 type="text"
                 inputMode="url"
@@ -243,28 +243,28 @@ export function MiniDiagnostic() {
                 onKeyDown={(e) => e.key === "Enter" && handleUrlSubmit()}
                 placeholder={platform.placeholder}
                 aria-label={`Digite o ${platform.field}`}
-                className="w-full bg-transparent text-sm text-slate-900 outline-none placeholder:text-slate-400"
+                className="w-full bg-transparent text-xs text-slate-900 outline-none placeholder:text-slate-400 sm:text-sm"
               />
             </div>
             {urlError && (
-              <p className="mt-2 text-xs font-semibold text-[#c2410c]">{urlError}</p>
+              <p className="mt-1.5 text-[10px] font-semibold text-[#c2410c] sm:mt-2 sm:text-xs">{urlError}</p>
             )}
-            <p className="mt-2 flex items-center justify-center gap-1.5 text-[11px] text-slate-400">
-              <ShieldCheck className="size-3.5" /> Nada é enviado, salvo ou publicado.
+            <p className="mt-2 flex items-center justify-center gap-1 text-[10px] text-slate-400 sm:gap-1.5 sm:text-[11px]">
+              <ShieldCheck className="size-3 shrink-0 sm:size-3.5" /> Nada é enviado, salvo ou publicado.
             </p>
-            <div className="mt-4 flex items-center gap-3">
+            <div className="mt-3 flex items-center gap-2 sm:mt-4 sm:gap-3">
               <button
                 type="button"
                 onClick={() => setStage("platform")}
-                className="inline-flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-slate-800"
+                className="inline-flex items-center gap-1 text-[10px] font-semibold text-slate-500 hover:text-slate-800 sm:text-xs"
               >
-                <ArrowLeft className="size-3.5" /> Voltar
+                <ArrowLeft className="size-3 sm:size-3.5" /> Voltar
               </button>
               <Button
                 onClick={handleUrlSubmit}
-                className="ml-auto rounded-lg bg-[#2563eb] px-5 font-bold text-white transition-transform hover:scale-[1.03] hover:bg-[#1d4ed8]"
+                className="ml-auto rounded-lg bg-[#2563eb] px-4 py-2 text-xs font-bold text-white transition-transform hover:scale-[1.03] hover:bg-[#1d4ed8] sm:px-5 sm:py-2.5 sm:text-sm"
               >
-                Continuar <ArrowRight className="size-4" />
+                Continuar <ArrowRight className="size-3.5 sm:size-4" />
               </Button>
             </div>
           </div>
@@ -273,19 +273,19 @@ export function MiniDiagnostic() {
         {/* 3. perguntas */}
         {stage === "questions" && (
           <div>
-            <p className="text-center text-[11px] font-bold tracking-wide text-slate-400 uppercase">
+            <p className="text-center text-[10px] font-bold tracking-wide text-slate-400 uppercase sm:text-[11px]">
               Pergunta {questionIndex + 1} de {questions.length}
             </p>
-            <p className="mt-2 text-center text-base font-bold text-slate-900 sm:text-lg">
+            <p className="mt-2 text-center text-sm font-bold text-slate-900 sm:text-base lg:text-lg">
               {questions[questionIndex].title}
             </p>
-            <div className="mt-4 grid gap-2.5">
+            <div className="mt-3 grid gap-2 sm:mt-4 sm:gap-2.5">
               {questions[questionIndex].options.map((option) => (
                 <button
                   key={option}
                   type="button"
                   onClick={() => answerQuestion(option)}
-                  className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-left text-sm font-semibold text-slate-700 transition-all hover:border-[#93bdff] hover:bg-[#f5f9ff] hover:text-slate-900 hover:shadow-[0_8px_18px_rgba(37,99,235,0.12)]"
+                  className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-left text-xs font-semibold text-slate-700 transition-all hover:border-[#93bdff] hover:bg-[#f5f9ff] hover:text-slate-900 hover:shadow-[0_8px_18px_rgba(37,99,235,0.12)] sm:px-4 sm:py-3 sm:text-sm"
                 >
                   {option}
                 </button>
@@ -296,27 +296,27 @@ export function MiniDiagnostic() {
               onClick={() =>
                 questionIndex === 0 ? setStage("url") : setQuestionIndex(questionIndex - 1)
               }
-              className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-slate-800"
+              className="mt-3 inline-flex items-center gap-1 text-[10px] font-semibold text-slate-500 hover:text-slate-800 sm:mt-4 sm:text-xs"
             >
-              <ArrowLeft className="size-3.5" /> Voltar
+              <ArrowLeft className="size-3 sm:size-3.5" /> Voltar
             </button>
           </div>
         )}
 
         {/* 4. animação */}
         {stage === "analyzing" && (
-          <div className="py-2">
-            <p className="text-center text-base font-bold text-slate-900">
+          <div className="py-1 sm:py-2">
+            <p className="text-center text-sm font-bold text-slate-900 sm:text-base">
               Analisando seu {platform.label}...
             </p>
-            <ul className="mx-auto mt-5 max-w-sm space-y-3">
+            <ul className="mx-auto mt-3 max-w-sm space-y-2 sm:mt-5 sm:space-y-3">
               {analysisSteps.map((step, i) => {
                 const done = analysisStep > i;
                 const active = analysisStep === i;
                 return (
                   <li
                     key={step}
-                    className={`flex items-center gap-3 rounded-xl border px-4 py-3 transition-all duration-300 ${
+                    className={`flex items-center gap-2.5 rounded-xl border px-3 py-2.5 transition-all duration-300 sm:gap-3 sm:px-4 sm:py-3 ${
                       done
                         ? "border-[#bde8d0] bg-[#f2fdf7]"
                         : active
@@ -325,17 +325,17 @@ export function MiniDiagnostic() {
                     }`}
                   >
                     <span
-                      className={`grid size-6 shrink-0 place-items-center rounded-md ${
+                      className={`grid size-5 shrink-0 place-items-center rounded-md sm:size-6 ${
                         done ? "bg-[#e3f8ec] text-[#047857]" : "bg-[#eaf1ff] text-[#1d4ed8]"
                       }`}
                     >
                       {done ? (
-                        <Check className="size-3.5" />
+                        <Check className="size-3 sm:size-3.5" />
                       ) : (
-                        <Loader2 className={`size-3.5 ${active ? "animate-spin" : ""}`} />
+                        <Loader2 className={`size-3 sm:size-3.5 ${active ? "animate-spin" : ""}`} />
                       )}
                     </span>
-                    <span className="text-sm font-semibold text-slate-700">{step}</span>
+                    <span className="text-xs font-semibold text-slate-700 sm:text-sm">{step}</span>
                   </li>
                 );
               })}
@@ -346,33 +346,33 @@ export function MiniDiagnostic() {
         {/* 5. resultado parcial + 6. CTA */}
         {stage === "result" && (
           <div>
-            <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
-              <div className="flex items-center gap-3">
+            <div className="rounded-xl border border-slate-200 bg-white p-3.5 shadow-sm sm:p-4 md:p-5">
+              <div className="flex items-center gap-2.5 sm:gap-3">
                 <span
-                  className="grid size-11 shrink-0 place-items-center rounded-full text-sm font-extrabold text-white"
+                  className="grid size-9 shrink-0 place-items-center rounded-full text-xs font-extrabold text-white sm:size-11 sm:text-sm"
                   style={{ backgroundColor: platform.accent }}
                 >
                   58
                 </span>
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-bold text-slate-900">
+                  <p className="truncate text-xs font-bold text-slate-900 sm:text-sm">
                     Prévia do seu {platform.label}
                   </p>
-                  <p className="truncate text-xs text-slate-500">
+                  <p className="truncate text-[10px] text-slate-500 sm:text-xs">
                     Objetivo: {answers[0] ?? "—"}
                   </p>
                 </div>
-                <span className="ml-auto hidden rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-bold tracking-wide text-slate-600 uppercase sm:inline">
+                <span className="ml-auto hidden rounded-full bg-slate-100 px-2 py-0.5 text-[8px] font-bold tracking-wide text-slate-600 uppercase sm:px-2.5 sm:py-1 sm:text-[9px] md:inline">
                   Parcial
                 </span>
               </div>
 
-              <div className="mt-4">
-                <div className="flex items-center justify-between text-[11px] font-semibold text-slate-500">
+              <div className="mt-3 sm:mt-4">
+                <div className="flex items-center justify-between text-[10px] font-semibold text-slate-500 sm:text-[11px]">
                   <span>Potencial aproveitado hoje</span>
                   <span>58/100</span>
                 </div>
-                <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-slate-100">
+                <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-slate-100 sm:mt-1.5">
                   <div
                     className="h-full rounded-full transition-[width] duration-700"
                     style={{ width: "58%", backgroundColor: platform.accent }}
@@ -380,20 +380,20 @@ export function MiniDiagnostic() {
                 </div>
               </div>
 
-              <ul className="mt-4 space-y-2.5">
+              <ul className="mt-3 space-y-2 sm:mt-4 sm:space-y-2.5">
                 {findings.map((f) => {
                   const style = statusStyles[f.status];
                   return (
                     <li
                       key={f.label}
-                      className="flex items-start gap-3 rounded-lg border border-slate-100 bg-slate-50/70 p-2.5"
+                      className="flex items-start gap-2 rounded-lg border border-slate-100 bg-slate-50/70 p-2 sm:gap-3 sm:p-2.5"
                     >
                       <span
-                        className={`grid size-6 shrink-0 place-items-center rounded-md ${style.wrap}`}
+                        className={`grid size-5 shrink-0 place-items-center rounded-md sm:size-6 ${style.wrap}`}
                       >
-                        <style.icon className="size-3.5" />
+                        <style.icon className="size-3 sm:size-3.5" />
                       </span>
-                      <p className="text-xs leading-snug text-slate-700 sm:text-sm">
+                      <p className="text-[10px] leading-snug text-slate-700 sm:text-xs md:text-sm">
                         <span className="font-bold text-slate-900">{f.label}:</span> {f.text}
                       </p>
                     </li>
@@ -401,21 +401,21 @@ export function MiniDiagnostic() {
                 })}
               </ul>
 
-              <div className="mt-4 rounded-lg border border-dashed border-[#c7dcff] bg-[#f7fbff] p-3">
-                <p className="flex items-center gap-1.5 text-[11px] font-extrabold tracking-wide text-[#1d4ed8] uppercase">
-                  <Lock className="size-3.5" /> Liberado no diagnóstico completo
+              <div className="mt-3 rounded-lg border border-dashed border-[#c7dcff] bg-[#f7fbff] p-2.5 sm:mt-4 sm:p-3">
+                <p className="flex items-center gap-1 text-[9px] font-extrabold tracking-wide text-[#1d4ed8] uppercase sm:gap-1.5 sm:text-[10px]">
+                  <Lock className="size-2.5 shrink-0 sm:size-3.5" /> Liberado no diagnóstico completo
                 </p>
-                <ul className="mt-2 space-y-1.5">
+                <ul className="mt-2 space-y-1">
                   {lockedFindings.map((item) => (
-                    <li key={item} className="flex items-start gap-2 text-xs text-slate-500">
-                      <Lock className="mt-0.5 size-3 shrink-0 text-slate-400" />
+                    <li key={item} className="flex items-start gap-1.5 text-[9px] text-slate-500 sm:gap-2 sm:text-xs">
+                      <Lock className="mt-0.5 size-2.5 shrink-0 text-slate-400 sm:size-3" />
                       <span className="blur-[2.5px] select-none">{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <p className="mt-3 text-center text-[10px] text-slate-400">
+              <p className="mt-2.5 text-center text-[9px] text-slate-400 sm:mt-3 sm:text-[10px]">
                 Prévia ilustrativa. O diagnóstico completo é feito por análise humana com IA.
               </p>
             </div>
@@ -423,16 +423,16 @@ export function MiniDiagnostic() {
             <Button
               asChild
               size="lg"
-              className="mt-5 w-full rounded-xl bg-[#2563eb] py-6 text-base font-extrabold text-white transition-transform hover:scale-[1.02] hover:bg-[#1d4ed8]"
+              className="mt-3 w-full rounded-xl bg-[#2563eb] py-5 text-sm font-extrabold text-white transition-transform hover:scale-[1.02] hover:bg-[#1d4ed8] sm:mt-5 sm:py-6 sm:text-base"
             >
               <a href="#precos">
-                Quero receber meu diagnóstico <ArrowRight className="size-5" />
+                Quero receber meu diagnóstico <ArrowRight className="size-4 sm:size-5" />
               </a>
             </Button>
             <button
               type="button"
               onClick={reset}
-              className="mx-auto mt-3 block text-xs font-semibold text-slate-500 hover:text-slate-800"
+              className="mx-auto mt-2 block text-[10px] font-semibold text-slate-500 hover:text-slate-800 sm:mt-3 sm:text-xs"
             >
               Refazer a simulação
             </button>
