@@ -41,6 +41,8 @@ function Formulario() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const form = e.currentTarget;
+
     console.log("[formulario] VITE_DIAGNOSTICO_WEBHOOK_URL:", WEBHOOK_URL);
 
     if (!WEBHOOK_URL) {
@@ -58,7 +60,7 @@ function Formulario() {
     setErrorMessage(null);
 
     try {
-      const formData = new FormData(e.currentTarget);
+      const formData = new FormData(form);
 
       const payload = new URLSearchParams();
       payload.append("nome", (formData.get("nome") as string) ?? "");
@@ -94,7 +96,7 @@ function Formulario() {
       }
 
       setStatus("success");
-      e.currentTarget.reset();
+      form?.reset();
     } catch (error) {
       console.error("Falha ao enviar formulário para o webhook:", error);
       setStatus("error");
