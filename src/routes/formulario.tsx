@@ -41,6 +41,8 @@ function Formulario() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    console.log("[formulario] VITE_DIAGNOSTICO_WEBHOOK_URL:", WEBHOOK_URL);
+
     if (!WEBHOOK_URL) {
       console.warn(
         "VITE_DIAGNOSTICO_WEBHOOK_URL não está configurada. O formulário não enviará os dados ainda.",
@@ -58,14 +60,38 @@ function Formulario() {
     try {
       const formData = new FormData(e.currentTarget);
 
-      // O Google Apps Script não retorna cabeçalhos CORS legíveis pelo
-      // navegador, então usamos "no-cors": a requisição chega normalmente
-      // ao script, mas a resposta vem opaca e não pode ser inspecionada.
-      await fetch(WEBHOOK_URL, {
+      const payload = new URLSearchParams();
+      payload.append("nome", (formData.get("nome") as string) ?? "");
+      payload.append("email", (formData.get("email") as string) ?? "");
+      payload.append("whatsapp", (formData.get("whatsapp") as string) ?? "");
+      payload.append("produto", (formData.get("diagnostico") as string) ?? "");
+      payload.append("linkPerfil", (formData.get("link-perfil") as string) ?? "");
+      payload.append("plataforma", (formData.get("plataforma") as string) ?? "");
+      payload.append("profissao", (formData.get("profissao") as string) ?? "");
+      payload.append("objetivo", (formData.get("objetivo") as string) ?? "");
+      payload.append("dificuldade", (formData.get("dificuldade") as string) ?? "");
+      payload.append(
+        "resultado90dias",
+        (formData.get("resultado-90-dias") as string) ?? "",
+      );
+
+      console.log("[formulario] URL do webhook:", WEBHOOK_URL);
+      console.log(
+        "[formulario] Dados enviados:",
+        Object.fromEntries(payload.entries()),
+      );
+
+      const response = await fetch(WEBHOOK_URL, {
         method: "POST",
-        mode: "no-cors",
-        body: formData,
+        body: payload,
       });
+
+      const responseText = await response.text();
+      console.log("[formulario] Resposta recebida:", response.status, responseText);
+
+      if (!response.ok) {
+        throw new Error(`Webhook respondeu com status ${response.status}`);
+      }
 
       setStatus("success");
       e.currentTarget.reset();
