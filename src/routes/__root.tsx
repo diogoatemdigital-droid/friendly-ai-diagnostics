@@ -120,11 +120,27 @@ fbq('init', '884587751047573');
 fbq('track', 'PageView');
 `;
 
+const GA_MEASUREMENT_ID = "G-PVZL91T22D";
+
+const GA_SCRIPT = `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}');
+`;
+
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
         <HeadContent />
+        {/* Google Analytics */}
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        />
+        <script dangerouslySetInnerHTML={{ __html: GA_SCRIPT }} />
+        {/* End Google Analytics */}
         {/* Meta Pixel Code */}
         <script dangerouslySetInnerHTML={{ __html: META_PIXEL_SCRIPT }} />
         <noscript>
