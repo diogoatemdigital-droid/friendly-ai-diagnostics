@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -28,8 +28,57 @@ export const Route = createFileRoute("/formulario")({
   component: Formulario,
 });
 
+const WEBHOOK_URL = import.meta.env.VITE_DIAGNOSTICO_WEBHOOK_URL as
+  | string
+  | undefined;
+
+type SubmitStatus = "idle" | "loading" | "success" | "error";
+
 function Formulario() {
   const [profilePreview, setProfilePreview] = useState<string | null>(null);
+  const [status, setStatus] = useState<SubmitStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!WEBHOOK_URL) {
+      console.warn(
+        "VITE_DIAGNOSTICO_WEBHOOK_URL não está configurada. O formulário não enviará os dados ainda.",
+      );
+      setStatus("error");
+      setErrorMessage(
+        "Envio ainda não configurado. Tente novamente mais tarde.",
+      );
+      return;
+    }
+
+    setStatus("loading");
+    setErrorMessage(null);
+
+    try {
+      const formData = new FormData(e.currentTarget);
+
+      // O Google Apps Script não retorna cabeçalhos CORS legíveis pelo
+      // navegador, então usamos "no-cors": a requisição chega normalmente
+      // ao script, mas a resposta vem opaca e não pode ser inspecionada.
+      await fetch(WEBHOOK_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: formData,
+      });
+
+      setStatus("success");
+      e.currentTarget.reset();
+      setProfilePreview(null);
+    } catch (error) {
+      console.error("Falha ao enviar formulário para o webhook:", error);
+      setStatus("error");
+      setErrorMessage(
+        "Não foi possível enviar suas informações. Tente novamente em instantes.",
+      );
+    }
+  };
 
   return (
     <div
@@ -45,7 +94,7 @@ function Formulario() {
           Preencha as informações abaixo para iniciarmos sua análise personalizada.
         </p>
 
-        <form className="mt-8 space-y-6" onSubmit={(e) => e.preventDefault()}>
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-2">
             <Label htmlFor="nome">Nome completo</Label>
             <Input id="nome" name="nome" placeholder="Seu nome completo" />
@@ -157,8 +206,17 @@ function Formulario() {
             )}
           </div>
 
-          <Button type="submit" className="w-full">
-            Enviar informações
+          {status === "success" && (
+            <p className="text-sm text-green-600">
+              Informações enviadas com sucesso! Em breve entraremos em contato.
+            </p>
+          )}
+          {status === "error" && errorMessage && (
+            <p className="text-sm text-destructive">{errorMessage}</p>
+          )}
+
+          <Button type="submit" className="w-full" disabled={status === "loading"}>
+            {status === "loading" ? "Enviando..." : "Enviar informações"}
           </Button>
         </form>
       </div>
