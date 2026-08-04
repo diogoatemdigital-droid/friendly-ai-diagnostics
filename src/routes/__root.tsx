@@ -85,6 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "facebook-domain-verification", content: "89xapohs8h5xnpnxmcd8la6ke0ja01" },
     ],
     links: [
       {
