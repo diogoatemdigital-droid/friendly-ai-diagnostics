@@ -19,6 +19,7 @@ import {
 import { Reveal } from "./Reveal";
 import { MiniDiagnostic } from "./MiniDiagnostic";
 import { Button } from "@/components/ui/button";
+import { trackInitiateCheckout } from "@/lib/meta-pixel";
 import {
   Accordion,
   AccordionContent,
@@ -363,6 +364,13 @@ export function Features() {
                       href={b.href}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() =>
+                        trackInitiateCheckout({
+                          content_name: b.badge,
+                          currency: "BRL",
+                          value: 19.97,
+                        })
+                      }
                     >
                       {b.cta} <ArrowRight className="size-4" />
                     </a>
@@ -653,6 +661,13 @@ export function Pricing() {
                     href={p.href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() =>
+                      trackInitiateCheckout({
+                        content_name: p.name,
+                        currency: "BRL",
+                        value: 19.97,
+                      })
+                    }
                   >
                     {p.cta}
                   </a>

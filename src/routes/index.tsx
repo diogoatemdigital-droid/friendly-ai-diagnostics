@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Header } from "@/components/landing/Header";
 import {
   Hero,
@@ -9,6 +10,7 @@ import {
   Faq,
   Footer,
 } from "@/components/landing/Sections";
+import { trackViewContent } from "@/lib/meta-pixel";
 
 const title = "Diagnóstico AI — analise seu Instagram e LinkedIn por R$19,97";
 const description =
@@ -29,6 +31,13 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  useEffect(() => {
+    trackViewContent({
+      content_name: "Diagnóstico AI - Landing Page",
+      content_category: "landing_page",
+    });
+  }, []);
+
   return (
     <div
       className="min-h-screen"
