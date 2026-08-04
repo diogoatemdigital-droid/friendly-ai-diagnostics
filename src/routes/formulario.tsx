@@ -5,13 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
+
+const selectClassName = cn(
+  "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+);
 
 const title = "Formulário do diagnóstico — Diagnóstico AI";
 const description =
@@ -135,15 +133,13 @@ function Formulario() {
 
           <div className="space-y-2">
             <Label htmlFor="diagnostico">Qual diagnóstico você comprou?</Label>
-            <Select name="diagnostico">
-              <SelectTrigger id="diagnostico">
-                <SelectValue placeholder="Selecione uma opção" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="instagram">Diagnóstico Instagram</SelectItem>
-                <SelectItem value="linkedin">Diagnóstico LinkedIn</SelectItem>
-              </SelectContent>
-            </Select>
+            <select id="diagnostico" name="diagnostico" defaultValue="" className={selectClassName}>
+              <option value="" disabled>
+                Selecione uma opção
+              </option>
+              <option value="instagram">Diagnóstico Instagram</option>
+              <option value="linkedin">Diagnóstico LinkedIn</option>
+            </select>
           </div>
 
           <div className="space-y-2">
@@ -180,19 +176,15 @@ function Formulario() {
 
           <div className="space-y-2">
             <Label htmlFor="objetivo">Qual seu principal objetivo?</Label>
-            <Select name="objetivo">
-              <SelectTrigger id="objetivo">
-                <SelectValue placeholder="Selecione uma opção" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="atrair-clientes">Atrair clientes</SelectItem>
-                <SelectItem value="conseguir-emprego">Conseguir emprego</SelectItem>
-                <SelectItem value="melhorar-autoridade">
-                  Melhorar autoridade profissional
-                </SelectItem>
-                <SelectItem value="aumentar-seguidores">Aumentar seguidores</SelectItem>
-              </SelectContent>
-            </Select>
+            <select id="objetivo" name="objetivo" defaultValue="" className={selectClassName}>
+              <option value="" disabled>
+                Selecione uma opção
+              </option>
+              <option value="atrair-clientes">Atrair clientes</option>
+              <option value="conseguir-emprego">Conseguir emprego</option>
+              <option value="melhorar-autoridade">Melhorar autoridade profissional</option>
+              <option value="aumentar-seguidores">Aumentar seguidores</option>
+            </select>
           </div>
 
           <div className="space-y-2">
