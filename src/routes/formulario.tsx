@@ -35,7 +35,6 @@ const WEBHOOK_URL = import.meta.env.VITE_DIAGNOSTICO_WEBHOOK_URL as
 type SubmitStatus = "idle" | "loading" | "success" | "error";
 
 function Formulario() {
-  const [profilePreview, setProfilePreview] = useState<string | null>(null);
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -70,7 +69,6 @@ function Formulario() {
 
       setStatus("success");
       e.currentTarget.reset();
-      setProfilePreview(null);
     } catch (error) {
       console.error("Falha ao enviar formulário para o webhook:", error);
       setStatus("error");
@@ -190,20 +188,6 @@ function Formulario() {
               name="resultado-90-dias"
               placeholder="Descreva o resultado esperado"
             />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="print-perfil">Upload de print do perfil</Label>
-            <Input
-              id="print-perfil"
-              name="print-perfil"
-              type="file"
-              accept="image/*"
-              onChange={(e) => setProfilePreview(e.target.files?.[0]?.name ?? null)}
-            />
-            {profilePreview && (
-              <p className="text-xs text-muted-foreground">Arquivo selecionado: {profilePreview}</p>
-            )}
           </div>
 
           {status === "success" && (
