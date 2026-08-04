@@ -77,32 +77,29 @@ function Formulario() {
         (formData.get("resultado-90-dias") as string) ?? "",
       );
 
-      console.log("[formulario] URL do webhook:", WEBHOOK_URL);
-      console.log(
-        "[formulario] Dados enviados:",
-        Object.fromEntries(payload.entries()),
-      );
-
+      console.log("1 - iniciando envio");
       const response = await fetch(WEBHOOK_URL, {
         method: "POST",
         body: payload,
       });
+      console.log("2 - fetch concluído");
 
       const responseText = await response.text();
-      console.log("[formulario] Resposta recebida:", response.status, responseText);
-
-      if (!response.ok) {
-        throw new Error(`Webhook respondeu com status ${response.status}`);
-      }
+      console.log("3 - texto recebido");
+      console.log(response.status);
+      console.log(responseText);
 
       setStatus("success");
       form?.reset();
-    } catch (error) {
-      console.error("Falha ao enviar formulário para o webhook:", error);
+    } catch (err) {
+      console.error("ERRO COMPLETO");
+      console.error(err);
+      if (err instanceof Error) {
+        console.error(err.message);
+        console.error(err.stack);
+      }
       setStatus("error");
-      setErrorMessage(
-        "Não foi possível enviar suas informações. Tente novamente em instantes.",
-      );
+      setErrorMessage("Não foi possível enviar suas informações.");
     }
   };
 
