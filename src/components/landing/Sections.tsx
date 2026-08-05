@@ -15,9 +15,7 @@ import {
   CreditCard,
   AlertTriangle,
   Sparkles,
-  Clock,
 } from "lucide-react";
-import { useEffect, useState } from "react";
 import { Reveal } from "./Reveal";
 import { MiniDiagnostic } from "./MiniDiagnostic";
 import { Button } from "@/components/ui/button";
@@ -596,41 +594,9 @@ const plans = [
   },
 ];
 
-const OFFER_DURATION_SECONDS = 10 * 60;
-
-function OfferCountdownBanner() {
-  const [secondsLeft, setSecondsLeft] = useState(OFFER_DURATION_SECONDS);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSecondsLeft((prev) => (prev <= 1 ? OFFER_DURATION_SECONDS : prev - 1));
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const minutes = String(Math.floor(secondsLeft / 60)).padStart(2, "0");
-  const seconds = String(secondsLeft % 60).padStart(2, "0");
-
-  return (
-    <div className="w-full bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 py-3 shadow-[0_4px_16px_-4px_rgba(37,99,235,0.5)] sm:py-4">
-      <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-1 px-4 text-center sm:flex-row sm:gap-3">
-        <span className="flex items-center gap-2 text-base font-extrabold tabular-nums tracking-tight text-white sm:text-lg">
-          <Clock className="size-5 shrink-0 animate-pulse sm:size-6" />
-          {minutes}:{seconds}
-        </span>
-        <span className="hidden text-white/70 sm:inline">•</span>
-        <span className="text-sm font-semibold tracking-tight text-white sm:text-base">
-          Oferta por tempo limitado
-        </span>
-      </div>
-    </div>
-  );
-}
-
 export function Pricing() {
   return (
     <>
-      <OfferCountdownBanner />
       <section id="precos" className="relative overflow-hidden pt-16 pb-20 sm:pt-24 sm:pb-28 lg:flex lg:min-h-screen lg:items-center">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.16),transparent_72%)]" />
         <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
@@ -641,6 +607,17 @@ export function Pricing() {
             <p className="mt-2 text-sm text-muted-foreground sm:mt-3 sm:text-base">
               Pagamento único. Sem assinatura, sem pegadinha.
             </p>
+          </Reveal>
+
+          <Reveal className="mx-auto mt-6 flex w-full max-w-4xl justify-center px-2 sm:mt-8 sm:px-0">
+            <div className="relative animate-pulse-soft rounded-2xl border border-blue-200 bg-white px-4 py-2.5 text-center shadow-[0_12px_32px_-8px_rgba(37,99,235,0.35)] sm:px-6 sm:py-3">
+              <p className="text-xs font-extrabold tracking-tight text-blue-600 sm:text-sm md:text-base">
+                ⚡ Desconto relâmpago
+              </p>
+              <p className="mt-0.5 text-[10px] font-medium text-muted-foreground sm:text-xs md:text-sm">
+                Oferta especial por tempo limitado
+              </p>
+            </div>
           </Reveal>
 
           <ul className="mx-auto mt-8 grid w-full max-w-4xl items-stretch grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
