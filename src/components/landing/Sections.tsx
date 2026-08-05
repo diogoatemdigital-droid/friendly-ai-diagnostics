@@ -85,7 +85,7 @@ export function Hero() {
           </div>
         </Reveal>
         <Reveal delay={200}>
-          <div className="mt-6 flex flex-col items-center gap-3 rounded-full bg-cta-soft px-4 py-3 text-center text-sm font-semibold text-cta transition-shadow duration-300 hover:shadow-[var(--shadow-soft)] sm:inline-flex sm:gap-4 sm:px-6 sm:py-3.5 sm:text-base">
+          <div className="mt-6 flex w-full max-w-full flex-col items-center justify-center gap-3 rounded-full bg-cta-soft px-4 py-3 text-center text-sm font-semibold text-cta transition-shadow duration-300 hover:shadow-[var(--shadow-soft)] sm:w-auto sm:max-w-xl sm:flex-row sm:gap-4 sm:px-6 sm:py-3.5 sm:text-base">
             <div className="flex -space-x-2.5">
               {[depo1, depo2, depo3, depo4, depo5].map((photo, i) => (
                 <img
@@ -98,9 +98,9 @@ export function Hero() {
                 />
               ))}
             </div>
-            <span className="flex items-center gap-1.5 sm:gap-2">
+            <span className="flex items-center justify-center gap-1.5 sm:gap-2">
               <Star className="size-4 shrink-0 fill-current sm:size-5" />
-              <span className="whitespace-nowrap">+500 análises</span>
+              <span>+500 análises</span>
             </span>
           </div>
         </Reveal>
