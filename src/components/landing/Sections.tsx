@@ -833,7 +833,7 @@ export function Faq() {
             size="lg"
             className="mt-4 rounded-full bg-cta px-7 font-semibold text-cta-foreground transition-transform hover:scale-[1.03] hover:bg-cta-hover"
           >
-            <a href="https://wa.me/5511987977362" target="_blank" rel="noreferrer">
+            <a href="https://wa.me/5521987640014" target="_blank" rel="noreferrer">
               <MessageCircle className="size-5" /> Falar no WhatsApp
             </a>
           </Button>
@@ -903,7 +903,7 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5 text-sm sm:mt-5 sm:space-y-3">
               {[
                 { label: "Sobre", href: "#topo" },
-                { label: "Contato", href: "https://wa.me/5511987977362" },
+                { label: "Contato", href: "https://wa.me/5521987640014" },
                 { label: "Política de privacidade", href: "#topo" },
                 { label: "Termos de uso", href: "#topo" },
               ].map((l) => {

@@ -52,7 +52,7 @@ function Index() {
         <Features />
         <HowItWorks />
         <SocialProof />
-        <Pricing />
+        <Pricing /> 
         <Faq />
       </main>
       <Footer />
