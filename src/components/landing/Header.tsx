@@ -42,7 +42,7 @@ export function Header() {
           </span>
         </a>
 
-        <nav className="hidden items-center gap-5 md:gap-7 lg:flex">
+        <nav className="hidden items-center gap-5 md:gap-7 lg:flex lg:-translate-x-12">
           {links.map((l) => (
             <a
               key={l.href}
@@ -57,7 +57,7 @@ export function Header() {
         <Button
           asChild
           size="sm"
-          className="shrink-0 whitespace-nowrap rounded-full bg-cta px-3 py-2 text-xs font-semibold text-cta-foreground transition-transform duration-300 hover:scale-[1.03] hover:bg-cta-hover sm:px-4 sm:py-2.5 sm:text-sm lg:px-5"
+          className="shrink-0 whitespace-nowrap rounded-full bg-cta px-[14px] py-2 text-xs font-semibold text-cta-foreground transition-transform duration-300 hover:scale-[1.03] hover:bg-cta-hover sm:px-[18px] sm:py-2.5 sm:text-sm lg:px-[23px] lg:translate-x-[25px]"
         >
           <a href="#precos">Começar agora</a>
         </Button>
