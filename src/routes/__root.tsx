@@ -132,6 +132,14 @@ gtag('js', new Date());
 gtag('config', '${GA_MEASUREMENT_ID}');
 `;
 
+const CLARITY_SCRIPT = `
+(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "xyepnw6sn3");
+`;
+
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
@@ -144,6 +152,9 @@ function RootShell({ children }: { children: ReactNode }) {
         />
         <script dangerouslySetInnerHTML={{ __html: GA_SCRIPT }} />
         {/* End Google Analytics */}
+        {/* Microsoft Clarity */}
+        <script dangerouslySetInnerHTML={{ __html: CLARITY_SCRIPT }} />
+        {/* End Microsoft Clarity */}
         {/* Meta Pixel Code */}
         <script dangerouslySetInnerHTML={{ __html: META_PIXEL_SCRIPT }} />
         <noscript>
