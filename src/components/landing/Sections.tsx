@@ -26,12 +26,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import mascote from "@/assets/mascote.png";
-import depo1 from "@/assets/testimonials/camila-ribeiro.jfif";
-import depo2 from "@/assets/testimonials/lucas-ferreira.jfif";
-import depo3 from "@/assets/testimonials/adriana-souza.jfif";
-import depo4 from "@/assets/testimonials/rafael-martins.jfif";
-import depo5 from "@/assets/testimonials/sonia-almeida.jfif";
+import mascote from "@/assets/mascote-footer.webp";
+import depo1 from "@/assets/testimonials/camila-ribeiro.webp";
+import depo2 from "@/assets/testimonials/lucas-ferreira.webp";
+import depo3 from "@/assets/testimonials/adriana-souza.webp";
+import depo4 from "@/assets/testimonials/rafael-martins.webp";
+import depo5 from "@/assets/testimonials/sonia-almeida.webp";
 
 function SectionDivider() {
   return (
@@ -56,19 +56,19 @@ export function Hero() {
       }}
     >
       <div className="mx-auto flex w-full max-w-4xl flex-col items-center px-4 text-center sm:px-6">
-        <Reveal delay={80}>
+        <Reveal eager delay={80}>
           <h1 className="text-4xl leading-[1.1] font-extrabold tracking-tight text-balance text-foreground sm:text-5xl lg:text-7xl">
             Descubra por que{" "}
             <span className="text-primary">recrutadores</span> e{" "}
             <span className="text-primary">clientes</span> ignoram seu perfil
           </h1>
         </Reveal>
-        <Reveal delay={120}>
+        <Reveal eager delay={120}>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground sm:mt-6 sm:text-base lg:text-lg">
             Uma análise personalizada revela os erros que estão escondendo seu potencial e mostra exatamente o que ajustar para transformar seu perfil em uma ferramenta de oportunidades.
           </p>
         </Reveal>
-        <Reveal delay={160}>
+        <Reveal eager delay={160}>
           <div className="mt-9 flex w-full flex-col items-center px-4 sm:px-0">
             <Button
               asChild
@@ -84,7 +84,7 @@ export function Hero() {
             </p>
           </div>
         </Reveal>
-        <Reveal delay={200}>
+        <Reveal eager delay={200}>
           <div className="mt-6 flex w-full max-w-full flex-col items-center justify-center gap-3 rounded-full bg-cta-soft px-4 py-3 text-center text-sm font-semibold text-cta transition-shadow duration-300 hover:shadow-[var(--shadow-soft)] sm:w-auto sm:max-w-xl sm:flex-row sm:gap-4 sm:px-6 sm:py-3.5 sm:text-base">
             <div className="flex -space-x-2.5">
               {[depo1, depo2, depo3, depo4, depo5].map((photo, i) => (
@@ -94,6 +94,7 @@ export function Hero() {
                   alt=""
                   width={32}
                   height={32}
+                  decoding="async"
                   className="size-7 shrink-0 rounded-full border-2 border-background object-cover transition-transform duration-300 ease-out hover:z-10 hover:scale-125 sm:size-8"
                 />
               ))}
@@ -485,9 +486,10 @@ export function SocialProof() {
                   <img
                     src={t.photo}
                     alt={`Foto de ${t.name}`}
-                    width={512}
-                    height={512}
+                    width={144}
+                    height={144}
                     loading="lazy"
+                    decoding="async"
                     className="size-12 shrink-0 rounded-full border-2 border-white object-cover shadow-sm"
                   />
                   <span className="min-w-0">
@@ -702,9 +704,10 @@ export function Pricing() {
                   <img
                     src={t.photo}
                     alt={`Foto de ${t.name}`}
-                    width={512}
-                    height={512}
+                    width={144}
+                    height={144}
                     loading="lazy"
+                    decoding="async"
                     className="size-9 shrink-0 rounded-full border-2 border-white object-cover shadow-sm"
                   />
                   <span className="min-w-0">
@@ -861,6 +864,7 @@ export function Footer() {
                 width={44}
                 height={44}
                 loading="lazy"
+                decoding="async"
                 className="h-10 w-10 shrink-0 object-contain sm:h-11 sm:w-11"
               />
               <span className="truncate text-lg font-extrabold tracking-tight text-primary sm:text-xl">

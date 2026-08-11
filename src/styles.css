@@ -1,8 +1,44 @@
 @import "tailwindcss" source(none);
-@source "../src";
+/*
+ * Escaneamento restrito aos arquivos que a landing page realmente importa.
+ * `@source "../src"` varria os ~50 componentes de src/components/ui que nunca são
+ * usados, gerando dezenas de milhares de classes mortas no CSS final.
+ * Ao adicionar um novo componente de src/components/ui à página, inclua-o aqui.
+ */
+@source "../src/routes";
+@source "../src/components/landing";
+@source "../src/components/ui/button.tsx";
+@source "../src/components/ui/accordion.tsx";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+
+/*
+ * Plus Jakarta Sans auto-hospedada (mesmo arquivo variável que o Google Fonts
+ * entrega, subset latin/latin-ext). Evita a cadeia bloqueante
+ * HTML -> fonts.googleapis.com -> fonts.gstatic.com no caminho crítico.
+ */
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/plus-jakarta-sans-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/plus-jakarta-sans-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
 
 @keyframes pulse-soft {
   0%, 100% {
@@ -260,10 +296,36 @@
   }
 }
 
+/*
+ * Versão "acima da dobra" do reveal: mesma animação, porém 100% em CSS.
+ * O .reveal padrão depende de hidratação + IntersectionObserver para sair de
+ * opacity:0, o que travava o LCP no tempo de hidratação do bundle.
+ */
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility reveal-eager {
+  animation: reveal-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+  .reveal-eager {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }

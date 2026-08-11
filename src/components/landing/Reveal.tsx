@@ -1,36 +1,71 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+
+/*
+ * Um único IntersectionObserver para todos os Reveals da página.
+ * Antes eram ~25 observers independentes, cada um com seu próprio callback.
+ */
+const callbacks = new WeakMap<Element, () => void>();
+let observer: IntersectionObserver | null = null;
+
+function getObserver() {
+  if (observer) return observer;
+  observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        callbacks.get(entry.target)?.();
+        callbacks.delete(entry.target);
+        observer?.unobserve(entry.target);
+      }
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -60px 0px" },
+  );
+  return observer;
+}
 
 export function Reveal({
   children,
   delay = 0,
   className = "",
   as: Tag = "div",
+  eager = false,
 }: {
   children: ReactNode;
   delay?: number;
   className?: string;
   as?: "div" | "section" | "li" | "header";
+  /**
+   * Conteúdo acima da dobra: anima via CSS já no primeiro paint, sem depender
+   * de JavaScript. Mantém exatamente a mesma animação do reveal padrão.
+   */
+  eager?: boolean;
 }) {
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    if (eager) return;
     const el = ref.current;
     if (!el) return;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            setVisible(true);
-            obs.disconnect();
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -60px 0px" },
-    );
+    const obs = getObserver();
+    callbacks.set(el, () => setVisible(true));
     obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
+    return () => {
+      callbacks.delete(el);
+      obs.unobserve(el);
+    };
+  }, [eager]);
+
+  if (eager) {
+    return (
+      <Tag
+        style={{ "--reveal-delay": `${delay}ms` } as CSSProperties}
+        className={`reveal-eager ${className}`}
+      >
+        {children}
+      </Tag>
+    );
+  }
 
   return (
     <Tag

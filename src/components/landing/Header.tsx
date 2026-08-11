@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import mascote from "@/assets/colocaessa.png";
+import mascote from "@/assets/logo-header.webp";
 import { Button } from "@/components/ui/button";
 
 const links = [
@@ -35,6 +35,8 @@ export function Header() {
             alt="Mascote do Diagnóstico AI"
             width={40}
             height={40}
+            fetchPriority="high"
+            decoding="async"
             className="h-8 w-8 shrink-0 object-contain sm:h-9 sm:w-9 lg:h-10 lg:w-10"
           />
           <span className="truncate text-sm font-extrabold tracking-tight text-primary sm:text-base lg:text-lg">

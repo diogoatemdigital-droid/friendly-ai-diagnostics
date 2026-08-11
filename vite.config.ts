@@ -12,4 +12,14 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    build: {
+      // Sem inlining de assets. As fotos de depoimento otimizadas ficam abaixo do
+      // limite padrão de 4 KB e eram embutidas como data URI em base64 — repetidas
+      // em cada lugar onde a mesma foto aparece, inflando o HTML em ~35 KB por
+      // visita e sem qualquer cache. Como arquivos separados elas são ~12 KB no
+      // total, com hash e cache de longa duração.
+      assetsInlineLimit: 0,
+    },
+  },
 });

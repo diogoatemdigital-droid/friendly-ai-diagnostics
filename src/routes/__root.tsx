@@ -1,8 +1,7 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
-  createRootRouteWithContext,
+  createRootRoute,
   useRouter,
   HeadContent,
   Scripts,
@@ -70,7 +69,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -89,11 +88,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      // Fonte auto-hospedada (mesmo arquivo variável do Google Fonts). O preload
+      // dispara o download no primeiro RTT, junto com o CSS, em vez de esperar
+      // duas conexões externas encadeadas.
       {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap",
+        rel: "preload",
+        href: "/fonts/plus-jakarta-sans-latin.woff2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "icon", href: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
@@ -108,34 +111,76 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
-const META_PIXEL_SCRIPT = `
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '884587751047573');
-fbq('track', 'PageView');
-`;
-
 const GA_MEASUREMENT_ID = "G-PVZL91T22D";
+const META_PIXEL_ID = "884587751047573";
+const CLARITY_PROJECT_ID = "xyepnw6sn3";
 
-const GA_SCRIPT = `
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', '${GA_MEASUREMENT_ID}');
-`;
+/*
+ * Rastreamento: as FILAS (gtag/dataLayer, fbq, clarity) são criadas de forma
+ * síncrona no <head>, exatamente como nos snippets oficiais, e os eventos de
+ * PageView/config são disparados imediatamente. O que foi adiado é apenas o
+ * DOWNLOAD dos scripts dos fornecedores (~300 KB de JS de terceiros), que antes
+ * competia com o render inicial da página.
+ *
+ * Nenhum evento é perdido: gtag.js, fbevents.js e clarity.js processam as filas
+ * já existentes assim que carregam. O carregamento ocorre no primeiro entre:
+ *   1. qualquer interação do usuário (toque, clique, tecla, scroll) — imediato;
+ *   2. evento `load` da página + primeiro período ocioso;
+ *   3. 2,5 s após o parse do documento (rede de segurança para bounces rápidos).
+ */
+const TRACKING_SCRIPT = `
+(function (w, d) {
+  w.dataLayer = w.dataLayer || [];
+  function gtag() { w.dataLayer.push(arguments); }
+  w.gtag = w.gtag || gtag;
+  gtag('js', new Date());
+  gtag('config', '${GA_MEASUREMENT_ID}');
 
-const CLARITY_SCRIPT = `
-(function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-})(window, document, "clarity", "script", "xyepnw6sn3");
+  w.clarity = w.clarity || function () { (w.clarity.q = w.clarity.q || []).push(arguments); };
+
+  if (!w.fbq) {
+    var n = w.fbq = function () {
+      n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+    };
+    if (!w._fbq) w._fbq = n;
+    n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = [];
+  }
+  w.fbq('init', '${META_PIXEL_ID}');
+  w.fbq('track', 'PageView');
+
+  var done = false;
+  var timer;
+  var events = ['pointerdown', 'touchstart', 'keydown', 'wheel', 'scroll'];
+  var opts = { passive: true, capture: true };
+
+  function inject(src) {
+    var s = d.createElement('script');
+    s.async = true;
+    s.src = src;
+    d.head.appendChild(s);
+  }
+
+  function load() {
+    if (done) return;
+    done = true;
+    for (var i = 0; i < events.length; i++) w.removeEventListener(events[i], load, opts);
+    w.removeEventListener('load', onLoad);
+    if (timer) w.clearTimeout(timer);
+    inject('https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}');
+    inject('https://www.clarity.ms/tag/${CLARITY_PROJECT_ID}');
+    inject('https://connect.facebook.net/en_US/fbevents.js');
+  }
+
+  function onLoad() {
+    if (w.requestIdleCallback) w.requestIdleCallback(load, { timeout: 1000 });
+    else w.setTimeout(load, 200);
+  }
+
+  for (var i = 0; i < events.length; i++) w.addEventListener(events[i], load, opts);
+  if (d.readyState === 'complete') onLoad();
+  else w.addEventListener('load', onLoad);
+  timer = w.setTimeout(load, 2500);
+})(window, document);
 `;
 
 function RootShell({ children }: { children: ReactNode }) {
@@ -143,28 +188,18 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
-        {/* Google Analytics */}
-        <script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-        />
-        <script dangerouslySetInnerHTML={{ __html: GA_SCRIPT }} />
-        {/* End Google Analytics */}
-        {/* Microsoft Clarity */}
-        <script dangerouslySetInnerHTML={{ __html: CLARITY_SCRIPT }} />
-        {/* End Microsoft Clarity */}
-        {/* Meta Pixel Code */}
-        <script dangerouslySetInnerHTML={{ __html: META_PIXEL_SCRIPT }} />
+        {/* Google Analytics 4 + Microsoft Clarity + Meta Pixel (filas síncronas,
+            download dos scripts adiado — ver TRACKING_SCRIPT) */}
+        <script dangerouslySetInnerHTML={{ __html: TRACKING_SCRIPT }} />
         <noscript>
           <img
             height="1"
             width="1"
             style={{ display: "none" }}
-            src="https://www.facebook.com/tr?id=884587751047573&ev=PageView&noscript=1"
+            src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
             alt=""
           />
         </noscript>
-        {/* End Meta Pixel Code */}
       </head>
       <body>
         {children}
@@ -175,14 +210,12 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
-  const { queryClient } = Route.useRouteContext();
-
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <WhatsAppFloatingButton />
       <OfferPopup />
-    </QueryClientProvider>
+    </>
   );
 }
