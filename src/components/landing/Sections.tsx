@@ -7,7 +7,6 @@ import {
   Search,
   Briefcase,
   Check,
-  MessageCircle,
   ShieldCheck as ShieldIcon,
   Star,
   ArrowRight,
@@ -75,7 +74,7 @@ export function Hero() {
               size="lg"
               className="hero-cta-glow w-full max-w-xs rounded-full bg-[#1D4ED8] px-6 py-6 text-base font-bold text-white shadow-[0_12px_40px_-6px_rgba(29,78,216,0.75)] ring-1 ring-white/10 transition-all duration-300 ease-out hover:scale-[1.04] hover:bg-[#1E40AF] hover:shadow-[0_18px_50px_-8px_rgba(29,78,216,0.9)] sm:w-auto sm:max-w-none sm:px-12 sm:py-7 sm:text-xl"
             >
-              <a href="#precos">
+              <a href="#previa-diagnostico">
                 Quero meu diagnóstico agora
               </a>
             </Button>
@@ -827,19 +826,6 @@ export function Faq() {
               </AccordionItem>
             ))}
           </Accordion>
-        </Reveal>
-
-        <Reveal delay={160} className="mt-10 text-center">
-          <p className="text-lg font-bold">Ainda tem dúvidas?</p>
-          <Button
-            asChild
-            size="lg"
-            className="mt-4 rounded-full bg-cta px-7 font-semibold text-cta-foreground transition-transform hover:scale-[1.03] hover:bg-cta-hover"
-          >
-            <a href="https://wa.me/5511932152540" target="_blank" rel="noreferrer">
-              <MessageCircle className="size-5" /> Falar no WhatsApp
-            </a>
-          </Button>
         </Reveal>
       </div>
       <SectionDivider />

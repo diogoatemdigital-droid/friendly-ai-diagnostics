@@ -175,7 +175,10 @@ export function MiniDiagnostic() {
             : 100;
 
   return (
-    <div className="rounded-[1.5rem] border border-[#cfe2ff] bg-white p-5 shadow-[0_16px_36px_rgba(37,99,235,0.12)] sm:p-6 lg:p-8">
+    <div
+      id="previa-diagnostico"
+      className="rounded-[1.5rem] border border-[#cfe2ff] bg-white p-5 shadow-[0_16px_36px_rgba(37,99,235,0.12)] sm:p-6 lg:p-8"
+    >
       <div className="mx-auto max-w-xl px-2 text-center sm:px-0">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-[#eaf1ff] px-3 py-1 text-[10px] font-extrabold tracking-wide text-[#1d4ed8] uppercase sm:text-[11px]">
           <Sparkles className="size-3 sm:size-3.5" /> Simulação gratuita
