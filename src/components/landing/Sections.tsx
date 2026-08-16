@@ -436,8 +436,7 @@ const plans = [
   },
   {
     name: "Diagnóstico Plus",
-    // TODO: aguardando o link de checkout Cakto do Plus — não inventar URL.
-    href: "",
+    href: "https://pay.cakto.com.br/3aay2uu_1015307",
     gaItemId: "diagnostico_plus",
     originalPrice: "R$97,57" as string | null,
     price: "R$49,97",
