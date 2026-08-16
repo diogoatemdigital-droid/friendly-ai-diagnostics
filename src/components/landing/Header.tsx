@@ -3,7 +3,6 @@ import mascote from "@/assets/logo-header.webp";
 import { Button } from "@/components/ui/button";
 
 const links = [
-  { href: "#como-funciona", label: "Como funciona" },
   { href: "#precos", label: "Preços" },
   { href: "#perguntas", label: "Perguntas" },
 ];

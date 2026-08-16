@@ -1,24 +1,26 @@
+import { useEffect, useState } from "react";
 import {
   Instagram,
   Linkedin,
-  Link2,
-  ShieldCheck,
   FileText,
-  Search,
   Briefcase,
   Check,
   ShieldCheck as ShieldIcon,
   Star,
-  ArrowRight,
   Lock,
   CreditCard,
   AlertTriangle,
   Sparkles,
 } from "lucide-react";
 import { Reveal } from "./Reveal";
-import { MiniDiagnostic } from "./MiniDiagnostic";
+import logoGoogle from "@/assets/companies/google.png";
+import logoAmazon from "@/assets/companies/amazon.jpg";
+import logoNubank from "@/assets/companies/nubank.png";
+import logoItau from "@/assets/companies/itau.png";
+import logoMercadoLivre from "@/assets/companies/mercado-livre.webp";
 import { Button } from "@/components/ui/button";
 import { trackInitiateCheckout } from "@/lib/meta-pixel";
+import { trackBeginCheckout } from "@/lib/ga4";
 import {
   Accordion,
   AccordionContent,
@@ -31,6 +33,11 @@ import depo2 from "@/assets/testimonials/lucas-ferreira.webp";
 import depo3 from "@/assets/testimonials/adriana-souza.webp";
 import depo4 from "@/assets/testimonials/rafael-martins.webp";
 import depo5 from "@/assets/testimonials/sonia-almeida.webp";
+import chatCamila from "@/assets/testimonials/whatsapp/camila-ribeiro-whatsapp.jpg";
+import chatLucas from "@/assets/testimonials/whatsapp/lucas-ferreira-whatsapp.jpg";
+import chatAdriana from "@/assets/testimonials/whatsapp/adriana-souza-whatsapp.jpg";
+import chatRafael from "@/assets/testimonials/whatsapp/rafael-martins-whatsapp.jpg";
+import chatClaudia from "@/assets/testimonials/whatsapp/claudia-almeida-whatsapp.jpg";
 
 function SectionDivider() {
   return (
@@ -44,27 +51,42 @@ function SectionDivider() {
 
 /* ---------------------------------- Hero --------------------------------- */
 
+const marketCompanies = [
+  { name: "Google", logo: logoGoogle, width: 3840, height: 2160 },
+  { name: "Amazon", logo: logoAmazon, width: 1200, height: 1200 },
+  { name: "Nubank", logo: logoNubank, width: 400, height: 400 },
+  { name: "Itaú", logo: logoItau, width: 512, height: 512 },
+  { name: "Mercado Livre", logo: logoMercadoLivre, width: 240, height: 240 },
+];
+
 export function Hero() {
   return (
     <section
       id="topo"
-      className="relative flex min-h-screen items-center overflow-x-hidden pt-20 pb-0 sm:pt-24 lg:pt-28"
-      style={{
-        background:
-          "radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.45), rgba(191, 219, 254, 0.22) 60%, transparent 90%), var(--gradient-hero)",
-      }}
+      className="relative isolate overflow-hidden pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-32 lg:pb-24"
+      style={{ background: "var(--gradient-hero)" }}
     >
+      {/* Fundo: campo de luz azul suave, único, atrás de todo o conteúdo */}
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+        <div
+          className="absolute left-1/2 top-[-9rem] h-[36rem] w-[44rem] -translate-x-1/2 sm:top-[-11rem] sm:h-[48rem] sm:w-[62rem] lg:top-[-13rem] lg:h-[58rem] lg:w-[82rem]"
+          style={{
+            background:
+              "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(147,197,253,0.55) 0%, rgba(191,219,254,0.32) 42%, rgba(219,234,254,0.12) 68%, rgba(255,255,255,0) 82%)",
+          }}
+        />
+      </div>
+
       <div className="mx-auto flex w-full max-w-4xl flex-col items-center px-4 text-center sm:px-6">
         <Reveal eager delay={80}>
           <h1 className="text-4xl leading-[1.1] font-extrabold tracking-tight text-balance text-foreground sm:text-5xl lg:text-7xl">
-            Descubra por que{" "}
-            <span className="text-primary">recrutadores</span> e{" "}
-            <span className="text-primary">clientes</span> ignoram seu perfil
+            Seja <span className="text-primary">contratado</span> em menos de{" "}
+            <span className="text-primary">duas semanas</span>
           </h1>
         </Reveal>
         <Reveal eager delay={120}>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground sm:mt-6 sm:text-base lg:text-lg">
-            Uma análise personalizada revela os erros que estão escondendo seu potencial e mostra exatamente o que ajustar para transformar seu perfil em uma ferramenta de oportunidades.
+            Pare de perder oportunidades por erros que você nem percebe. Descubra o que está travando seu perfil e o que ajustar para transformá-lo em ferramenta de oportunidades.
           </p>
         </Reveal>
         <Reveal eager delay={160}>
@@ -74,13 +96,10 @@ export function Hero() {
               size="lg"
               className="hero-cta-glow w-full max-w-xs rounded-full bg-[#1D4ED8] px-6 py-6 text-base font-bold text-white shadow-[0_12px_40px_-6px_rgba(29,78,216,0.75)] ring-1 ring-white/10 transition-all duration-300 ease-out hover:scale-[1.04] hover:bg-[#1E40AF] hover:shadow-[0_18px_50px_-8px_rgba(29,78,216,0.9)] sm:w-auto sm:max-w-none sm:px-12 sm:py-7 sm:text-xl"
             >
-              <a href="#previa-diagnostico">
-                Quero meu diagnóstico agora
+              <a href="#precos">
+                Quero meu diagnóstico →
               </a>
             </Button>
-            <p className="mt-3 text-sm text-muted-foreground">
-              Receba seu diagnóstico em poucos minutos
-            </p>
           </div>
         </Reveal>
         <Reveal eager delay={200}>
@@ -100,222 +119,100 @@ export function Hero() {
             </div>
             <span className="flex items-center justify-center gap-1.5 sm:gap-2">
               <Star className="size-4 shrink-0 fill-current sm:size-5" />
-              <span>+500 análises</span>
+              <span>+587 contratados após análise feita</span>
             </span>
           </div>
         </Reveal>
-      </div>
-      <SectionDivider />
-    </section>
-  );
-}
 
-/* ------------------------------ Como funciona ----------------------------- */
-
-const steps = [
-  {
-    icon: Link2,
-    title: "Cole o link",
-    text: "Cole o link do seu Instagram, LinkedIn ou currículo em PDF.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Pague com segurança",
-    text: "Pagamento único, sem assinatura. Pague via Pix, cartão de débito ou crédito.",
-  },
-  {
-    icon: FileText,
-    title: "Receba seu diagnóstico",
-    text: "Em minutos, um relatório com pontos fortes, pontos fracos e o que fazer pra melhorar.",
-  },
-];
-
-export function HowItWorks() {
-  return (
-    <section id="como-funciona" className="relative overflow-hidden pt-14 pb-24 sm:pt-16 sm:pb-28 lg:flex lg:min-h-screen lg:items-center">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.24),transparent_72%)]" />
-      <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
-        <Reveal className="text-center">
-          <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-[2.75rem]">Como funciona</h2>
-          <p className="mt-2 text-sm text-muted-foreground sm:mt-3 sm:text-base">Do diagnóstico ao plano de melhoria em apenas 3 passos.</p>
+        <Reveal eager delay={240}>
+          <div className="mt-10 w-full sm:mt-12">
+            <p className="text-xs font-semibold text-muted-foreground sm:text-sm">
+              Prepare-se para oportunidades nas principais empresas e plataformas do mercado
+            </p>
+            <ul className="mt-4 flex flex-wrap items-center justify-center gap-8 px-2 opacity-80 sm:gap-10">
+              {marketCompanies.map((c) => (
+                <li key={c.name} className="flex items-center">
+                  <img
+                    src={c.logo}
+                    alt={c.name}
+                    width={c.width}
+                    height={c.height}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-9 w-auto object-contain sm:h-11"
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         </Reveal>
-        <ul className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-6">
-          {steps.map((s, i) => (
-            <Reveal as="li" key={s.title} delay={i * 120} className="group relative">
-              {i < steps.length - 1 && (
-                <span className="pointer-events-none absolute top-14 -right-3 hidden h-px w-6 bg-gradient-to-r from-[#93c5fd] to-transparent lg:block" />
-              )}
-              <div className="card-hover h-full min-h-56 rounded-[1.5rem] border border-[#cfe0ff] bg-white/90 p-6 shadow-[0_10px_24px_rgba(37,99,235,0.1)] backdrop-blur-sm sm:min-h-64 sm:p-8 lg:min-h-72 lg:p-10">
-                <div className="flex items-center gap-4">
-                  <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-primary-soft text-primary ring-1 ring-[#cfe0ff] transition-transform duration-300 ease-out group-hover:-rotate-6 group-hover:scale-110">
-                    <s.icon className="size-6" />
-                  </span>
-                  <span className="text-sm font-extrabold tracking-wide text-primary">Passo {i + 1}</span>
-                </div>
-                <h3 className="mt-7 text-2xl font-extrabold tracking-tight text-slate-950">{s.title}</h3>
-                <p className="mt-3 text-base leading-relaxed text-muted-foreground">{s.text}</p>
-              </div>
-            </Reveal>
-          ))}
-        </ul>
       </div>
-      <SectionDivider />
     </section>
   );
 }
 
 /* ------------------------------- Funcionalidades -------------------------- */
 
-const blocks = [
+const analysisBlocks = [
   {
-    badge: "🔍 DIAGNÓSTICO INSTAGRAM",
-    icon: Search,
-    title: "Análise completa do seu",
-    accent: "Instagram",
-    text: "A IA analisa sua foto de perfil, bio, posts e engajamento, e mostra o que está afastando seguidores e oportunidades.",
-    cta: "Diagnosticar meu Instagram",
-    href: "https://pay.cakto.com.br/3aay2uu_1015307",
-    preview: {
-      handle: "@seuperfil",
-      subtitle: "Perfil analisado pela IA",
-      score: 62,
-      scoreLabel: "Potencial de atração",
-      accentHex: "#2563eb",
-      items: [
-        { status: "alert" as const, label: "Bio", text: "Não diz o que você faz nem pra quem" },
-        { status: "alert" as const, label: "Posicionamento", text: "Mistura 3 assuntos e confunde quem chega" },
-        { status: "ok" as const, label: "Foto de perfil", text: "Boa: rosto visível e nítido" },
-        { status: "tip" as const, label: "Próximo passo", text: "Nova bio + 5 ideias de post prontas" },
-      ],
-    },
+    badge: "💼 PERFIL + LINKEDIN",
+    icon: Briefcase,
+    title: "Seu perfil precisa trabalhar a seu favor",
+    text: "A IA analisa seu posicionamento profissional, perfil, resumo, experiência e palavras-chave para identificar o que pode estar impedindo você de aparecer nas buscas dos recrutadores.",
+    problems: [
+      "Título genérico",
+      "Palavras-chave ausentes",
+      "Experiências sem resultados",
+      "Perfil pouco otimizado",
+    ],
     cardClass: "border-[#b9d6ff] bg-[#e7f0ff] shadow-[0_10px_22px_rgba(37,99,235,0.16)]",
     iconClass: "bg-[#2563eb] text-white",
     badgeClass: "bg-[#d7e7ff] text-[#1d4ed8]",
-    accentClass: "text-[#2563eb]",
-    buttonClass: "bg-[#2563eb] text-white hover:bg-[#1d4ed8]",
-  },
-  {
-    badge: "💼 DIAGNÓSTICO LINKEDIN",
-    icon: Briefcase,
-    title: "Análise completa do seu",
-    accent: "LinkedIn",
-    text: "A IA revisa seu perfil, resumo e experiência, e aponta o que fazer pra aparecer mais em buscas de recrutadores.",
-    cta: "Diagnosticar meu LinkedIn",
-    href: "https://pay.cakto.com.br/ok9npdx_1015278",
-    preview: {
-      handle: "Seu perfil profissional",
-      subtitle: "Visibilidade para recrutadores",
-      score: 48,
-      scoreLabel: "Chance de aparecer em buscas",
-      accentHex: "#9333ea",
-      items: [
-        { status: "alert" as const, label: "Título", text: "Genérico: não usa o cargo que buscam" },
-        { status: "alert" as const, label: "Palavras-chave", text: "Faltam 7 termos da sua área" },
-        { status: "ok" as const, label: "Experiências", text: "Histórico completo e sem lacunas" },
-        { status: "tip" as const, label: "Próximo passo", text: "Título e resumo reescritos pra você" },
-      ],
-    },
-    cardClass: "border-[#e5c8ff] bg-[#f7ebff] shadow-[0_10px_22px_rgba(147,51,234,0.16)]",
-    iconClass: "bg-[#9333ea] text-white",
-    badgeClass: "bg-[#f0dcff] text-[#7e22ce]",
-    accentClass: "text-[#9333ea]",
-    buttonClass: "bg-[#9333ea] text-white hover:bg-[#7e22ce]",
   },
   {
     badge: "📄 CURRÍCULO",
     icon: FileText,
-    title: "Seu currículo também entra na",
-    accent: "análise",
-    text: "Envie seu currículo em PDF junto e receba dicas específicas de como melhorá-lo para as áreas que você busca.",
-    cta: "Diagnosticar meu currículo",
-    href: "https://pay.cakto.com.br/34b3oe2_1015216",
-    preview: {
-      handle: "curriculo.pdf",
-      subtitle: "Revisão página a página",
-      score: 55,
-      scoreLabel: "Aprovação na triagem",
-      accentHex: "#059669",
-      items: [
-        { status: "alert" as const, label: "Resumo", text: "Fala de tarefas, não de resultados" },
-        { status: "alert" as const, label: "Formato", text: "Layout que trava em sistemas de triagem" },
-        { status: "ok" as const, label: "Tamanho", text: "2 páginas: dentro do ideal" },
-        { status: "tip" as const, label: "Próximo passo", text: "Versão corrigida com verbos de impacto" },
-      ],
-    },
+    title: "Seu currículo precisa passar pela primeira triagem",
+    text: "Analisamos seu currículo e identificamos pontos que podem prejudicar sua apresentação e sua leitura por sistemas de triagem e recrutadores.",
+    problems: [
+      "Resumo pouco estratégico",
+      "Formatação inadequada",
+      "Falta de palavras-chave",
+      "Experiências sem resultados claros",
+    ],
     cardClass: "border-[#9cefc8] bg-[#ddfaeb] shadow-[0_10px_22px_rgba(5,150,105,0.16)]",
     iconClass: "bg-[#059669] text-white",
     badgeClass: "bg-[#c9f7df] text-[#047857]",
-    accentClass: "text-[#059669]",
-    buttonClass: "bg-[#059669] text-white hover:bg-[#047857]",
   },
 ];
 
-type PreviewItem = { status: "alert" | "ok" | "tip"; label: string; text: string };
-type Preview = (typeof blocks)[number]["preview"];
+const plusItems = ["LinkedIn otimizado", "Gupy", "Indeed", "Maiores plataformas de emprego", "Comunidade de vagas", "Acompanhamento até conseguir emprego"];
 
-const itemStyles = {
-  alert: { icon: AlertTriangle, wrap: "bg-[#fff1e6] text-[#c2410c]" },
-  ok: { icon: Check, wrap: "bg-[#e3f8ec] text-[#047857]" },
-  tip: { icon: Sparkles, wrap: "bg-[#eaf1ff] text-[#1d4ed8]" },
-};
-
-function ReportPreview({ preview }: { preview: Preview }) {
+function ProblemsPreview({ items }: { items: string[] }) {
   return (
     <div
       className="w-full rounded-xl border border-black/5 bg-white p-4 shadow-lg sm:p-5"
       role="img"
-      aria-label={`Exemplo de relatório: ${preview.handle}, ${preview.scoreLabel} ${preview.score} de 100`}
+      aria-label={`Exemplo de pontos analisados: ${items.join(", ")}`}
     >
-      <div className="flex items-center gap-3">
-        <span
-          className="grid size-10 shrink-0 place-items-center rounded-full text-sm font-extrabold text-white"
-          style={{ backgroundColor: preview.accentHex }}
-        >
-          {preview.score}
-        </span>
-        <div className="min-w-0">
-          <p className="truncate text-sm font-bold text-slate-900">{preview.handle}</p>
-          <p className="truncate text-xs text-slate-500">{preview.subtitle}</p>
-        </div>
-        <span className="ml-auto hidden rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-bold tracking-wide text-slate-600 uppercase sm:inline">
-          Relatório IA
-        </span>
-      </div>
-
-      <div className="mt-4">
-        <div className="flex items-center justify-between text-[11px] font-semibold text-slate-500">
-          <span>{preview.scoreLabel}</span>
-          <span>{preview.score}/100</span>
-        </div>
-        <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-slate-100">
-          <div
-            className="h-full rounded-full"
-            style={{ width: `${preview.score}%`, backgroundColor: preview.accentHex }}
-          />
-        </div>
-      </div>
-
-      <ul className="mt-4 space-y-2.5">
-        {(preview.items as PreviewItem[]).map((item) => {
-          const style = itemStyles[item.status];
-          return (
-            <li
-              key={item.label}
-              className="flex items-start gap-3 rounded-lg border border-slate-100 bg-slate-50/70 p-2.5"
-            >
-              <span className={`grid size-6 shrink-0 place-items-center rounded-md ${style.wrap}`}>
-                <style.icon className="size-3.5" />
-              </span>
-              <p className="text-xs leading-snug text-slate-700 sm:text-sm">
-                <span className="font-bold text-slate-900">{item.label}:</span> {item.text}
-              </p>
-            </li>
-          );
-        })}
+      <p className="text-[11px] font-bold tracking-wide text-slate-500 uppercase">
+        Exemplos de pontos analisados
+      </p>
+      <ul className="mt-3 space-y-2.5">
+        {items.map((item) => (
+          <li
+            key={item}
+            className="flex items-center gap-3 rounded-lg border border-slate-100 bg-slate-50/70 p-2.5"
+          >
+            <span className="grid size-6 shrink-0 place-items-center rounded-md bg-[#fff1e6] text-[#c2410c]">
+              <AlertTriangle className="size-3.5" />
+            </span>
+            <p className="text-xs leading-snug font-semibold text-slate-700 sm:text-sm">{item}</p>
+          </li>
+        ))}
       </ul>
-
       <p className="mt-3 text-center text-[10px] text-slate-400">
-        Exemplo ilustrativo de relatório
+        Exemplo ilustrativo de pontos analisados
       </p>
     </div>
   );
@@ -327,18 +224,19 @@ export function Features() {
       <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.23),transparent_72%)]" />
       <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl">
-            Conheça o que você recebe
+          <h2 className="text-2xl font-extrabold tracking-tight text-balance sm:text-3xl lg:text-4xl">
+            Não basta ter um bom currículo.{" "}
+            <span className="text-primary">Você precisa ser encontrado.</span>
           </h2>
           <p className="mt-2 text-sm text-muted-foreground sm:mt-3 sm:text-base">
-            Ferramentas simples que mostram exatamente o que ajustar pra sua rede social atrair
-            mais oportunidades
+            Analisamos como você está se apresentando para o mercado e mostramos exatamente onde
+            melhorar para aumentar suas chances de aparecer nas buscas e encontrar oportunidades.
           </p>
         </Reveal>
 
         <div className="mt-12 space-y-7">
-          {blocks.map((b) => (
-            <Reveal key={b.cta}>
+          {analysisBlocks.map((b) => (
+            <Reveal key={b.title}>
               <article
                 className={`card-hover flex flex-col items-center gap-5 rounded-[1.5rem] border p-5 backdrop-blur-sm sm:p-7 lg:grid lg:items-center lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10 ${b.cardClass}`}
               >
@@ -352,40 +250,61 @@ export function Features() {
                     {b.badge}
                   </p>
                   <h3 className="mt-3 text-2xl leading-tight font-extrabold tracking-tight text-slate-950 sm:text-3xl">
-                    {b.title} <span className={b.accentClass}>{b.accent}</span>
+                    {b.title}
                   </h3>
                   <p className="mt-3 max-w-md text-sm leading-relaxed text-slate-700 sm:text-base">{b.text}</p>
-                  <Button
-                    asChild
-                    size="sm"
-                    className={`mt-5 rounded-lg px-4 font-bold transition-transform hover:scale-[1.03] ${b.buttonClass}`}
-                  >
-                    <a
-                      href={b.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() =>
-                        trackInitiateCheckout({
-                          content_name: b.badge,
-                          currency: "BRL",
-                          value: 19.97,
-                        })
-                      }
-                    >
-                      {b.cta} <ArrowRight className="size-4" />
-                    </a>
-                  </Button>
                 </div>
                 <div className="w-full">
-                  <ReportPreview preview={b.preview} />
+                  <ProblemsPreview items={b.problems} />
                 </div>
               </article>
             </Reveal>
           ))}
         </div>
 
+        {/* Diferencial do Plus */}
         <Reveal className="mt-10">
-          <MiniDiagnostic />
+          <div className="relative overflow-hidden rounded-[1.5rem] border-2 border-[#c4b5fd] bg-gradient-to-br from-[#f6f2ff] to-[#ece2ff] p-6 pt-8 shadow-[0_16px_40px_rgba(124,58,237,0.18)] sm:p-9 sm:pt-10">
+            <span className="absolute top-5 left-6 rounded-full bg-[#7c3aed] px-4 py-1.5 text-[11px] font-extrabold tracking-wide text-white uppercase shadow-[0_8px_18px_rgba(124,58,237,0.4)] sm:left-9">
+              Diagnóstico Plus
+            </span>
+            <div className="flex flex-col gap-6 pt-8 sm:pt-9 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+              <div className="max-w-lg">
+                <span className="grid size-12 place-items-center rounded-xl bg-[#7c3aed] text-white shadow-sm">
+                  <Sparkles className="size-6" />
+                </span>
+                <h3 className="mt-4 text-2xl leading-tight font-extrabold tracking-tight text-slate-950 sm:text-3xl">
+                  Quer ir além do diagnóstico?
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-700 sm:text-base">
+                  No Plus, você não recebe apenas uma análise. Você recebe uma estrutura para
+                  começar a procurar oportunidades de forma mais completa.
+                </p>
+              </div>
+              <ul className="grid w-full grid-cols-1 gap-2.5 sm:grid-cols-2 lg:max-w-md">
+                {plusItems.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-center gap-2.5 rounded-xl border border-[#d9cbff] bg-white/70 px-3.5 py-2.5 text-sm font-semibold text-[#4c1d95] shadow-sm sm:text-base"
+                  >
+                    <Check className="size-4 shrink-0 text-[#7c3aed]" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Transição para preços */}
+        <Reveal className="mx-auto mt-10 max-w-2xl text-center">
+          <p className="text-sm leading-relaxed text-slate-700 sm:text-base">
+            Você pode começar entendendo exatamente o que precisa melhorar — ou já sair com uma
+            estratégia mais completa para buscar oportunidades.
+          </p>
+          <p className="mt-2 text-base font-bold text-slate-950 sm:text-lg">
+            Escolha o nível de acompanhamento que faz sentido para você.
+          </p>
         </Reveal>
       </div>
       <SectionDivider />
@@ -395,72 +314,12 @@ export function Features() {
 
 /* -------------------------------- Prova social ---------------------------- */
 
-const testimonials = [
-  {
-    name: "Camila Ribeiro",
-    role: "Designer de sobrancelhas",
-    photo: depo1,
-    date: "29 de julho de 2026",
-    cardClass: "border-[#edc8ef] bg-[#f9e9f7]",
-    highlightClass: "bg-[#d9f8df] text-[#167a36]",
-    text: [
-      { content: "Eu não sabia o que estava errado no meu Instagram. O ", highlight: false },
-      { content: "relatório explicou tudo", highlight: true },
-      { content: " em português claro e, em uma semana, já apareceram clientes novos.", highlight: false },
-    ],
-  },
-  {
-    name: "Lucas Ferreira",
-    role: "Estudante de administração",
-    photo: depo2,
-    date: "8 de janeiro de 2026",
-    cardClass: "border-[#9ac4ff] bg-[#eef0ff]",
-    highlightClass: "bg-[#fff3b8] text-[#3f3f21]",
-    text: [
-      { content: "Arrumei meu LinkedIn seguindo o passo a passo do PDF e comecei a receber ", highlight: false },
-      { content: "mensagem de recrutador", highlight: true },
-      { content: ". Valeu cada centavo.", highlight: false },
-    ],
-  },
-  {
-    name: "Adriana Souza",
-    role: "Nutricionista",
-    photo: depo3,
-    date: "5 de fevereiro de 2025",
-    cardClass: "border-[#a7efd0] bg-[#ddfaef]",
-    highlightClass: "bg-[#fff3b8] text-[#3f3f21]",
-    text: [
-      { content: "O que mais gostei foi a ", highlight: false },
-      { content: "lista do que fazer primeiro", highlight: true },
-      { content: ". Não fiquei perdida; só fui marcando o que já tinha ajustado.", highlight: false },
-    ],
-  },
-  {
-    name: "Rafael Martins",
-    role: "Personal trainer",
-    photo: depo4,
-    date: "15 de dezembro de 2024",
-    cardClass: "border-[#ffcda6] bg-[#fff0e8]",
-    highlightClass: "bg-[#fff3b8] text-[#3f3f21]",
-    text: [
-      { content: "Achei que ia ser aquele texto genérico, mas era sobre o ", highlight: false },
-      { content: "meu perfil mesmo", highlight: true },
-      { content: ": minha bio, minhas fotos e meus posts.", highlight: false },
-    ],
-  },
-  {
-    name: "Sônia Almeida",
-    role: "Consultora de vendas",
-    photo: depo5,
-    date: "20 de março de 2026",
-    cardClass: "border-[#b9d6ff] bg-[#e8f1ff]",
-    highlightClass: "bg-[#fff3b8] text-[#3f3f21]",
-    text: [
-      { content: "Tenho 52 anos e me viro pouco com tecnologia. Foi só colar o link e pagar. ", highlight: false },
-      { content: "Recebi o PDF no e-mail rapidinho", highlight: true },
-      { content: ".", highlight: false },
-    ],
-  },
+const whatsappTestimonials = [
+  { name: "Camila Ribeiro", photo: depo1, date: "29 de julho de 2026", image: chatCamila, width: 739, height: 1395 },
+  { name: "Lucas Ferreira", photo: depo2, date: "8 de janeiro de 2026", image: chatLucas, width: 739, height: 1395 },
+  { name: "Adriana Souza", photo: depo3, date: "5 de fevereiro de 2025", image: chatAdriana, width: 739, height: 1395 },
+  { name: "Rafael Martins", photo: depo4, date: "15 de dezembro de 2024", image: chatRafael, width: 739, height: 1395 },
+  { name: "Claudia Almeida", photo: depo5, date: "20 de março de 2026", image: chatClaudia, width: 739, height: 1395 },
 ];
 
 export function SocialProof() {
@@ -473,46 +332,43 @@ export function SocialProof() {
             Quem já fez, recomenda
           </h2>
           <p className="mt-2 text-sm text-muted-foreground sm:mt-3 sm:text-base">
-            Histórias de pessoas comuns que ajustaram o perfil e viram diferença.
+            Conversas reais de clientes, direto do WhatsApp.
           </p>
         </Reveal>
 
         <ul className="testimonial-scroll mt-16 flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 py-3 pb-8 sm:gap-6 md:gap-7">
-          {testimonials.map((t, i) => (
-            <Reveal as="li" key={t.name} delay={i * 90} className="w-[280px] shrink-0 snap-start sm:w-[300px] md:w-[320px]">
-              <figure className={`card-hover flex min-h-[460px] h-full flex-col rounded-2xl border p-6 shadow-[0_12px_28px_rgba(37,99,235,0.12)] sm:p-7 md:p-8 ${t.cardClass}`}>
-                <figcaption className="flex items-center gap-3">
+          {whatsappTestimonials.map((t, i) => (
+            <Reveal
+              as="li"
+              key={t.name}
+              delay={i * 90}
+              className="w-[80vw] max-w-[300px] shrink-0 snap-start sm:w-[320px] md:w-[340px] lg:w-[360px]"
+            >
+              <figure className="card-hover flex h-full flex-col overflow-hidden rounded-2xl border border-[#cfe0ff] bg-white shadow-[0_12px_28px_rgba(37,99,235,0.12)]">
+                <figcaption className="flex items-center gap-3 px-5 py-4">
                   <img
                     src={t.photo}
                     alt={`Foto de ${t.name}`}
-                    width={144}
-                    height={144}
+                    width={96}
+                    height={96}
                     loading="lazy"
                     decoding="async"
-                    className="size-12 shrink-0 rounded-full border-2 border-white object-cover shadow-sm"
+                    className="size-11 shrink-0 rounded-full border-2 border-white object-cover shadow-sm"
                   />
                   <span className="min-w-0">
                     <span className="block truncate font-bold text-slate-950">{t.name}</span>
-                    <span className="block truncate text-sm text-slate-600">{t.role}</span>
+                    <span className="block truncate text-xs text-slate-500">{t.date}</span>
                   </span>
                 </figcaption>
-                <div className="mt-6 flex gap-1 text-amber-400">
-                  {[0, 1, 2, 3, 4].map((s) => (
-                    <Star key={s} className="size-4 fill-current" />
-                  ))}
-                </div>
-                <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-slate-700 sm:text-base">
-                  {t.text.map((part, partIndex) =>
-                    part.highlight ? (
-                      <mark key={partIndex} className={`rounded px-1 font-bold ${t.highlightClass}`}>
-                        {part.content}
-                      </mark>
-                    ) : (
-                      <span key={partIndex}>{part.content}</span>
-                    ),
-                  )}
-                </blockquote>
-                <p className="mt-5 text-xs text-slate-500">{t.date}</p>
+                <img
+                  src={t.image}
+                  alt={`Print de conversa real no WhatsApp com ${t.name}`}
+                  width={t.width}
+                  height={t.height}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-auto"
+                />
               </figure>
             </Reveal>
           ))}
@@ -554,36 +410,19 @@ export function Guarantee() {
 
 const plans = [
   {
-    name: "Diagnóstico Instagram",
-    href: "https://pay.cakto.com.br/3aay2uu_1015307",
-    originalPrice: "R$57,97",
-    price: "R$19,97",
-    savings: "Você economiza R$38,00",
-    icon: Instagram,
-    cardClass: "border-[#f7b8cf] bg-[#fff0f6]",
-    iconClass: "bg-[#fce0eb] text-[#d94680]",
-    priceClass: "text-[#d94680]",
-    savingsClass: "bg-[#fde3ec] text-[#b23764]",
-    buttonClass: "bg-[#e95b91] text-white hover:bg-[#d94680] shadow-[0_16px_36px_-10px_rgba(217,70,128,0.6)]",
-    items: [
-      "Análise da foto de perfil e da bio",
-      "Leitura dos seus posts e do engajamento",
-      "Pontos fortes e pontos fracos",
-      "Plano de ação prático em PDF",
-    ],
-    cta: "Quero garantir",
-  },
-  {
-    name: "Diagnóstico LinkedIn",
+    name: "Diagnóstico Básico",
     href: "https://pay.cakto.com.br/ok9npdx_1015278",
+    gaItemId: "diagnostico_basico",
     originalPrice: "R$57,97",
     price: "R$19,97",
+    priceValue: 19.97,
     savings: "Você economiza R$38,00",
     icon: Linkedin,
     cardClass: "border-[#a9ccff] bg-[#edf5ff]",
     iconClass: "bg-[#dcecff] text-[#1d70d6]",
     priceClass: "text-[#1d70d6]",
     savingsClass: "bg-[#dce9ff] text-[#155bb0]",
+    savingsSizeClass: "px-2.5 py-0.5 text-xs",
     buttonClass: "bg-[#1d70d6] text-white hover:bg-[#155bb0] shadow-[0_16px_36px_-10px_rgba(29,112,214,0.6)]",
     items: [
       "Análise do perfil, resumo e experiência",
@@ -592,8 +431,68 @@ const plans = [
       "Plano de ação prático em PDF",
     ],
     cta: "Quero garantir",
+    highlight: false,
+    badge: null as string | null,
+  },
+  {
+    name: "Diagnóstico Plus",
+    // TODO: aguardando o link de checkout Cakto do Plus — não inventar URL.
+    href: "",
+    gaItemId: "diagnostico_plus",
+    originalPrice: "R$97,57" as string | null,
+    price: "R$49,97",
+    priceValue: 49.97,
+    savings: "Você economiza R$48,00" as string | null,
+    icon: Sparkles,
+    cardClass: "border-[#c4b5fd] bg-[#f6f2ff]",
+    iconClass: "bg-[#ece2ff] text-[#7c3aed]",
+    priceClass: "text-[#6d28d9]",
+    savingsClass: "bg-[#ece2ff] text-[#6d28d9]",
+    savingsSizeClass: "px-3 py-1 text-sm",
+    buttonClass: "bg-[#7c3aed] text-white hover:bg-[#6d28d9] shadow-[0_16px_36px_-10px_rgba(124,58,237,0.6)]",
+    items: [
+      "Diagnóstico completo do perfil",
+      "LinkedIn",
+      "Gupy",
+      "Indeed",
+      "Cadastro nas maiores plataformas de emprego",
+      "Acesso à comunidade de vagas",
+      "Acompanhamento até conseguir emprego",
+    ],
+    cta: "Quero o Plus",
+    highlight: true,
+    badge: "MAIS COMPLETO" as string | null,
   },
 ];
+
+const PROMO_START = 30;
+
+function usePromoCountdown(start: number) {
+  const [count, setCount] = useState(start);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount((prev) => (prev > 1 ? prev - 1 : 1));
+    }, 2000);
+    return () => clearInterval(id);
+  }, []);
+
+  return count;
+}
+
+function PromoCounterBadge() {
+  const count = usePromoCountdown(PROMO_START);
+
+  return (
+    <div className="mx-auto flex w-fit max-w-full items-center gap-2 rounded-2xl bg-gradient-to-r from-[#2563eb] to-[#7c3aed] px-4 py-2.5 text-center shadow-[0_12px_32px_-8px_rgba(76,29,149,0.45)] sm:gap-2.5 sm:px-6 sm:py-3">
+      <p className="text-xs font-extrabold tracking-tight text-white sm:text-sm md:text-base">
+        👥 Próximos{" "}
+        <span className="inline-block min-w-[1.5em] text-center tabular-nums">{count}</span>{" "}
+        usuários com desconto
+      </p>
+    </div>
+  );
+}
 
 export function Pricing() {
   return (
@@ -611,38 +510,42 @@ export function Pricing() {
           </Reveal>
 
           <Reveal className="mx-auto mt-6 flex w-full max-w-4xl justify-center px-2 sm:mt-8 sm:px-0">
-            <div className="relative animate-pulse-soft rounded-2xl border border-blue-200 bg-white px-4 py-2.5 text-center shadow-[0_12px_32px_-8px_rgba(37,99,235,0.35)] sm:px-6 sm:py-3">
-              <p className="text-xs font-extrabold tracking-tight text-blue-600 sm:text-sm md:text-base">
-                ⚡ Desconto relâmpago
-              </p>
-              <p className="mt-0.5 text-[10px] font-medium text-muted-foreground sm:text-xs md:text-sm">
-                Oferta especial por tempo limitado
-              </p>
-            </div>
+            <PromoCounterBadge />
           </Reveal>
 
-          <ul className="mx-auto mt-8 grid w-full max-w-4xl items-stretch grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
+          <ul className="mx-auto mt-12 grid w-full max-w-4xl items-stretch grid-cols-1 gap-6 sm:mt-14 sm:gap-8 md:grid-cols-2">
             {plans.map((p, i) => (
               <Reveal as="li" key={p.name} delay={i * 120} className="h-full w-full">
                 <div
-                  className={`card-hover relative flex h-full flex-col rounded-[2rem] border-2 p-6 shadow-[0_16px_40px_rgba(37,99,235,0.14)] sm:p-8 md:p-10 ${p.cardClass}`}
+                  className={`card-hover relative flex h-full flex-col rounded-[2rem] border-2 p-6 shadow-[0_16px_40px_rgba(37,99,235,0.14)] sm:p-8 md:p-10 ${p.cardClass} ${
+                    p.highlight ? "border-[#7c3aed] shadow-[0_20px_48px_rgba(124,58,237,0.22)] lg:scale-[1.04]" : ""
+                  }`}
                 >
+                  {p.badge && (
+                    <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-[#7c3aed] px-4 py-1.5 text-[11px] font-extrabold tracking-wide text-white uppercase shadow-[0_8px_18px_rgba(124,58,237,0.4)]">
+                      {p.badge}
+                    </span>
+                  )}
                   <span className={`grid size-14 place-items-center rounded-2xl ${p.iconClass}`}>
                     <p.icon className="size-6" />
                   </span>
                   <h3 className="mt-6 text-2xl font-extrabold tracking-tight">{p.name}</h3>
 
                   <div className="mt-5 flex items-baseline gap-2.5">
-                    <span className="text-base font-medium text-muted-foreground line-through">
-                      {p.originalPrice}
-                    </span>
+                    {p.originalPrice && (
+                      <span className="text-base font-medium text-muted-foreground line-through">
+                        {p.originalPrice}
+                      </span>
+                    )}
                     <span className={`text-5xl font-extrabold tracking-tight ${p.priceClass}`}>{p.price}</span>
                   </div>
-                  <p
-                    className={`mt-3 inline-flex w-fit items-center rounded-full px-3 py-1 text-sm font-bold ${p.savingsClass}`}
-                  >
-                    {p.savings}
-                  </p>
+                  {p.savings && (
+                    <p
+                      className={`mt-5 inline-flex w-fit items-center rounded-full font-bold ${p.savingsSizeClass} ${p.savingsClass}`}
+                    >
+                      {p.savings}
+                    </p>
+                  )}
 
                   <ul className="mt-7 flex-1 space-y-3">
                     {p.items.map((it) => (
@@ -658,20 +561,43 @@ export function Pricing() {
                     size="lg"
                     className={`mt-8 w-full rounded-full py-7 text-lg font-bold transition-transform hover:scale-[1.03] ${p.buttonClass}`}
                   >
-                    <a
-                    href={p.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() =>
-                      trackInitiateCheckout({
-                        content_name: p.name,
-                        currency: "BRL",
-                        value: 19.97,
-                      })
-                    }
-                  >
-                    {p.cta}
-                  </a>
+                    {p.href ? (
+                      <a
+                        href={p.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => {
+                          trackInitiateCheckout({
+                            content_name: p.name,
+                            currency: "BRL",
+                            value: p.priceValue,
+                          });
+                          trackBeginCheckout({
+                            currency: "BRL",
+                            value: p.priceValue,
+                            items: [
+                              {
+                                item_id: p.gaItemId,
+                                item_name: p.name,
+                                price: p.priceValue,
+                                quantity: 1,
+                              },
+                            ],
+                          });
+                        }}
+                      >
+                        {p.cta}
+                      </a>
+                    ) : (
+                      <span
+                        role="button"
+                        aria-disabled="true"
+                        className="cursor-not-allowed opacity-80"
+                        onClick={(e) => e.preventDefault()}
+                      >
+                        {p.cta}
+                      </span>
+                    )}
                   </Button>
                   <p className="mt-4 flex items-center justify-center gap-1.5 text-center text-sm font-semibold text-slate-600">
                     <ShieldIcon className="size-4 text-primary" />
@@ -681,58 +607,6 @@ export function Pricing() {
               </Reveal>
             ))}
           </ul>
-
-          {/* Avaliações / prova social */}
-          <Reveal className="mx-auto mt-8 grid w-full max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2">
-            {testimonials.slice(0, 2).map((t) => (
-              <figure
-                key={t.name}
-                className="flex flex-col rounded-2xl border border-blue-100 bg-white p-4 text-left shadow-[0_10px_28px_-10px_rgba(37,99,235,0.2)] sm:p-5 md:p-6"
-              >
-                <div className="flex gap-1 text-amber-400">
-                  {[0, 1, 2, 3, 4].map((s) => (
-                    <Star key={s} className="size-4 fill-current" />
-                  ))}
-                </div>
-                <blockquote className="mt-3 text-sm leading-relaxed text-slate-700">
-                  {t.text.map((part, partIndex) => (
-                    <span key={partIndex}>{part.content}</span>
-                  ))}
-                </blockquote>
-                <figcaption className="mt-4 flex items-center gap-3">
-                  <img
-                    src={t.photo}
-                    alt={`Foto de ${t.name}`}
-                    width={144}
-                    height={144}
-                    loading="lazy"
-                    decoding="async"
-                    className="size-9 shrink-0 rounded-full border-2 border-white object-cover shadow-sm"
-                  />
-                  <span className="min-w-0">
-                    <span className="block truncate text-sm font-bold text-slate-950">{t.name}</span>
-                    <span className="block truncate text-xs text-slate-600">{t.role}</span>
-                  </span>
-                </figcaption>
-              </figure>
-            ))}
-          </Reveal>
-
-          {/* Garantia de satisfação */}
-          <Reveal className="mx-auto mt-8 w-full max-w-2xl px-2 sm:px-0">
-            <div className="rounded-[2rem] border-2 border-cta bg-cta-soft p-6 text-center sm:p-8 md:p-10">
-              <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-cta text-cta-foreground">
-                <ShieldIcon className="size-7" />
-              </span>
-              <h2 className="mt-5 text-2xl font-extrabold tracking-tight sm:text-3xl">
-                Garantia de satisfação de 7 dias
-              </h2>
-              <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-                Leu o diagnóstico e sentiu que não te ajudou? É só mandar uma mensagem em até 7 dias
-                que a gente devolve o seu dinheiro. Sem formulário, sem discussão.
-              </p>
-            </div>
-          </Reveal>
 
           {/* Elementos de segurança */}
           <Reveal className="mx-auto mt-8 w-full flex max-w-3xl flex-wrap items-center justify-center gap-2 px-2 sm:px-0 sm:gap-3 md:gap-4">
@@ -828,7 +702,6 @@ export function Faq() {
           </Accordion>
         </Reveal>
       </div>
-      <SectionDivider />
     </section>
   );
 }

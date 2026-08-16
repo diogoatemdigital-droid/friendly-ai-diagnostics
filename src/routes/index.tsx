@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { Header } from "@/components/landing/Header";
 import {
   Hero,
-  HowItWorks,
   Features,
   SocialProof,
   Pricing,
@@ -50,7 +49,6 @@ function Index() {
       <main>
         <Hero />
         <Features />
-        <HowItWorks />
         <SocialProof />
         <Pricing /> 
         <Faq />
