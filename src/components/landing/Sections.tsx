@@ -238,7 +238,7 @@ export function Features() {
           {analysisBlocks.map((b) => (
             <Reveal key={b.title}>
               <article
-                className={`card-hover flex flex-col items-center gap-5 rounded-[1.5rem] border p-5 backdrop-blur-sm sm:p-7 lg:grid lg:items-center lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10 ${b.cardClass}`}
+                className={`card-hover flex flex-col items-center gap-5 rounded-[1.5rem] border p-5 sm:p-7 lg:grid lg:items-center lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-10 ${b.cardClass}`}
               >
                 <div className="w-full py-1 sm:py-2 lg:justify-self-start">
                   <span className={`grid size-12 place-items-center rounded-xl shadow-sm ${b.iconClass}`}>
