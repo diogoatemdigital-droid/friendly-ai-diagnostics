@@ -86,7 +86,7 @@ export function Hero() {
         </Reveal>
         <Reveal eager delay={120}>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground sm:mt-6 sm:text-base lg:text-lg">
-            Pare de perder oportunidades por erros que você nem percebe. Descubra o que está travando seu perfil e o que ajustar para transformá-lo em ferramenta de oportunidades.
+            Pare de perder oportunidades. Descubra o que está travando seu perfil e seja contratado.
           </p>
         </Reveal>
         <Reveal eager delay={160}>
@@ -103,23 +103,23 @@ export function Hero() {
           </div>
         </Reveal>
         <Reveal eager delay={200}>
-          <div className="mt-6 flex w-full max-w-full flex-col items-center justify-center gap-3 rounded-full bg-cta-soft px-4 py-3 text-center text-sm font-semibold text-cta transition-shadow duration-300 hover:shadow-[var(--shadow-soft)] sm:w-auto sm:max-w-xl sm:flex-row sm:gap-4 sm:px-6 sm:py-3.5 sm:text-base">
+          <div className="mt-6 flex w-full max-w-full flex-col items-center justify-center gap-2 text-center text-xs font-semibold text-cta sm:w-auto sm:max-w-xl sm:flex-row sm:gap-3 sm:text-sm">
             <div className="flex -space-x-2.5">
               {[depo1, depo2, depo3, depo4, depo5].map((photo, i) => (
                 <img
                   key={i}
                   src={photo}
                   alt=""
-                  width={32}
-                  height={32}
+                  width={28}
+                  height={28}
                   decoding="async"
-                  className="size-7 shrink-0 rounded-full border-2 border-background object-cover transition-transform duration-300 ease-out hover:z-10 hover:scale-125 sm:size-8"
+                  className="size-6 shrink-0 rounded-full border-2 border-background object-cover transition-transform duration-300 ease-out hover:z-10 hover:scale-125 sm:size-7"
                 />
               ))}
             </div>
             <span className="flex items-center justify-center gap-1.5 sm:gap-2">
-              <Star className="size-4 shrink-0 fill-current sm:size-5" />
-              <span>+587 contratados após análise feita</span>
+              <Star className="size-3.5 shrink-0 fill-current sm:size-4" />
+              <span>+587 contratados</span>
             </span>
           </div>
         </Reveal>
