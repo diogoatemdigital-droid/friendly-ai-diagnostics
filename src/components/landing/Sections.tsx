@@ -13,10 +13,10 @@ import {
   Sparkles,
 } from "lucide-react";
 import { Reveal } from "./Reveal";
-import logoGoogle from "@/assets/companies/google.png";
-import logoAmazon from "@/assets/companies/amazon.jpg";
+import logoGoogle from "@/assets/companies/google.webp";
+import logoAmazon from "@/assets/companies/amazon.webp";
 import logoNubank from "@/assets/companies/nubank.png";
-import logoItau from "@/assets/companies/itau.png";
+import logoItau from "@/assets/companies/itau.webp";
 import logoMercadoLivre from "@/assets/companies/mercado-livre.webp";
 import { Button } from "@/components/ui/button";
 import { trackInitiateCheckout } from "@/lib/meta-pixel";
@@ -52,10 +52,10 @@ function SectionDivider() {
 /* ---------------------------------- Hero --------------------------------- */
 
 const marketCompanies = [
-  { name: "Google", logo: logoGoogle, width: 3840, height: 2160 },
-  { name: "Amazon", logo: logoAmazon, width: 1200, height: 1200 },
+  { name: "Google", logo: logoGoogle, width: 132, height: 132 },
+  { name: "Amazon", logo: logoAmazon, width: 130, height: 132 },
   { name: "Nubank", logo: logoNubank, width: 400, height: 400 },
-  { name: "Itaú", logo: logoItau, width: 512, height: 512 },
+  { name: "Itaú", logo: logoItau, width: 132, height: 132 },
   { name: "Mercado Livre", logo: logoMercadoLivre, width: 240, height: 240 },
 ];
 
@@ -63,7 +63,7 @@ export function Hero() {
   return (
     <section
       id="topo"
-      className="relative isolate overflow-hidden pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-32 lg:pb-24"
+      className="relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-32 lg:pb-24"
       style={{ background: "var(--gradient-hero)" }}
     >
       {/* Fundo: campo de luz azul suave, único, atrás de todo o conteúdo */}
@@ -103,7 +103,7 @@ export function Hero() {
           </div>
         </Reveal>
         <Reveal eager delay={200}>
-          <div className="mt-6 flex w-full max-w-full flex-col items-center justify-center gap-2 text-center text-xs font-semibold text-cta sm:w-auto sm:max-w-xl sm:flex-row sm:gap-3 sm:text-sm">
+          <div className="mt-11 flex w-full max-w-full flex-col items-center justify-center gap-2 text-center text-xs font-semibold text-cta sm:mt-12 sm:w-auto sm:max-w-xl sm:flex-row sm:gap-3 sm:text-sm">
             <div className="flex -space-x-2.5">
               {[depo1, depo2, depo3, depo4, depo5].map((photo, i) => (
                 <img
