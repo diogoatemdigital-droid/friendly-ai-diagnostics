@@ -1,4 +1,11 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type HTMLAttributes,
+  type ReactNode,
+} from "react";
 
 /*
  * Um único IntersectionObserver para todos os Reveals da página.
@@ -29,17 +36,18 @@ export function Reveal({
   className = "",
   as: Tag = "div",
   eager = false,
+  ...props
 }: {
   children: ReactNode;
   delay?: number;
   className?: string;
-  as?: "div" | "section" | "li" | "header";
+  as?: "div" | "section" | "li" | "header" | "footer";
   /**
    * Conteúdo acima da dobra: anima via CSS já no primeiro paint, sem depender
    * de JavaScript. Mantém exatamente a mesma animação do reveal padrão.
    */
   eager?: boolean;
-}) {
+} & HTMLAttributes<HTMLElement>) {
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
 
@@ -59,6 +67,7 @@ export function Reveal({
   if (eager) {
     return (
       <Tag
+        {...props}
         style={{ "--reveal-delay": `${delay}ms` } as CSSProperties}
         className={`reveal-eager ${className}`}
       >
@@ -69,6 +78,7 @@ export function Reveal({
 
   return (
     <Tag
+      {...props}
       ref={ref as never}
       data-visible={visible}
       style={{ transitionDelay: `${delay}ms` }}

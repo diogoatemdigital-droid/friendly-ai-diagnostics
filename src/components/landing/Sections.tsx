@@ -39,13 +39,16 @@ import chatAdriana from "@/assets/testimonials/whatsapp/adriana-souza-whatsapp.j
 import chatRafael from "@/assets/testimonials/whatsapp/rafael-martins-whatsapp.jpg";
 import chatClaudia from "@/assets/testimonials/whatsapp/claudia-almeida-whatsapp.jpg";
 
-function SectionDivider() {
+function SectionDivider({ to = "white" }: { to?: "white" | "blue" }) {
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 overflow-hidden" aria-hidden="true">
-      <div className="absolute inset-x-[10%] bottom-9 h-px bg-gradient-to-r from-transparent via-[#a9ceff] to-transparent" />
-      <span className="absolute bottom-[2.15rem] left-1/2 size-2.5 -translate-x-1/2 rounded-full bg-[#60a5fa] shadow-[0_0_18px_rgba(59,130,246,0.7)]" />
-      <div className="absolute -right-[8%] -bottom-16 h-32 w-[116%] rounded-[50%] border-t border-[#d8e9ff]/60 bg-white/15 blur-sm" />
-    </div>
+    <div
+      className={`pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 ${
+        to === "blue"
+          ? "bg-gradient-to-b from-transparent to-[#e3f0ff]"
+          : "bg-gradient-to-b from-transparent to-white"
+      }`}
+      aria-hidden="true"
+    />
   );
 }
 
@@ -61,10 +64,11 @@ const marketCompanies = [
 
 export function Hero() {
   return (
-    <section
+    <Reveal
+      as="section"
+      eager
       id="topo"
-      className="relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-32 lg:pb-24"
-      style={{ background: "var(--gradient-hero)" }}
+      className="relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden bg-[linear-gradient(180deg,#cfe3ff_0%,#deedff_58%,#edf6ff_100%)] pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-32 lg:pb-24"
     >
       {/* Fundo: campo de luz azul suave, único, atrás de todo o conteúdo */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
@@ -79,22 +83,22 @@ export function Hero() {
 
       <div className="mx-auto flex w-full max-w-4xl flex-col items-center px-4 text-center sm:px-6">
         <Reveal eager delay={80}>
-          <h1 className="text-4xl leading-[1.1] font-extrabold tracking-tight text-balance text-foreground sm:text-5xl lg:text-7xl">
+          <h1 className="text-5xl leading-[1.02] font-black tracking-tight text-balance text-foreground sm:text-6xl lg:text-8xl">
             Seja <span className="text-primary">contratado</span> em menos de{" "}
             <span className="text-primary">duas semanas</span>
           </h1>
         </Reveal>
         <Reveal eager delay={120}>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-muted-foreground sm:mt-6 sm:text-base lg:text-lg">
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed font-medium text-muted-foreground sm:mt-7 sm:text-lg lg:text-xl">
             Pare de perder oportunidades. Descubra o que está travando seu perfil e seja contratado.
           </p>
         </Reveal>
         <Reveal eager delay={160}>
-          <div className="mt-9 flex w-full flex-col items-center px-4 sm:px-0">
+          <div className="mt-11 flex w-full flex-col items-center px-4 sm:mt-12 sm:px-0">
             <Button
               asChild
               size="lg"
-              className="hero-cta-glow w-full max-w-xs rounded-full bg-[#1D4ED8] px-6 py-6 text-base font-bold text-white shadow-[0_12px_40px_-6px_rgba(29,78,216,0.75)] ring-1 ring-white/10 transition-all duration-300 ease-out hover:scale-[1.04] hover:bg-[#1E40AF] hover:shadow-[0_18px_50px_-8px_rgba(29,78,216,0.9)] sm:w-auto sm:max-w-none sm:px-12 sm:py-7 sm:text-xl"
+              className="hero-cta-pulse w-full max-w-xs rounded-full bg-[#1D4ED8] px-6 py-6 text-base font-bold text-white shadow-[0_12px_40px_-6px_rgba(29,78,216,0.75)] ring-1 ring-white/10 transition-all duration-300 ease-out hover:scale-[1.04] hover:bg-[#1E40AF] hover:shadow-[0_18px_50px_-8px_rgba(29,78,216,0.9)] sm:w-auto sm:max-w-none sm:px-12 sm:py-7 sm:text-xl"
             >
               <a href="#precos">
                 Quero meu diagnóstico →
@@ -129,25 +133,38 @@ export function Hero() {
             <p className="text-xs font-semibold text-muted-foreground sm:text-sm">
               Prepare-se para oportunidades nas principais empresas e plataformas do mercado
             </p>
-            <ul className="mt-4 flex flex-wrap items-center justify-center gap-8 px-2 opacity-80 sm:gap-10">
-              {marketCompanies.map((c) => (
-                <li key={c.name} className="flex items-center">
-                  <img
-                    src={c.logo}
-                    alt={c.name}
-                    width={c.width}
-                    height={c.height}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-9 w-auto object-contain sm:h-11"
-                  />
-                </li>
-              ))}
-            </ul>
+            <div className="logo-marquee mt-5 overflow-hidden px-2" aria-label="Empresas e plataformas do mercado">
+              <div className="logo-marquee-track flex w-max items-stretch">
+                {[0, 1].map((group) => (
+                  <div
+                    key={group}
+                    className="logo-marquee-group flex min-w-full shrink-0 items-center justify-around gap-7 px-3 sm:gap-10 sm:px-5"
+                    aria-hidden={group === 1}
+                  >
+                    {marketCompanies.map((c) => (
+                      <div
+                        key={`${c.name}-${group}`}
+                        className="flex min-w-22 shrink-0 items-center justify-center sm:min-w-28"
+                      >
+                        <img
+                          src={c.logo}
+                          alt={group === 0 ? c.name : ""}
+                          width={c.width}
+                          height={c.height}
+                          loading="lazy"
+                          decoding="async"
+                          className="h-12 w-auto object-contain opacity-85 sm:h-15"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </Reveal>
       </div>
-    </section>
+    </Reveal>
   );
 }
 
@@ -220,8 +237,12 @@ function ProblemsPreview({ items }: { items: string[] }) {
 
 export function Features() {
   return (
-    <section id="funcionalidades" className="relative overflow-hidden pt-16 pb-20 sm:pt-24 sm:pb-28">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.23),transparent_72%)]" />
+    <Reveal
+      as="section"
+      id="funcionalidades"
+      className="relative overflow-hidden bg-white pt-16 pb-20 sm:pt-24 sm:pb-28"
+    >
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.12),transparent_72%)]" />
       <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
         <Reveal className="mx-auto max-w-2xl text-center">
           <h2 className="text-2xl font-extrabold tracking-tight text-balance sm:text-3xl lg:text-4xl">
@@ -307,8 +328,8 @@ export function Features() {
           </p>
         </Reveal>
       </div>
-      <SectionDivider />
-    </section>
+      <SectionDivider to="blue" />
+    </Reveal>
   );
 }
 
@@ -324,8 +345,12 @@ const whatsappTestimonials = [
 
 export function SocialProof() {
   return (
-    <section id="depoimentos" className="relative overflow-x-hidden pt-20 pb-24 sm:pt-28 sm:pb-36 lg:flex lg:min-h-screen lg:items-center">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(147,197,253,0.18),transparent_72%)]" />
+    <Reveal
+      as="section"
+      id="depoimentos"
+      className="relative overflow-x-hidden bg-[linear-gradient(180deg,#e3f0ff_0%,#d9ebff_48%,#edf6ff_100%)] pt-20 pb-24 sm:pt-28 sm:pb-36 lg:flex lg:min-h-screen lg:items-center"
+    >
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.16),transparent_72%)]" />
       <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
         <Reveal className="text-center">
           <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl">
@@ -375,7 +400,7 @@ export function SocialProof() {
         </ul>
       </div>
       <SectionDivider />
-    </section>
+    </Reveal>
   );
 }
 
@@ -383,7 +408,11 @@ export function SocialProof() {
 
 export function Guarantee() {
   return (
-    <section id="garantia" className="relative overflow-hidden py-20 sm:py-24 lg:flex lg:min-h-[78svh] lg:items-center">
+    <Reveal
+      as="section"
+      id="garantia"
+      className="relative overflow-hidden py-20 sm:py-24 lg:flex lg:min-h-[78svh] lg:items-center"
+    >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.16),transparent_70%)]" />
       <div className="relative mx-auto max-w-4xl px-4 sm:px-6">
         <Reveal>
@@ -402,7 +431,7 @@ export function Guarantee() {
         </Reveal>
       </div>
       <SectionDivider />
-    </section>
+    </Reveal>
   );
 }
 
@@ -496,8 +525,12 @@ function PromoCounterBadge() {
 export function Pricing() {
   return (
     <>
-      <section id="precos" className="relative overflow-hidden pt-16 pb-20 sm:pt-24 sm:pb-28 lg:flex lg:min-h-screen lg:items-center">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.16),transparent_72%)]" />
+      <Reveal
+        as="section"
+        id="precos"
+        className="relative overflow-hidden bg-white pt-16 pb-20 sm:pt-24 sm:pb-28 lg:flex lg:min-h-screen lg:items-center"
+      >
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.1),transparent_72%)]" />
         <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
           <Reveal className="text-center">
             <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl">
@@ -623,8 +656,8 @@ export function Pricing() {
             </span>
           </Reveal>
         </div>
-        <SectionDivider />
-      </section>
+        <SectionDivider to="blue" />
+      </Reveal>
     </>
   );
 }
@@ -672,8 +705,12 @@ const faqs = [
 
 export function Faq() {
   return (
-    <section id="perguntas" className="relative overflow-hidden pt-16 pb-20 sm:pt-24 sm:pb-28">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.2),transparent_72%)]" />
+    <Reveal
+      as="section"
+      id="perguntas"
+      className="relative overflow-hidden bg-[linear-gradient(180deg,#e4f1ff_0%,#dcedff_55%,#ffffff_100%)] pt-16 pb-20 sm:pt-24 sm:pb-28"
+    >
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.14),transparent_72%)]" />
       <div className="relative mx-auto w-full max-w-3xl px-4 sm:px-6">
         <Reveal className="text-center">
           <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl">
@@ -701,7 +738,7 @@ export function Faq() {
           </Accordion>
         </Reveal>
       </div>
-    </section>
+    </Reveal>
   );
 }
 
@@ -709,7 +746,7 @@ export function Faq() {
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-[#dbe7ff] pt-12 pb-6 sm:pt-16 sm:pb-8">
+    <footer className="relative overflow-hidden border-t border-[#dbe7ff] bg-white pt-12 pb-6 sm:pt-16 sm:pb-8">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[radial-gradient(ellipse_at_center,rgba(96,165,250,0.13),transparent_70%)]" />
       <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6">
         <div className="grid w-full grid-cols-1 gap-8 sm:gap-12 md:grid-cols-[1.4fr_1fr] md:gap-16 lg:grid-cols-[1.6fr_1fr]">
